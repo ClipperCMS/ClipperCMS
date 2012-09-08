@@ -319,7 +319,7 @@ $tpl = eFormParseTemplate($tpl,$isDebug);
 					switch ($datatype)  {
 
 						case "integer":
-							$value = number_format($value);
+							$value = empty($value)?0:number_format($value);
 							break;
 						case "float":
 							$localeInfo = localeconv();
