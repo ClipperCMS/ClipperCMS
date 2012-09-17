@@ -868,7 +868,15 @@ class DocumentParser extends Core {
         for ($i= 0; $i < $variableCount; $i++) {
             $key= $matches[1][$i];
             $key= substr($key, 0, 1) == '#' ? substr($key, 1) : $key; // remove # for QuickEdit format
-            $value= $this->documentObject[$key];
+            
+            if (($barpos = strpos($key, '|')) !== false && ctype_digit($otherdocid = substr($key, 0, $barpos))) {
+                // TODO: cache handling. May need to modify checkCache()
+                $otherdoc = $this->getDocumentObject('id', $otherdocid);
+                $value = $otherdoc[substr($key, $barpos+1)];
+            } else {
+	            $value= $this->documentObject[$key];
+	        }
+
             if (is_array($value)) {
                 include_once $basepath . "/tmplvars.format.inc.php";
                 include_once $basepath . "/tmplvars.commands.inc.php";
