@@ -861,6 +861,9 @@ class DocumentParser extends Core {
      * @return string
      */
     function mergeDocumentContent($template) {
+    
+    	static $documentObjects = array(); // Could be improved by use of the modx cache. TODO below
+    	
         $replace= array ();
         preg_match_all('~\[\*(.*?)\*\]~', $template, $matches);
         $variableCount= count($matches[1]);
@@ -869,10 +872,12 @@ class DocumentParser extends Core {
             $key= $matches[1][$i];
             $key= substr($key, 0, 1) == '#' ? substr($key, 1) : $key; // remove # for QuickEdit format
             
-            if (($sep_pos = strpos($key, ':')) !== false && (ctype_digit($otherdocid = substr($key, 0, $sep_pos)) || ctype_digit($otherdocid = $this->mergeSettingsContent(str_replace('parent', $this->documentObject['parent'], $otherdocid))))) {
+            if (($sep_pos = strpos($key, ':')) !== false && (ctype_digit($other_docid = substr($key, 0, $sep_pos)) || ctype_digit($other_docid = $this->mergeSettingsContent(str_replace('parent', $this->documentObject['parent'], $other_docid)))) && $other_docid != '0' && $other_docid != $this->documentIdentifier) {
                 // TODO: cache handling. May need to modify checkCache()
-                $otherdoc = $this->getDocumentObject('id', $otherdocid);
-                $value = $otherdoc[substr($key, $sep_pos+1)];
+                if (!isset($documentObjects[$other_docid])) {
+                	$documentObjects[$other_docid] = $this->getDocumentObject('id', $other_docid);
+                }
+                $value = $documentObjects[$other_docid][substr($key, $sep_pos+1)];
             } else {
 	            $value= $this->documentObject[$key];
 	        }
