@@ -871,7 +871,7 @@ class DocumentParser extends Core {
         for ($i= 0; $i < $variableCount; $i++) {
             $key= $matches[1][$i];
             $key= substr($key, 0, 1) == '#' ? substr($key, 1) : $key; // remove # for QuickEdit format
-            
+
             // Handle [*<docid>:<fieldname/TVname>*]
             // <docid> can be any id, 'parent', or contain site settings placeholders e.g. [(site_start)]
             if (($sep_pos = strpos($key, ':')) !== false && (ctype_digit($other_docid = substr($key, 0, $sep_pos)) || ctype_digit($other_docid = $this->mergeSettingsContent(str_replace('parent', $this->documentObject['parent'], $other_docid)))) && $other_docid != '0' && $other_docid != $this->documentIdentifier) {
@@ -881,6 +881,9 @@ class DocumentParser extends Core {
                 }
                 $value = $documentObjects[$other_docid][substr($key, $sep_pos+1)];
             } else {
+                if ($sep_pos !== false) { // $otherdocid = 0 or is this document
+                	$key = substr($key, $sep_pos+1);
+                }
                 $value= $this->documentObject[$key];
             }
 
