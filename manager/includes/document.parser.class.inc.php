@@ -869,10 +869,10 @@ class DocumentParser extends Core {
             $key= $matches[1][$i];
             $key= substr($key, 0, 1) == '#' ? substr($key, 1) : $key; // remove # for QuickEdit format
             
-            if (($barpos = strpos($key, ':')) !== false && (ctype_digit($otherdocid = substr($key, 0, $barpos)) || ctype_digit($otherdocid = $this->mergeSettingsContent(str_replace('parent', $this->documentObject['parent'], $otherdocid))))) {
+            if (($sep_pos = strpos($key, ':')) !== false && (ctype_digit($otherdocid = substr($key, 0, $sep_pos)) || ctype_digit($otherdocid = $this->mergeSettingsContent(str_replace('parent', $this->documentObject['parent'], $otherdocid))))) {
                 // TODO: cache handling. May need to modify checkCache()
                 $otherdoc = $this->getDocumentObject('id', $otherdocid);
-                $value = $otherdoc[substr($key, $barpos+1)];
+                $value = $otherdoc[substr($key, $sep_pos+1)];
             } else {
 	            $value= $this->documentObject[$key];
 	        }
