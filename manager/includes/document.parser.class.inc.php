@@ -872,6 +872,14 @@ class DocumentParser extends Core {
             $key= $matches[1][$i];
             $key= substr($key, 0, 1) == '#' ? substr($key, 1) : $key; // remove # for QuickEdit format
 
+            // Detect output modifiers
+            if (strpos($key, ';') != false) {
+                $modifiers = explode(';', $key);
+                $key = $modifiers[0];
+            } else {
+                $modifiers = null;
+            }
+
             // Handle [*<docid>:<fieldname/TVname>*]
             // <docid> can be any id, 'parent', or contain site settings placeholders e.g. [(site_start)]
             if (($sep_pos = strpos($key, ':')) !== false && (ctype_digit($other_docid = substr($key, 0, $sep_pos)) || ctype_digit($other_docid = $this->mergeSettingsContent(str_replace('parent', $this->documentObject['parent'], $other_docid)))) && $other_docid != '0' && $other_docid != $this->documentIdentifier) {
@@ -894,11 +902,65 @@ class DocumentParser extends Core {
                 $h= "300";
                 $value= getTVDisplayFormat($value[0], $value[1], $value[2], $value[3], $value[4]);
             }
-            $replace[$i]= $value;
+
+            // Process output modifiers
+            if (is_array($modifiers)) {
+                foreach(array_slice($modifiers, 1) as $modifier) {
+                    $value = $this->modifyOutput($value, $modifier);
+                }
+            }
+
+            $replace[$i] = $value;
         }
         $template= str_replace($matches[0], $replace, $template);
 
         return $template;
+    }
+
+   /** 
+     * Modifies output
+     *
+     * @param string $string 
+     * @param string $modifier in the form 'modifier' or 'modifier(argument)'
+     * @return string
+     */
+    function modifyOutput($string, $modifier) {
+
+        if (($pos = strpos($modifier, '(')) !== false) {
+            $arg = substr(substr($modifier, $pos + 1), 0, -1);
+            $modifier = substr($modifier, 0, $pos);
+        } else {
+            $arg = null;
+        }
+
+        switch ($modifier) {
+            case 'strtolower':
+            case 'strtoupper':
+            case 'ucwords':
+            case 'ucfirst':
+            case 'strip_tags':
+            case 'urlencode':
+                $string = $modifier($string);
+                break;
+                
+            case 'html':
+                $string = htmlentities($string, ENT_QUOTES, $this->config['modx_charset']);
+                break;
+            
+            case 'limit':
+                if (ctype_digit($arg)) {
+                    $string = substr($string, 0, $arg);
+                }
+                break;
+
+            case 'ellipsis':
+                if (ctype_digit($arg) && strlen($string) > $arg) {
+                    $string = substr($string, 0, $arg).'&hellip';
+                }
+                break;
+        }
+
+    return $string;
     }
 
     /**
