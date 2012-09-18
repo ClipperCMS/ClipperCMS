@@ -862,8 +862,8 @@ class DocumentParser extends Core {
      */
     function mergeDocumentContent($template) {
     
-    	static $documentObjects = array(); // Could be improved by use of the modx cache. TODO below
-    	
+        static $documentObjects = array(); // Could be improved by use of the modx cache. TODO below
+
         $replace= array ();
         preg_match_all('~\[\*(.*?)\*\]~', $template, $matches);
         $variableCount= count($matches[1]);
@@ -872,15 +872,17 @@ class DocumentParser extends Core {
             $key= $matches[1][$i];
             $key= substr($key, 0, 1) == '#' ? substr($key, 1) : $key; // remove # for QuickEdit format
             
+            // Handle [*<docid>:<fieldname/TVname>*]
+            // <docid> can be any id, 'parent', or contain site settings placeholders e.g. [(site_start)]
             if (($sep_pos = strpos($key, ':')) !== false && (ctype_digit($other_docid = substr($key, 0, $sep_pos)) || ctype_digit($other_docid = $this->mergeSettingsContent(str_replace('parent', $this->documentObject['parent'], $other_docid)))) && $other_docid != '0' && $other_docid != $this->documentIdentifier) {
                 // TODO: cache handling. May need to modify checkCache()
                 if (!isset($documentObjects[$other_docid])) {
-                	$documentObjects[$other_docid] = $this->getDocumentObject('id', $other_docid);
+                    $documentObjects[$other_docid] = $this->getDocumentObject('id', $other_docid);
                 }
                 $value = $documentObjects[$other_docid][substr($key, $sep_pos+1)];
             } else {
-	            $value= $this->documentObject[$key];
-	        }
+                $value= $this->documentObject[$key];
+            }
 
             if (is_array($value)) {
                 include_once $basepath . "/tmplvars.format.inc.php";
