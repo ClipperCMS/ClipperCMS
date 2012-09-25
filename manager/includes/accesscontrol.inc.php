@@ -155,7 +155,8 @@ if(!isset($_SESSION['mgrValidated'])){
 			$itemid == null ? var_export(null, true) : $itemid,
 			$ip
 		);
-		if(!$rs = mysql_query($sql)) {
+		// if(!$rs = mysql_query($sql)) { // recoded 
+		if(!$rs = $modx->db->query($sql)) { 
 			echo "error replacing into active users! SQL: ".$sql."\n".mysql_error();
 			exit;
 		}
