@@ -37,7 +37,7 @@ switch ($operation) {
 			}
 
 			// get new id
-			$id = mysql_insert_id();
+			$id = $modx->db->getInsertId();
 
 			// invoke OnManagerCreateGroup event
 			$modx->invokeEvent('OnManagerCreateGroup', array(
@@ -59,7 +59,7 @@ switch ($operation) {
 			}
 
 			// get new id
-			$id = mysql_insert_id();
+			$id = $modx->db->getInsertId();
 
 			// invoke OnCreateDocGroup event
 			$modx->invokeEvent('OnCreateDocGroup', array(
