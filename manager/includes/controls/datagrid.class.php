@@ -166,9 +166,10 @@ class DataGrid {
 		if(!$this->_altItemStyle && !$this->_altItemClass) $this->_altItemStyle = "style='color:black;background-color:#eeeeee'";
 
 		if($this->_isDataset && !$this->columns) {
-			$cols = mysql_num_fields($this->ds);
-			for($i=0;$i<$cols;$i++) 
-				$this->columns.= ($i ? ",":"").mysql_field_name($this->ds,$i);
+			//$cols = mysql_num_fields($this->ds);
+			//for($i=0;$i<$cols;$i++) 
+			//	$this->columns.= ($i ? ",":"").mysql_field_name($this->ds,$i);
+			$this->columns = implode(',', $modx->db->getColumnNames($this->ds));
 		}
 		
 		// start grid
@@ -196,14 +197,14 @@ class DataGrid {
 		$tblColHdr.="</tr></thead>\n";
 
 		// build rows 
-		$rowcount = $this->_isDataset ? mysql_num_rows($this->ds):count($this->ds);
+		$rowcount = $this->_isDataset ? $modx->db->getRecordCount($this->ds):count($this->ds);
 		$this->_fieldnames = explode(",",$this->fields);
 		if($rowcount==0) $tblRows.= "<tr><td ".$this->_itemStyle." ".$this->_itemClass." colspan='".$this->_colcount."'>".$this->noRecordMsg."</td></tr>\n";
 		else {
 			// render grid items
 			if($this->pageSize<=0) {
 				for($r=0;$r<$rowcount;$r++){ 
-					$row = $this->_isDataset ? mysql_fetch_assoc($this->ds):$this->ds[$r];
+					$row = $this->_isDataset ? $modx->db->getRow($this->ds):$this->ds[$r];
 					$tblRows.= $this->RenderRowFnc($r+1,$row);
 				}
 			}

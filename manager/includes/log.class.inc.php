@@ -76,9 +76,6 @@ class logHandler {
              \''.$modx->db->escape($this->entry['itemName']).'\',
              \''.$modx->db->escape($this->entry['msg']).'\')';
 
-        if(!$rs=$modx->db->query($sql)) {
-            $this->logError("Couldn't save log to table! ".mysql_error());
-            return true;
-        }
+        $modx->db->query($sql)) {
     }
 }
