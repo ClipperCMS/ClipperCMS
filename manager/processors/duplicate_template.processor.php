@@ -11,28 +11,15 @@ if(!$modx->hasPermission('new_template')) {
 $id=$_GET['id'];
 
 // duplicate template
-if (version_compare(mysql_get_server_info(),"4.0.14")>=0) {
-	$sql = "INSERT INTO $dbase.`".$table_prefix."site_templates` (templatename, description, content, category)
-			SELECT CONCAT('Duplicate of ',templatename) AS 'templatename', description, content, category
-			FROM $dbase.`".$table_prefix."site_templates` WHERE id=$id;";
-	$rs = mysql_query($sql);
-}
-else {
-	$sql = "SELECT CONCAT('Duplicate of ',templatename) AS 'templatename', description, content, category
-			FROM $dbase.`".$table_prefix."site_templates` WHERE id=$id;";
-	$rs = mysql_query($sql);
-	if($rs) {
-		$row = mysql_fetch_assoc($rs);
-		$sql = "INSERT INTO $dbase.`".$table_prefix."site_templates`
-				(templatename, description, content, category) VALUES
-				('".$modx->db->escape($row['templatename'])."', '".$modx->db->escape($row['description'])."','".$modx->db->escape($row['content'])."', ".$modx->db->escape($row['category']).");";
-		$rs = mysql_query($sql);
-	}
-}
-if($rs) {
-	$newid = mysql_insert_id(); // get new id
+$sql = "INSERT INTO $dbase.`" . $table_prefix . "site_templates` (templatename, description, content, category)
+		SELECT CONCAT('Duplicate of ',templatename) AS 'templatename', description, content, category
+		FROM $dbase.`" . $table_prefix . "site_templates` WHERE id=$id;";
+$rs = $modx->db->query($sql);
+
+if ($rs) {
+	$newid = $modx->db->getInsertId();
 	// duplicate TV values
-	$tvs = $modx->db->select('*', $modx->getFullTableName('site_tmplvar_templates'), 'templateid='.$id);
+	$tvs = $modx->db->select('*', $modx->getFullTableName('site_tmplvar_templates'), 'templateid=' . $id);
 	if ($modx->db->getRecordCount($tvs) > 0) {
 		while ($row = $modx->db->getRow($tvs)) {
 			$row['templateid'] = $newid;
@@ -40,7 +27,7 @@ if($rs) {
 		}
 	}
 } else {
-	echo "A database error occured while trying to duplicate variable: <br /><br />".mysql_error();
+	echo "A database error occured while trying to duplicate variable: <br /><br />".$modx->db->getLastError();
 	exit;
 }
 
