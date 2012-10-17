@@ -6,8 +6,10 @@ if (!$modx->hasPermission('save_role')) {
     $e->dumpError();
 }
 
-foreach ($_POST as $n => $v)
-    $_POST[$n] = $modx->db->escape($v); // escape post values 
+foreach ($_POST as $n => $v) {
+	$_POST[$n] = $modx->db->escape($v); 
+}
+    
 extract($_POST);
 
 if ($name == '' || !isset ($name)) {
@@ -93,23 +95,30 @@ switch ($_POST['mode']) {
     case '38' :
         $tbl = $modx->getFullTableName("user_roles");
         $rs = $modx->db->insert($fields, $tbl);
+
         if (!$rs) {
             echo "An error occured while attempting to save the new role.<p>";
             exit;
         }
+
         $header = "Location: index.php?a=86&r=2";
         header($header);
         break;
+
     case '35' :
         $tbl = $modx->getFullTableName("user_roles");
         $rs = $modx->db->update($fields, $tbl, "id=$id");
-        if (!$rs = mysql_query($sql)) {
-            echo "An error occured while attempting to update the role. <br />" . mysql_error();
+		
+//        if (!$rs = mysql_query($sql)) {
+        if (!$rs) {
+            echo "An error occured while attempting to update the role. <br />" . $modx->db->getLastError();
             exit;
         }
+		
         $header = "Location: index.php?a=86&r=2";
         header($header);
         break;
+
     default :
     	echo "Erm... You supposed to be here now?";
         exit;
