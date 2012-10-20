@@ -78,40 +78,34 @@ switch ($_POST['mode']) {
 
 		$sql = "INSERT INTO " . $modx->getFullTableName('site_snippets') . " (name, description, snippet, moduleguid, locked, properties, category) 
 			VALUES('$name', '$description', '$snippet', '$moduleguid', '$locked', '$properties', '$categoryid');";
-		$rs = $modx->db->query($sql);
+		$modx->db->query($sql);
 		
-		if (!$rs) {
-			echo 'Database error: new snippet not saved!';
+		if (!$newid = $modx->db->getInsertId()) {
+			echo "Couldn't get last insert key!";
 			exit;
-		} 
-		else {	
-			if (!$newid = $modx->db->getInsertId()) {
-				echo "Couldn't get last insert key!";
-				exit;
-			}
+		}
 
-			$modx->invokeEvent("OnSnipFormSave",
-									array(
-										"mode"	=> "new",
-										"id"	=> $newid
-									));
+		$modx->invokeEvent("OnSnipFormSave",
+								array(
+									"mode"	=> "new",
+									"id"	=> $newid
+								));
 
-			// empty cache
-			include_once "cache_sync.class.processor.php";
-			$sync = new synccache();
-			$sync->setCachepath("../assets/cache/");
-			$sync->setReport(false);
-			$sync->emptyCache();
+		// empty cache
+		include_once "cache_sync.class.processor.php";
+		$sync = new synccache();
+		$sync->setCachepath("../assets/cache/");
+		$sync->setReport(false);
+		$sync->emptyCache();
 
-			if($_POST['stay']!='') {
-				$a = ($_POST['stay']=='2') ? "22&id=$newid":"23";
-				$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
-				header($header);
-			} else {
-				$header="Location: index.php?a=76&r=2";
-				header($header);
-			}
-		}		
+		if($_POST['stay']!='') {
+			$a = ($_POST['stay']=='2') ? "22&id=$newid":"23";
+			$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
+			header($header);
+		} else {
+			$header="Location: index.php?a=76&r=2";
+			header($header);
+		}
         break;
 
     case '22':
@@ -125,40 +119,33 @@ switch ($_POST['mode']) {
 			SET name='$name', description='$description', snippet='$snippet', moduleguid='$moduleguid', locked='$locked', properties='$properties', category='$categoryid'  
 			WHERE id='".$id."';";
 
-		$rs = $modx->db->query($sql);
+		$modx->db->query($sql);
 
-		if (!$rs) {
-			echo 'Database error: edited snippet not saved!';
-			exit;
-		} 
-		else {		
-			$modx->invokeEvent("OnSnipFormSave",
-									array(
-										"mode"	=> "upd",
-										"id"	=> $id
-									));	
+		$modx->invokeEvent("OnSnipFormSave",
+								array(
+									"mode"	=> "upd",
+									"id"	=> $id
+								));	
 
-			// empty cache
-			include_once "cache_sync.class.processor.php";
-			$sync = new synccache();
-			$sync->setCachepath("../assets/cache/");
-			$sync->setReport(false);
-			$sync->emptyCache();
-			
-// Is there still an option to run a snippet after saving it??
-			if ($_POST['runsnippet']) {
-			 	run_snippet($snippet);	
-			}
-			
-			if ($_POST['stay'] != '') {
-				$a = ($_POST['stay']=='2') ? "22&id=$id":"23";
-				$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
-				header($header);
-			} else {
-				$header="Location: index.php?a=76&r=2";
-				header($header);
-			}
-		}		
+		// empty cache
+		include_once "cache_sync.class.processor.php";
+		$sync = new synccache();
+		$sync->setCachepath("../assets/cache/");
+		$sync->setReport(false);
+		$sync->emptyCache();
+		
+		if ($_POST['runsnippet']) {
+		 	run_snippet($snippet);	
+		}
+		
+		if ($_POST['stay'] != '') {
+			$a = ($_POST['stay']=='2') ? "22&id=$id":"23";
+			$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
+			header($header);
+		} else {
+			$header="Location: index.php?a=76&r=2";
+			header($header);
+		}
         break;
 
     default:

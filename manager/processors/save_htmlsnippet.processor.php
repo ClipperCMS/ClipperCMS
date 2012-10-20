@@ -41,8 +41,8 @@ switch ($_POST['mode']) {
 
 		// disallow duplicate names for new chunks
 		$sql = "SELECT COUNT(id) 
-				FROM $dbase.`" . $table_prefix . "site_htmlsnippets` 
-				WHERE name = '{$name}'";
+				FROM " . $modx->getFullTableName('site_htmlsnippets') . " 
+				WHERE name = '$name'";
 
 		$rs = $modx->db->query($sql);
 		$count = $modx->db->getValue($rs);
@@ -66,40 +66,37 @@ switch ($_POST['mode']) {
 			exit;
 		}
 
- 		$sql = "INSERT INTO $dbase.`" . $table_prefix . "site_htmlsnippets` (name, description, snippet, locked, category) 
+ 		$sql = "INSERT INTO " . $modx->getFullTableName('site_htmlsnippets') . " (name, description, snippet, locked, category) 
 				VALUES('$name', '$description', '$snippet', '$locked', $categoryid);";
 		$rs = $modx->db->query($sql);
 
-		if (!$rs) {
-			echo 'Database error: new chunk not saved!';
-		} else {	
-			if (!$newid = $modx->db->getInsertId()) {
-				echo 'Database error: unable to retireve last insert key!';
-				exit;
-			}
+		if (!$newid = $modx->db->getInsertId()) {
+			echo 'Database error: unable to retrieve last insert key!';
+			exit;
+		}
 
-			$modx->invokeEvent("OnChunkFormSave",
-									array(
-										"mode"	=> "new",
-										"id"	=> $newid
-									));
+		$modx->invokeEvent("OnChunkFormSave",
+								array(
+									"mode"	=> "new",
+									"id"	=> $newid
+								));
 
-			// empty cache
-			include_once "cache_sync.class.processor.php";
-			$sync = new synccache();
-			$sync->setCachepath("../assets/cache/");
-			$sync->setReport(false);
-			$sync->emptyCache();
+		// empty cache
+		include_once "cache_sync.class.processor.php";
+		$sync = new synccache();
+		$sync->setCachepath("../assets/cache/");
+		$sync->setReport(false);
+		$sync->emptyCache();
+		
+		if($_POST['stay']!='') {
+			$a = ($_POST['stay']=='2') ? "78&id=$newid":"77";
+			$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
+			header($header);
+		} else {
+			$header="Location: index.php?a=76&r=2";
+			header($header);
+		}
 			
-			if($_POST['stay']!='') {
-				$a = ($_POST['stay']=='2') ? "78&id=$newid":"77";
-				$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
-				header($header);
-			} else {
-				$header="Location: index.php?a=76&r=2";
-				header($header);
-			}
-		}		
         break;
     case '78':
 
@@ -109,9 +106,9 @@ switch ($_POST['mode']) {
 									"id"	=> $id
 								));
 		
-		$sql = "UPDATE $dbase.`" . $table_prefix . "site_htmlsnippets` 
-				SET name='$name', description='$description', snippet='$snippet', locked='$locked', category='$categoryid' 
-				WHERE id='$id';";
+		$sql = "UPDATE " . $modx->getFullTableName('site_htmlsnippets')  . "  
+				SET name='$name', description='$description', snippet='$snippet', locked=$locked, category=$categoryid 
+				WHERE id=$id;";
 
 		$rs = $modx->db->query($sql);
 
@@ -143,8 +140,7 @@ switch ($_POST['mode']) {
 		
         break;
     default:
-	?>
-	Erm... You supposed to be here now?
-	<?php
+    	echo "Erm... You supposed to be here now?";
+        exit;
 }
 ?>

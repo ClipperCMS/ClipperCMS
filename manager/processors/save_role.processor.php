@@ -109,12 +109,6 @@ switch ($_POST['mode']) {
         $tbl = $modx->getFullTableName("user_roles");
         $rs = $modx->db->update($fields, $tbl, "id=$id");
 		
-//        if (!$rs = mysql_query($sql)) {
-        if (!$rs) {
-            echo "An error occured while attempting to update the role. <br />" . $modx->db->getLastError();
-            exit;
-        }
-		
         $header = "Location: index.php?a=86&r=2";
         header($header);
         break;

@@ -12,10 +12,6 @@ $description = $modx->db->escape($_POST['description']);
 $resourcefile = $modx->db->escape($_POST['resourcefile']);
 $enable_resource = $_POST['enable_resource']=='on' ? 1 : 0 ;
 $icon = $modx->db->escape($_POST['icon']);
-// add slash to make URL to icon file work
-if (!empty($icon) && $icon[0] != '/') {
-	$icon = '/' . $icon;
-}
 $disabled = $_POST['disabled']=='on' ? 1 : 0 ;
 $wrap = $_POST['wrap']=='on' ? 1 : 0 ;
 $locked = $_POST['locked']=='on' ? 1 : 0 ;
@@ -91,40 +87,34 @@ switch ($_POST['mode']) {
 
 		$rs = $modx->db->query($sql);
 
-		if (!$rs) {
-			echo 'Database error: new module not saved!';
+		if (!$newid = $modx->db->getInsertId()) {
+			echo "Couldn't get last insert key!";
 			exit;
-		} 
-		else {	
-			if (!$newid = $modx->db->getInsertId()) {
-				echo "Couldn't get last insert key!";
-				exit;
-			}
+		}
 
-			saveUserGroupAccessPermissons();
-			
-			$modx->invokeEvent("OnModFormSave",
-								array(
-									"mode"	=> "new",
-									"id"	=> $newid
-								));
+		saveUserGroupAccessPermissons();
+		
+		$modx->invokeEvent("OnModFormSave",
+							array(
+								"mode"	=> "new",
+								"id"	=> $newid
+							));
 
-			// empty cache
-			include_once "cache_sync.class.processor.php";
-			$sync = new synccache();
-			$sync->setCachepath("../assets/cache/");
-			$sync->setReport(false);
-			$sync->emptyCache(); 
+		// empty cache
+		include_once "cache_sync.class.processor.php";
+		$sync = new synccache();
+		$sync->setCachepath("../assets/cache/");
+		$sync->setReport(false);
+		$sync->emptyCache(); 
 
-			if($_POST['stay']!='') {
-				$a = ($_POST['stay']=='2') ? "108&id=$newid":"107";
-				$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
-				header($header);
-			} else {
-				$header="Location: index.php?a=106&r=2";
-				header($header);
-			}
-		}		
+		if($_POST['stay']!='') {
+			$a = ($_POST['stay']=='2') ? "108&id=$newid":"107";
+			$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
+			header($header);
+		} else {
+			$header="Location: index.php?a=106&r=2";
+			header($header);
+		}
         break;
 
     case '108':
@@ -139,37 +129,30 @@ switch ($_POST['mode']) {
 				WHERE id='$id';";
 
 		$rs = $modx->db->query($sql);
-		
-		if (!$rs) {
-			echo 'Database error: edited module not saved! ' . $modx->db->getLastError();
-			exit;
-		} 
-		else {	
 
-			saveUserGroupAccessPermissons();
-				
-			$modx->invokeEvent("OnModFormSave",
-								array(
-									"mode"	=> "upd",
-									"id"	=> $id
-								));	
+		saveUserGroupAccessPermissons();
+			
+		$modx->invokeEvent("OnModFormSave",
+							array(
+								"mode"	=> "upd",
+								"id"	=> $id
+							));	
 
-			// empty cache
-			include_once "cache_sync.class.processor.php";
-			$sync = new synccache();
-			$sync->setCachepath("../assets/cache/");
-			$sync->setReport(false);
-			$sync->emptyCache();
+		// empty cache
+		include_once "cache_sync.class.processor.php";
+		$sync = new synccache();
+		$sync->setCachepath("../assets/cache/");
+		$sync->setReport(false);
+		$sync->emptyCache();
 
-			if($_POST['stay']!='') {
-				$a = ($_POST['stay']=='2') ? "108&id=$id":"107";
-				$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
-				header($header);
-			} else {
-				$header="Location: index.php?a=106&r=2";
-				header($header);
-			}
-		}		
+		if($_POST['stay']!='') {
+			$a = ($_POST['stay']=='2') ? "108&id=$id":"107";
+			$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
+			header($header);
+		} else {
+			$header="Location: index.php?a=106&r=2";
+			header($header);
+		}
         break;        
 
     default:
@@ -197,22 +180,12 @@ function saveUserGroupAccessPermissons(){
 				WHERE module=$id;";
 		$rs = $modx->db->query($sql);
 
-		if (!$rs) {
-			echo "An error occured while attempting to delete previous module user access permission entries.";
-			exit;
-		}	
-
 		if (is_array($usrgroups)) {
 			foreach ($usrgroups as $ugkey=>$value) {
 				$sql = "INSERT INTO " . $modx->getFullTableName("site_module_access") . " (module,usergroup) 
 						VALUES($id," . stripslashes($value) . ")";
 
 				$rs = $modx->db->query($sql);
-
-				if (!$rs) {
-					echo "An error occured while attempting to save module user access permissions.";
-					exit;
-				}
 			}
 		}
 	}

@@ -63,38 +63,34 @@ switch ($_POST['mode']) {
 			(templatename, description, content, locked, category) 
 			VALUES('$templatename', '$description', '$template', '$locked', $categoryid);";
 
-		$rs = $modx->db->query($sql);
+		$modx->db->query($sql);
 
-		if(!$rs) {
-			echo 'Database error: new template not saved';
+		if (!$newid = $modx->db->getInsertId()) {
+			echo "Couldn't get last insert key!";
+			exit;
+		}
+
+		$modx->invokeEvent("OnTempFormSave",
+								array(
+									"mode"	=> "new",
+									"id"	=> $newid
+							));				
+
+		// empty cache
+		include_once "cache_sync.class.processor.php";
+		$sync = new synccache();
+		$sync->setCachepath("../assets/cache/");
+		$sync->setReport(false);
+		$sync->emptyCache(); 
+
+		if($_POST['stay']!='') {
+			$a = ($_POST['stay']=='2') ? "16&id=$newid":"19";
+			$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
+			header($header);
 		} else {
-			if (!$newid = $modx->db->getInsertId()) {
-				echo "Couldn't get last insert key!";
-				exit;
-			}
-
-			$modx->invokeEvent("OnTempFormSave",
-									array(
-										"mode"	=> "new",
-										"id"	=> $newid
-								));				
-
-			// empty cache
-			include_once "cache_sync.class.processor.php";
-			$sync = new synccache();
-			$sync->setCachepath("../assets/cache/");
-			$sync->setReport(false);
-			$sync->emptyCache(); 
-
-			if($_POST['stay']!='') {
-				$a = ($_POST['stay']=='2') ? "16&id=$newid":"19";
-				$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
-				header($header);
-			} else {
-				$header="Location: index.php?a=76&r=2";
-				header($header);
-			}
-		}		
+			$header="Location: index.php?a=76&r=2";
+			header($header);
+		}
         break;
 
     case '16':
@@ -131,33 +127,29 @@ switch ($_POST['mode']) {
 			content='$template', locked='$locked', category=$categoryid 
 			WHERE id=$id;";
 
-		$rs = $modx->db->query($sql);
+		$modx->db->query($sql);
 
-		if (!$rs) {
-			echo 'Database error: edited template not saved';;
+		$modx->invokeEvent("OnTempFormSave",
+								array(
+									"mode"	=> "upd",
+									"id"	=> $id
+							));	    		
+
+		// first empty the cache		
+		include_once "cache_sync.class.processor.php";
+		$sync = new synccache();
+		$sync->setCachepath("../assets/cache/");
+		$sync->setReport(false);
+		$sync->emptyCache(); 		
+
+		if($_POST['stay']!='') {
+			$a = ($_POST['stay']=='2') ? "16&id=$id":"19";
+			$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
+			header($header);
 		} else {
-			$modx->invokeEvent("OnTempFormSave",
-									array(
-										"mode"	=> "upd",
-										"id"	=> $id
-								));	    		
-
-			// first empty the cache		
-			include_once "cache_sync.class.processor.php";
-			$sync = new synccache();
-			$sync->setCachepath("../assets/cache/");
-			$sync->setReport(false);
-			$sync->emptyCache(); 		
-
-			if($_POST['stay']!='') {
-				$a = ($_POST['stay']=='2') ? "16&id=$id":"19";
-				$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
-				header($header);
-			} else {
-				$header="Location: index.php?a=76&r=2";
-				header($header);
-			}
-		}		
+			$header="Location: index.php?a=76&r=2";
+			header($header);
+		}
         break;
 
     default:

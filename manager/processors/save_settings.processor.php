@@ -52,10 +52,7 @@ if (isset($_POST) && count($_POST) > 0) {
 	$sql = "REPLACE INTO " . $modx->getFullTableName('system_settings') . " (setting_name, setting_value)
 		VALUES " . implode(', ', $savethese);
 
-	if (!@$rs = $modx->db->query($sql)) {
-		echo "Failed to update setting value!";
-		exit;
-	}
+	$modx->db->query($sql);
 
 	// Reset Template Pages
 	if (isset($_POST['reset_template'])) {

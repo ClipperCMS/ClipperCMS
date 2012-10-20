@@ -30,11 +30,6 @@ $sql = "UPDATE " . $modx->getFullTableName('manager_users') . "
 
 $rs = $modx->db->query($sql);
 
-if (!$rs) {
-	echo "An error occured while attempting to save the new password.";
-	exit;
-}
-
 $_SESSION['mgrHashtype'] = CLIPPER_HASH_PREFERRED;
 
 $header="Location: index.php?a=7";
