@@ -121,7 +121,7 @@ $sql = 'SHOW TABLE STATUS FROM '.$dbase. ' LIKE \''.$table_prefix.'%\'';
 $rs = mysql_query($sql);
 $limit = mysql_num_rows($rs);
 for ($i = 0; $i < $limit; $i++) {
-	$db_status = mysql_fetch_assoc($rs);
+	$db_status = $modx->db->getRow($rs);
 	$bgcolor = ($i % 2) ? '#EEEEEE' : '#FFFFFF';
 
 	if (isset($tables))

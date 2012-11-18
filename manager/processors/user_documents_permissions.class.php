@@ -45,7 +45,7 @@ class udperms{
 			return false;
 		}
 		for($i=0; $i < $limit; $i++) {
-			$row = mysql_fetch_assoc($rs);
+			$row = $modx->db->getRow($rs);
 			$membergroups[$i] = $row['user_group'];
 		}
 
@@ -60,7 +60,7 @@ class udperms{
 		}
 		
 		for($i=0; $i < $limit; $i++) {
-			$row = mysql_fetch_assoc($rs);
+			$row = $modx->db->getRow($rs);
 			$documentgroups[$i] = $row['documentgroup'];
 		}
 		
@@ -75,7 +75,7 @@ class udperms{
 		}
 		
 		for($i=0; $i < $limit; $i++) {
-			$row = mysql_fetch_assoc($rs);
+			$row = $modx->db->getRow($rs);
 			if($row['document']==$document) {
 				$permissionsok = true;
 			}

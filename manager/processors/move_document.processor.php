@@ -28,7 +28,7 @@ if(!$rs){
 	echo "An error occured while attempting to find the document's current parent.";
 }
 
-$row = mysql_fetch_assoc($rs);
+$row = $modx->db->getRow($rs);
 $oldparent = $row['parent'];
 $newParentID = $_REQUEST['new_parent'];
 
@@ -95,7 +95,7 @@ if (!array_search($newParentID, $children)) {
 	if(!$rs){
 		echo "An error occured while attempting to find the old parents' children.";
 	}
-	$row = mysql_fetch_assoc($rs);
+	$row = $modx->db->getRow($rs);
 	$limit = $row['count(*)'];
 
 	if(!$limit>0) {

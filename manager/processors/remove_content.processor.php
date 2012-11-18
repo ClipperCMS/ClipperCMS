@@ -12,7 +12,7 @@ $limit = mysql_num_rows($rs);
 $ids = array();
 if($limit>0) {
 	for($i=0;$i<$limit;$i++) {
-		$row=mysql_fetch_assoc($rs);
+		$row=$modx->db->getRow($rs);
 		array_push($ids, @$row['id']);
 	}
 }

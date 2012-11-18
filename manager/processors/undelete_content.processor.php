@@ -33,7 +33,7 @@ if($limit!=1) {
 	echo "Couldn't find document to determine it's date of deletion!";
 	exit;
 } else {
-	$row=mysql_fetch_assoc($rs);
+	$row=$modx->db->getRow($rs);
 	$deltime = $row['deletedon'];
 }
 
@@ -54,7 +54,7 @@ function getChildren($parent) {
 	if($limit>0) {
 		// the document has children documents, we'll need to delete those too
 		for($i=0;$i<$limit;$i++) {
-		$row=mysql_fetch_assoc($rs);
+		$row=$modx->db->getRow($rs);
 			$children[] = $row['id'];
 			getChildren($row['id']);
 			//echo "Found childNode of parentNode $parent: ".$row['id']."<br />";

@@ -84,7 +84,7 @@ if ($_SESSION['mgrRole'] != 1) {
 	if ($rs = $modx->db->query($sql)) {
 		if ($rsQty = mysql_num_rows($rs)) {
 			// There should only be one if there is one
-			$row = mysql_fetch_assoc($rs);
+			$row = $modx->db->getRow($rs);
 			if ($row['role'] == 1) {
 				webAlert("You cannot alter an administrative user.");
 				exit;
@@ -116,7 +116,7 @@ switch ($_POST['mode']) {
 		}
 		$limit = mysql_num_rows($rs);
 		if ($limit > 0) {
-			$row = mysql_fetch_assoc($rs);
+			$row = $modx->db->getRow($rs);
 			if ($row['id'] != $id) {
 				webAlert("Email is already in use!");
 				exit;
@@ -291,7 +291,7 @@ switch ($_POST['mode']) {
 		}
 		$limit = mysql_num_rows($rs);
 		if ($limit > 0) {
-			$row = mysql_fetch_assoc($rs);
+			$row = $modx->db->getRow($rs);
 			if ($row['id'] != $id) {
 				webAlert("User name is already in use!");
 				exit;
@@ -306,7 +306,7 @@ switch ($_POST['mode']) {
 		}
 		$limit = mysql_num_rows($rs);
 		if ($limit > 0) {
-			$row = mysql_fetch_assoc($rs);
+			$row = $modx->db->getRow($rs);
 			if ($row['internalKey'] != $id) {
 				webAlert("Email is already in use!");
 				exit;
