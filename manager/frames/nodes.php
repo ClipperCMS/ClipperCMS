@@ -74,7 +74,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
     if ($expandAll==2) {
         $sql = "SELECT COUNT(*) FROM $dbase.`".$table_prefix."site_content` WHERE deleted=1";
         $rs = $modx->db->query($sql);
-	$row = $modx->db->getRow($rs);
+	$row = $modx->db->getRow($rs,'num');
         $count = $row[0];
         if ($count>0) echo '<span id="binFull"></span>'; // add a special element to let system now that the bin is full
     }
@@ -132,7 +132,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 		// Make sure to pass in the $modx_textdir variable to the node builder
 		global $modx_textdir;
 
-  while(list($id,$pagetitle,$parent,$isfolder,$published,$deleted,$type,$menuindex,$hidemenu,$alias,$contenttype,$privateweb,$privatemgr,$hasAccess) = $modx->db->getRow($result))
+  while(list($id,$pagetitle,$parent,$isfolder,$published,$deleted,$type,$menuindex,$hidemenu,$alias,$contenttype,$privateweb,$privatemgr,$hasAccess) = $modx->db->getRow($result,'num'))
   {
             $pagetitle = htmlspecialchars(str_replace(array("\r\n", "\n", "\r"), '', $pagetitle));
             $protectedClass = $hasAccess==0 ? ' protectedNode' : '';
