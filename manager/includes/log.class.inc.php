@@ -76,6 +76,6 @@ class logHandler {
              \''.$modx->db->escape($this->entry['itemName']).'\',
              \''.$modx->db->escape($this->entry['msg']).'\')';
 
-        $modx->db->query($sql)) {
+        $modx->db->query($sql);
     }
 }
