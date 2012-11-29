@@ -1,8 +1,4 @@
-# MODx Database Script for New/Upgrade Installations
-# MODx was created By Raymond Irving - Nov 2004 
-#
-# Each sql command is separated by double lines \n\n 
-
+# ClipperCMS Database Script for New/Upgrade Installations
 
 CREATE TABLE IF NOT EXISTS `{PREFIX}active_users` (
   `internalKey` int(9) NOT NULL default '0',
@@ -80,6 +76,8 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}manager_log` (
 CREATE TABLE IF NOT EXISTS `{PREFIX}manager_users` (
   `id` int(10) NOT NULL auto_increment,
   `username` varchar(100) NOT NULL default '',
+  `hashtype` smallint NOT NULL default 0,
+  `salt` varchar(40) NOT NULL default '',
   `password` varchar(100) NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `username` (`username`)
@@ -861,12 +859,12 @@ REPLACE INTO `{PREFIX}site_templates`
 # Default Site Documents
 
 
-REPLACE INTO `{PREFIX}site_content` VALUES (1,'document','text/html','MODx CMS Install Success','Welcome to the MODx Content Management System','','minimal-base','',1,0,0,0,0,'','<h3>Install Successful!</h3>\r\n<p>You have successfully installed MODx.</p>\r\n\r\n<h3>Getting Help</h3>\r\n<p>The <a href=\"http://modxcms.com/forums/\" target=\"_blank\">MODx Community</a> provides a great starting point to learn all things MODx, or you can also <a href=\"http://modxcms.com/learn/it.html\">see some great learning resources</a> (books, tutorials, blogs and screencasts).</p>\r\n<p>Welcome to MODx!</p>\r\n',1,3,0,1,1,1,1130304721,1,1130304927,0,0,0,1130304721,1,'Base Install',0,0,0,0,0,0,0);
+REPLACE INTO `{PREFIX}site_content` VALUES (1,'document','text/html','ClipperCMS Install Success','Welcome to the Clipper Content Management System','','minimal-base','',1,0,0,0,0,'','<h3>Install Successful!</h3>\r\n<p>You have successfully installed ClipperCMS.</p>\r\n\r\n<h3>Getting Help</h3>\r\n<p>The <a href=\"http://clippercms.com/forums/\" target=\"_blank\">ClipperCMS Community</a> provides a great starting point to learn all things Clipper, or you can also <a href=\"http://modxcms.com/learn/it.html\">see some great learning resources</a> (books, tutorials, blogs and screencasts).</p>\r\n<p>Welcome to ClipperCMS!</p>\r\n',1,3,0,1,1,1,1130304721,1,1130304927,0,0,0,1130304721,1,'Base Install',0,0,0,0,0,0,0);
 
 
-REPLACE INTO `{PREFIX}manager_users` 
-(id, username, password)VALUES 
-(1, '{ADMIN}', MD5('{ADMINPASS}'));
+#REPLACE INTO `{PREFIX}manager_users` 
+#(id, username, password)VALUES 
+#(1, '{ADMIN}', MD5('{ADMINPASS}'));
 
 
 REPLACE INTO `{PREFIX}user_attributes` 
@@ -888,14 +886,14 @@ REPLACE INTO `{PREFIX}user_roles`
 
 INSERT IGNORE INTO `{PREFIX}system_settings` 
 (setting_name, setting_value) VALUES 
-('manager_theme','MODxCarbon'),
+('manager_theme','ClipperCarbon'),
 ('settings_version',''),
 ('show_meta','0'),
 ('server_offset_time','0'),
 ('server_protocol','http'),
 ('manager_language','{MANAGERLANGUAGE}'),
 ('modx_charset','UTF-8'),
-('site_name','My MODx Site'),
+('site_name','My Clipper Site'),
 ('site_start','1'),
 ('error_page','1'),
 ('unauthorized_page','1'),
@@ -919,7 +917,7 @@ INSERT IGNORE INTO `{PREFIX}system_settings`
 ('failed_login_attempts','3'),
 ('blocked_minutes','60'),
 ('use_captcha','0'),
-('captcha_words','MODx,Access,Better,BitCode,Cache,Desc,Design,Excell,Enjoy,URLs,TechView,Gerald,Griff,Humphrey,Holiday,Intel,Integration,Joystick,Join(),Tattoo,Genetic,Light,Likeness,Marit,Maaike,Niche,Netherlands,Ordinance,Oscillo,Parser,Phusion,Query,Question,Regalia,Righteous,Snippet,Sentinel,Template,Thespian,Unity,Enterprise,Verily,Veri,Website,WideWeb,Yap,Yellow,Zebra,Zygote'),
+('captcha_words','Clipper,Access,Better,BitCode,Cache,Desc,Design,Excell,Enjoy,URLs,TechView,Gerald,Griff,Humphrey,Holiday,Intel,Integration,Joystick,Join(),Tattoo,Genetic,Light,Likeness,Marit,Maaike,Niche,Netherlands,Ordinance,Oscillo,Parser,Phusion,Query,Question,Regalia,Righteous,Snippet,Sentinel,Template,Thespian,Unity,Enterprise,Verily,Veri,Website,WideWeb,Yap,Yellow,Zebra,Zygote'),
 ('emailsender','{ADMINEMAIL}'),
 ('emailsubject','Your login details'),
 ('number_of_logs','100'),
@@ -956,8 +954,6 @@ INSERT IGNORE INTO `{PREFIX}system_settings`
 ('tinymce_custom_buttons1','undo,redo,selectall,separator,pastetext,pasteword,separator,search,replace,separator,nonbreaking,hr,charmap,separator,image,link,unlink,anchor,media,separator,cleanup,removeformat,separator,fullscreen,print,code,help'),
 ('tinymce_custom_buttons2','bold,italic,underline,strikethrough,sub,sup,separator,bullist,numlist,outdent,indent,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,styleselect,formatselect,separator,styleprops'),
 ('tree_show_protected', '0'),
-('rss_url_news', 'http://feeds.feedburner.com/modx-announce'),
-('rss_url_security', 'http://feeds.feedburner.com/modxsecurity'),
 ('validate_referer', '1'),
 ('datepicker_offset','-10'),
 ('xhtml_urls','1'),
@@ -965,7 +961,17 @@ INSERT IGNORE INTO `{PREFIX}system_settings`
 ('automatic_alias','1'),
 ('datetime_format','dd-mm-YYYY'),
 ('warning_visibility', '1'),
-('remember_last_tab', '0');
+('remember_last_tab', '0'),
+('error_handling_deprecated', '1'),
+('error_handling_silent', '0'),
+('jquery_url', 'assets/js/jquery.min.js'),
+('jquery_plugin_dir', 'assets/js/'),
+('jquery_noconflict', 0);
+
+REPLACE INTO `{PREFIX}system_settings`
+(setting_name, setting_value) VALUES
+('rss_url_news', 'http://www.clippercms.com/forum/index.php?board=3;type=rss;action=.xml;sa=news;limit=20'),
+('rss_url_security', 'http://www.clippercms.com/forum/index.php?board=22;type=rss;action=.xml;sa=news;limit=20');
 
 
 REPLACE INTO `{PREFIX}user_roles` 
@@ -1133,8 +1139,8 @@ UPDATE `{PREFIX}user_roles` SET
 
 
 UPDATE `{PREFIX}user_settings` SET
-  `setting_value`='MODxCarbon'
+  `setting_value`='ClipperModern'
   WHERE `setting_name`='manager_theme';
 
 
-REPLACE INTO `{PREFIX}system_settings` (setting_name, setting_value) VALUES ('manager_theme','MODxCarbon');
+REPLACE INTO `{PREFIX}system_settings` (setting_name, setting_value) VALUES ('manager_theme','ClipperModern');

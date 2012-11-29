@@ -1,15 +1,16 @@
-//<?php
 /**
  * Forgot Manager Login
  * 
  * Resets your manager login when you forget your password via email confirmation
  *
- * @category 	plugin
- * @version 	1.1.2
- * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
- * @internal	@events OnBeforeManagerLogin,OnManagerAuthentication,OnManagerLoginFormRender 
- * @internal	@modx_category Manager and Admin
+ * @category    plugin
+ * @version     1.1.5
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
+ * @internal    @events OnBeforeManagerLogin,OnManagerAuthentication,OnManagerLoginFormRender 
+ * @internal    @modx_category Manager and Admin
  * @internal    @installset base
+ * @author 	opengeek
+ * @author 	Agel_Nash <Agel_Nash@xaker.ru>
  */
 
 if(!class_exists('ForgotManagerPassword')) {
@@ -48,19 +49,19 @@ EOD;
             $user_id = $user_id == false ? false : $modx->db->escape($user_id);
             $username = $modx->db->escape($username);
             $email = $modx->db->escape($email);
-            $emaail = $modx->db->escape($hash);
+            $hash = $modx->db->escape($hash);
 
-			$pre = $modx->db->config['table_prefix'];
-			$site_id = $modx->config['site_id'];
-			$today = date('Yz'); // Year and day of the year
-			$wheres = array();
-			$where = '';
-			$user = null;
+            $pre = $modx->db->config['table_prefix'];
+            $site_id = $modx->config['site_id'];
+            $today = date('Yz'); // Year and day of the year
+            $wheres = array();
+            $where = '';
+            $user = null;
   
             if($user_id !== false) { $wheres[] = "usr.id = '{$user_id}'"; }
-            if(!empty($username)) { $wheres[] = "usr.username = '{$username}'"; }
-            if(!empty($email)) { $wheres[] = "attr.email = '{$email}'"; }
-            if(!empty($hash)) { $wheres[] = "MD5(CONCAT(usr.username,usr.password,'{$site_id}','{$today}')) = '{$hash}'"; } 
+            if($username!='') { $wheres[] = "usr.username = '{$username}'"; }
+            if($email!='') { $wheres[] = "attr.email = '{$email}'"; }
+            if($hash!='') { $wheres[] = "MD5(CONCAT(usr.username,usr.password,'{$site_id}','{$today}')) = '{$hash}'"; } 
 
             if($wheres) {
                 $where = ' WHERE '.implode(' AND ',$wheres);
@@ -91,7 +92,7 @@ EOD;
             $subject = $_lang['password_change_request'];
             $headers  = "MIME-Version: 1.0\r\n".
                 "Content-type: text/html; charset=\"{$modx->config['modx_charset']}\"\r\n".
-		"From: MODx <{$modx->config['emailsender']}>\r\n".
+        	"From: MODx <{$modx->config['emailsender']}>\r\n".
                 "Reply-To: no-reply@{$_SERVER['HTTP_HOST']}\r\n".
                 "X-Mailer: PHP/".phpversion();
 
@@ -160,10 +161,10 @@ global $_lang;
 
 $output = '';
 $event_name = $modx->Event->name;
-$action = (empty($_GET['action']) ? '' : $_GET['action']);
-$username = (empty($_GET['username']) ? false : $_GET['username']);
-$to = (empty($_GET['email']) ? '' : $_GET['email']);
-$hash = (empty($_GET['hash']) ? false : $_GET['hash']);
+$action = ((isset($_GET['action']) && !is_array($_GET['action']) && $_GET['action']!='') ? $_GET['action'] : '');
+$username = ((isset($_GET['username']) && !is_array($_GET['username']) && $_GET['username']!='') ? $_GET['username'] : '');
+$to = ((isset($_GET['email']) &&  !is_array($_GET['email']) && $_GET['email']!='') ?  $_GET['email'] : '');
+$hash = ((isset($_GET['hash']) && !is_array($_GET['hash']) && $_GET['hash']!='') ? $_GET['hash'] : '');
 $forgot = new ForgotManagerPassword();
 
 if($event_name == 'OnManagerLoginFormRender') {
@@ -182,14 +183,14 @@ if($event_name == 'OnManagerLoginFormRender') {
     if($forgot->errors) { $output = $forgot->getErrorOutput() . $forgot->getLink(); }
 }
 
-if($event_name == 'OnBeforeManagerLogin') {
+if($event_name == 'OnBeforeManagerLogin' && $hash!='' && $username!='') {
     $user = $forgot->getUser(false, $username, '', $hash);
     if($user && is_array($user) && !$forgot->errors) {
         $forgot->unblockUser($user['id']);
     }
 }
 
-if($event_name == 'OnManagerAuthentication' && $hash && $username) {
+if($event_name == 'OnManagerAuthentication' && $hash!='' && $username!='') {
     $user = $forgot->getUser(false, $username, '', $hash);
     $output = ($user !== null && count($forgot->errors) == 0) ? true : false;
 }
