@@ -22,20 +22,21 @@ if($_REQUEST['new_parent']=="") {
 		$e->dumpError();
 }
 
-$sql = "SELECT parent FROM $dbase.`".$table_prefix."site_content` WHERE id=".$_REQUEST['id'].";";
-$rs = mysql_query($sql);
-if(!$rs){
-	echo "An error occured while attempting to find the document's current parent.";
-}
+$sql = "SELECT parent FROM " . $modx->getFullTableName('site_content') 
+. " WHERE id=" . $_REQUEST['id'] . ";";
+
+$rs = $modx->db->query($sql);
 
 $row = $modx->db->getRow($rs);
+
 $oldparent = $row['parent'];
 $newParentID = $_REQUEST['new_parent'];
 
 // check user has permission to move document to chosen location
 
 if ($use_udperms == 1) {
-if ($oldparent != $newParentID) {
+
+	if ($oldparent != $newParentID) {
 		include_once MODX_MANAGER_PATH . "processors/user_documents_permissions.class.php";
 		$udperms = new udperms();
 		$udperms->user = $modx->getLoginUserID();
@@ -57,11 +58,12 @@ if ($oldparent != $newParentID) {
 function allChildren($currDocID) {
 	global $modx;
 	$children= array();
-	$sql = "SELECT id FROM ".$modx->getFullTableName('site_content')." WHERE parent = $currDocID;";
-	if(!$rs = $modx->db->query($sql)) {
-		echo "An error occured while attempting to find all of the document's children.";
-	} else {
-		if ($numChildren= $modx->db->getRecordCount($rs)) {
+	$sql = "SELECT id FROM " . $modx->getFullTableName('site_content') 
+	. " WHERE parent = $currDocID;";
+
+	$rs = $modx->db->query($sql);
+	
+	if ($numChildren = $modx->db->getRecordCount($rs)) {
 			while ($child= $modx->db->getRow($rs)) {
 				$children[]= $child['id'];
 				$nextgen= array();
@@ -69,7 +71,6 @@ function allChildren($currDocID) {
 				$children= array_merge($children, $nextgen);
 			}
 		}
-	}
 	return $children;
 }
 
@@ -77,33 +78,33 @@ $children= allChildren($_REQUEST['id']);
 
 if (!array_search($newParentID, $children)) {
 
-	$sql = "UPDATE $dbase.`".$table_prefix."site_content` SET isfolder=1 WHERE id=".$_REQUEST['new_parent'].";";
-	$rs = mysql_query($sql);
-	if(!$rs){
-		echo "An error occured while attempting to change the new parent to a folder.";
-	}
+	$sql = "UPDATE " . $modx->getFullTableName('site_content') 
+	. "SET isfolder=1 WHERE id=" . $_REQUEST['new_parent'] . ";";
 
-	$sql = "UPDATE $dbase.`".$table_prefix."site_content` SET parent=".$_REQUEST['new_parent'].", editedby=".$modx->getLoginUserID().", editedon=".time()." WHERE id=".$_REQUEST['id'].";";
-	$rs = mysql_query($sql);
-	if(!$rs){
-		echo "An error occured while attempting to move the document to the new parent.";
-	}
+	$rs = $modx->db->query($sql);
+	
+	$sql = "UPDATE " . $modx->getFullTableName('site_content') 
+	. "SET parent=" . $_REQUEST['new_parent'] 
+	. ", editedby=" . $modx->getLoginUserID() 
+	.", editedon=" . time() 
+	. " WHERE id=" . $_REQUEST['id'] . ";";
 
+	$rs = $modx->db->query($sql);
+	
 	// finished moving the document, now check to see if the old_parent should no longer be a folder.
-	$sql = "SELECT count(*) FROM $dbase.`".$table_prefix."site_content` WHERE parent=$oldparent;";
-	$rs = mysql_query($sql);
-	if(!$rs){
-		echo "An error occured while attempting to find the old parents' children.";
-	}
+	$sql = "SELECT count(*) FROM " . $modx->getFullTableName('site_content') 
+	. " WHERE parent=$oldparent;";
+
+	$rs = $modx->db->query($sql);
+
 	$row = $modx->db->getRow($rs);
 	$limit = $row['count(*)'];
 
 	if(!$limit>0) {
-		$sql = "UPDATE $dbase.`".$table_prefix."site_content` SET isfolder=0 WHERE id=$oldparent;";
-		$rs = mysql_query($sql);
-		if(!$rs){
-			echo "An error occured while attempting to change the old parent to a regular document.";
-		}
+		$sql = "UPDATE " . $modx->getFullTableName('site_content') 
+		. "SET isfolder=0 WHERE id=$oldparent;";
+
+		$rs = $modx->db->query($sql);
 	}
 
 	// empty cache & sync site
@@ -112,6 +113,7 @@ if (!array_search($newParentID, $children)) {
 	$sync->setCachepath(MODX_BASE_PATH . "assets/cache/");
 	$sync->setReport(false);
 	$sync->emptyCache(); // first empty the cache
+
 	$header="Location: index.php?r=1&id=$id&a=7";
 	header($header);
 } else {

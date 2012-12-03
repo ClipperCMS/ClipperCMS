@@ -1,7 +1,7 @@
 <?php
-if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
+if (!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
-if(!$modx->hasPermission('manage_metatags')) {
+if (!$modx->hasPermission('manage_metatags')) {
 	$e->setError(3);
 	$e->dumpError();
 }
@@ -10,7 +10,7 @@ if(!$modx->hasPermission('manage_metatags')) {
 $opcode = isset($_POST['op']) ? $_POST['op'] : "keys" ;
 
 // add tag
-if($opcode=="addtag") {
+if ($opcode=="addtag") {
 	list($tag,$http_equiv) = explode(";",$_POST["tag"]);
 	$f = array(
 		name => $modx->db->escape($_POST["tagname"]),
@@ -18,12 +18,12 @@ if($opcode=="addtag") {
 		tagvalue => $modx->db->escape($_POST["tagvalue"]),
 		http_equiv => intval($http_equiv)
 	);
-	if($f["name"] && $f["tagvalue"]) {
+	if ($f["name"] && $f["tagvalue"]) {
 		$modx->db->insert($f,$modx->getFullTableName("site_metatags"));
 	}
 }
 // edit tag
-else if($opcode=="edttag") {
+else if ($opcode=="edttag") {
 	$id = intval($_POST["id"]);
 	list($tag,$http_equiv) = explode(";",$_POST["tag"]);
 	$f = array(
@@ -32,12 +32,12 @@ else if($opcode=="edttag") {
 		tagvalue => $modx->db->escape($_POST["tagvalue"]),
 		http_equiv => intval($http_equiv)
 	);
-	if($f["name"] && $f["tagvalue"]) {
-		$modx->db->update($f,$modx->getFullTableName("site_metatags"),"id='$id'");
+	if ($f["name"] && $f["tagvalue"]) {
+		$modx->db->update($f, $modx->getFullTableName("site_metatags"), "id='$id'");
 	}
 }
 // delete
-else if($opcode=="deltag") {
+else if ($opcode=="deltag") {
 	$f = $_POST["tag"];
 	if(is_array($f) && count($f)>0) {
 		for($i=0;$i<count($f);$i++) $f[$i]=$modx->db->escape($f[$i]);
@@ -51,56 +51,61 @@ else {
 
 	// do any renaming that has to be done
 	foreach($orig_keywords as $key => $value) {
-		if($rename_keywords[$key]!=$value) {
-			$sql = "SELECT * FROM $dbase.`".$table_prefix."site_keywords` WHERE BINARY keyword='".addslashes($rename_keywords[$key])."'";
-			$rs = mysql_query($sql);
-			$limit = mysql_num_rows($rs);
-			if($limit > 0) {
+		if ($rename_keywords[$key]!=$value) {
+			$sql = "SELECT * FROM " . $modx->getFullTableName('site_keywords') 
+			. " WHERE BINARY keyword='" . addslashes($rename_keywords[$key]) . "'";
+
+			$rs = $modx->db->query($sql);
+			$limit = $modx->db->getRecordCount($rs);
+
+			if ($limit > 0) {
 				echo "  - This keyword has already been defined!";
 				exit;
 			} else {
-				$sql = "UPDATE $dbase.`".$table_prefix."site_keywords` SET keyword='".addslashes($rename_keywords[$key])."' WHERE keyword='".addslashes($value)."'";
-				$rs = mysql_query($sql);
+				$sql = "UPDATE " . $modx->getFullTableName('site_keywords') 
+				. " SET keyword='" . addslashes($rename_keywords[$key]) . "'" 
+				. " WHERE keyword='" . addslashes($value) . "'";
+				
+				$rs = $modx->db->query($sql);
 			}
 		}
 	}
 
 	// delete any keywords that need to be deleted
-	if(count($delete_keywords)>0) {
+	if (count($delete_keywords)>0) {
 		$keywords_array = array();
-		foreach($delete_keywords as $key => $value) {
+		foreach ($delete_keywords as $key => $value) {
 			$keywords_array[] = $key;
 		}
 
-		$sql = "DELETE FROM $dbase.`".$table_prefix."keyword_xref` WHERE keyword_id IN(".join($keywords_array, ",").")";
-		$rs = mysql_query($sql);
-		if(!$rs) {
-			echo "Failure on deletion of xref keys: ".mysql_error();
-			exit;
-		}
+		$sql = "DELETE FROM " . $modx->getFullTableName('keyword_xref') 
+		. " WHERE keyword_id IN(" . implode( ",", $keywords_array) . ")";
 
-		$sql = "DELETE FROM $dbase.`".$table_prefix."site_keywords` WHERE id IN(".join($keywords_array, ",").")";
-		$rs = mysql_query($sql);
-		if(!$rs) {
-			echo "Failure on deletion of keywords ".mysql_error();
-			exit;
-		}
+		$rs = $modx->db->query($sql);
 
+		$sql = "DELETE FROM " . $modx->getFullTableName('site_keywords') 
+		. " WHERE id IN(" . implode( ",", $keywords_array) . ")";
+		
+		$rs = $modx->db->query($sql);
 	}
 
 	// add new keyword
-	if(!empty($_POST['new_keyword'])) {
+	if (!empty($_POST['new_keyword'])) {
 		$nk = $_POST['new_keyword'];
 
-		$sql = "SELECT * FROM $dbase.`".$table_prefix."site_keywords` WHERE keyword='".addslashes($nk)."'";
-		$rs = mysql_query($sql);
-		$limit = mysql_num_rows($rs);
+		$sql = "SELECT * FROM " . $modx->getFullTableName('site_keywords') 
+		. " WHERE keyword='" . addslashes($nk) . "'";
+
+		$rs = $modx->db->query($sql);
+		$limit = $modx->db->getRecordCount($rs);
+
 		if($limit > 0) {
 			echo "Keyword $nk already exists!";
 			exit;
 		} else {
-			$sql = "INSERT INTO $dbase.`".$table_prefix."site_keywords` (keyword) VALUES('".addslashes($nk)."')";
-			$rs = mysql_query($sql);
+			$sql = "INSERT INTO " . $modx->getFullTableName('site_keywords') 
+			. " (keyword) VALUES('" . addslashes($nk) . "')";
+			$rs = $modx->db->query($sql);
 		}
 	}
 }

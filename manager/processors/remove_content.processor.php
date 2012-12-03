@@ -6,12 +6,20 @@ if(!$modx->hasPermission('delete_document')) {
 	$e->dumpError();
 }
 
-$sql = "SELECT id FROM $dbase.`".$table_prefix."site_content` WHERE $dbase.`".$table_prefix."site_content`.deleted=1;";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+// reduce SQL statement complexity
+$content_table = $modx->getFullTableName('site_content');
+$groups_table = $modx->getFullTableName('document_groups');
+$tv_content_table = $modx->getFullTableName('site_tmplvar_contentvalues');
+
+$sql = "SELECT id FROM $content_table WHERE deleted=1";
+
+$rs = $modx->db->query($sql);
+$limit = $modx->db->getRecordCount($rs);
+
 $ids = array();
+
 if($limit>0) {
-	for($i=0;$i<$limit;$i++) {
+	for($i=0; $i<$limit; $i++) {
 		$row=$modx->db->getRow($rs);
 		array_push($ids, @$row['id']);
 	}
@@ -23,41 +31,40 @@ $modx->invokeEvent("OnBeforeEmptyTrash",
 							"ids"=>$ids
 						));
 
-// remove the document groups link.
-$sql = "DELETE $dbase.`".$table_prefix."document_groups`
-		FROM $dbase.`".$table_prefix."document_groups`
-		INNER JOIN $dbase.`".$table_prefix."site_content` ON $dbase.`".$table_prefix."site_content`.id = $dbase.`".$table_prefix."document_groups`.document
-		WHERE $dbase.`".$table_prefix."site_content`.deleted=1;";
-@mysql_query($sql);
+// remove the document groups link
+$sql = "DELETE $groups_table
+		FROM $groups_table INNER JOIN $content_table 
+		ON $content_table.id = $groups_table.document
+		WHERE $content_table.deleted=1";
+		
+$modx->db->query($sql);
 
 // remove the TV content values.
-$sql = "DELETE $dbase.`".$table_prefix."site_tmplvar_contentvalues`
-		FROM $dbase.`".$table_prefix."site_tmplvar_contentvalues`
-		INNER JOIN $dbase.`".$table_prefix."site_content` ON $dbase.`".$table_prefix."site_content`.id = $dbase.`".$table_prefix."site_tmplvar_contentvalues`.contentid
-		WHERE $dbase.`".$table_prefix."site_content`.deleted=1;";
-@mysql_query($sql);
+$sql = "DELETE $tv_content_table
+		FROM $tv_content_table INNER JOIN $content_table 
+		ON $content_table.id = $tv_content_table.contentid
+		WHERE $content_table.deleted=1";
 
-//'undelete' the document.
-$sql = "DELETE FROM $dbase.`".$table_prefix."site_content` WHERE deleted=1;";
-$rs = mysql_query($sql);
-if(!$rs) {
-	echo "Something went wrong while trying to remove deleted documents!";
-	exit;
-} else {
-	// invoke OnEmptyTrash event
-	$modx->invokeEvent("OnEmptyTrash",
-						array(
-							"ids"=>$ids
-						));
+$modx->db->query($sql);
 
-	// empty cache
-	include_once "cache_sync.class.processor.php";
-	$sync = new synccache();
-	$sync->setCachepath("../assets/cache/");
-	$sync->setReport(false);
-	$sync->emptyCache(); // first empty the cache
-	// finished emptying cache - redirect
-	$header="Location: index.php?r=1&a=7";
-	header($header);
-}
+//delete the document.
+$sql = "DELETE FROM $content_table WHERE deleted=1;";
+
+$modx->db->query($sql);
+
+// invoke OnEmptyTrash event
+$modx->invokeEvent("OnEmptyTrash",
+					array(
+						"ids"=>$ids
+					));
+
+// empty cache
+include_once "cache_sync.class.processor.php";
+$sync = new synccache();
+$sync->setCachepath("../assets/cache/");
+$sync->setReport(false);
+$sync->emptyCache(); // first empty the cache
+// finished emptying cache - redirect
+$header="Location: index.php?r=1&a=7";
+header($header);
 ?>
