@@ -129,7 +129,7 @@ button {
 		margin: 0 0 0 5px;
 	}
 a, a:active, a:visited, a:link {
-	color: #1a32c7;
+	color: #1285A4;
 	text-decoration: underline;
 }
 a:hover {
@@ -260,7 +260,7 @@ form label {
 fieldset {
 	border: none;
 }
-input, select, textarea, td {
+input, select, textarea, option, optgroup, td {
 	font: inherit;
 	color: inherit;
 }
@@ -700,11 +700,17 @@ select[name="sortby"] {
 	width: 100%;
 	background-color: #fff;
 	border: 1px solid silver;
+	border-collapse:collapse;
 }
-.gridHeader {
-	color: #fff;
+.grid th, .grid td {
+padding:3px 5px;
+}
+.gridHeader, .grid th {
+	color: #333;
 	font-weight: bold;
-	background-color: #88939E;
+	white-space:nowrap;
+	background-color: #d2d2d2;
+	text-align:left;
 }
 .gridItem {
 	background-color: #fff;
@@ -961,23 +967,29 @@ a.hometblink:hover {
 	height: auto;
 	visibility: hidden;
 	z-index: 10000;
-	width: 170px;
-	background: #fff;
+	width: 165px;
+	background-color: #fff;
+	background-image:url(images/misc/tabareabg.gif);
+	background-repeat:repeat-x;
+	background-position:0 20px;
 	margin: 0;
-	padding: 2px;
+	padding-bottom:10px;
 	border: 1px solid #ededed;
 	border-right-color: #dcdcdc;
 	border-bottom-color: #dcdcdc;
 	overflow: hidden;
 	line-height: 11px;
+	box-shadow: 2px 2px 15px #eaeaea;
+	-moz-box-shadow: 2px 2px 15px #eaeaea;
+	-webkit-box-shadow: 2px 2px 20px #eaeaea;
 }
 #mx_contextmenu .menuLink {
 	cursor: pointer;
 	color: #222;
-	padding: 3px 7px 3px 2px;
+	padding: 3px 5px 3px 4px;
 }
 #mx_contextmenu .menuLink:hover {
-	background: #DDE4EB;
+	background: #DDDDDD;
 	border: 1px solid #fdfdfd;
 	border-bottom-color: #dcdcdc;
 	color: #333;
@@ -985,7 +997,7 @@ a.hometblink:hover {
 #mx_contextmenu .menuLink:hover,
 #mx_contextmenu .menuLinkDisabled {
 	cursor: pointer;
-	padding: 2px 6px 2px 1px;
+	padding: 2px 4px 2px 3px;
 }
 #mx_contextmenu .menuLinkDisabled {
 	cursor: default;
@@ -994,7 +1006,7 @@ a.hometblink:hover {
 #mx_contextmenu .menuLink img,
 #mx_contextmenu .menuLink:hover img,
 #mx_contextmenu .menuLinkDisabled img {
-	margin-right: 8px;
+	margin-right: 5px;
 }
 #mx_contextmenu .menuLink img,
 #mx_contextmenu .menuLinkDisabled img {
@@ -1011,12 +1023,15 @@ a.hometblink:hover {
 	text-align: left;
 	cursor: default;
 	font-weight: bold;
-	padding: 2px;
-	margin-bottom: 2px;
-	border: 1px solid #fdfdfd;
-	border-right-color: #dcdcdc;
-	border-bottom-color: #dcdcdc;
-	background: #86939E;
+	padding: 6px 4px;
+	margin-bottom: 3px;
+	background-color: #86939E;
+	background-repeat:repeat-x;
+	text-shadow: 0px -1px 0px #2B5F0C;
+			background:-moz-linear-gradient(#3f3f3f, #535353);
+			background:-webkit-gradient(linear, 0 0, 0 100%, from(#3f3f3f), to(#535353));
+			background:-o-linear-gradient(#3f3f3f, #535353);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#3f3f3f,endColorstr=#535353); zoom:1;
 }
 #mx_contextmenu .seperator {
 	font-size: 0;
@@ -1523,8 +1538,10 @@ form#mutate textarea.tv_textarea {
 
 optgroup {
 	font-style: normal;
-	color: #000;
-	padding: 0 0 0 4px;
+	font-weight: bold;
+}
+option {
+	font-weight: normal;
 }
 
 /*
