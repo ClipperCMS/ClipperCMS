@@ -153,7 +153,7 @@ class template{
 	// Function: replace
 	// Replcae placeholders with their values
 	// ---------------------------------------------------
-    function replace( $placeholders, $tpl ) {
+    static function replace( $placeholders, $tpl ) {
 		$keys = array();
 		$values = array();
 		foreach ($placeholders as $key=>$value) {
@@ -194,21 +194,21 @@ class template{
 	// 
 	// http://modxcms.com/forums/index.php/topic,5344.msg41096.html#msg41096
 	// ---------------------------------------------------
-	function fetch($tpl){
+	static function fetch($tpl){
 		global $modx;
 		$template = "";
 		if ($modx->getChunk($tpl) != "") {
 			$template = $modx->getChunk($tpl);
 		} else if(substr($tpl, 0, 6) == "@FILE:") {
-			$template = $this->get_file_contents(substr($tpl, 6));
+			$template = self::get_file_contents(substr($tpl, 6));
 		} else if(substr($tpl, 0, 6) == "@CODE:") {
 			$template = substr($tpl, 6);
 		} else if(substr($tpl, 0, 5) == "@FILE") {
-			$template = $this->get_file_contents(trim(substr($tpl, 5)));
+			$template = self::get_file_contents(trim(substr($tpl, 5)));
 		} else if(substr($tpl, 0, 5) == "@CODE") {
 			$template = trim(substr($tpl, 5));
 		} else {
-			$template = $this->language['missing_placeholders_tpl'];
+			$template = $GLOBALS['ditto_lang']['missing_placeholders_tpl'];
 		}
 			return $template;
 	}
@@ -219,7 +219,7 @@ class template{
 	// 
 	// From http://www.nutt.net/2006/07/08/file_get_contents-function-for-php-4/#more-210
 	// ---------------------------------------------------
-	function get_file_contents($filename) {
+	static function get_file_contents($filename) {
 		if (!function_exists('file_get_contents')) {
 			$fhandle = fopen($filename, "r");
 			$fcontents = fread($fhandle, filesize($filename));
