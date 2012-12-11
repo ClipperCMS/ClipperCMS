@@ -873,7 +873,7 @@ a.hometblink:hover {
 /* -------------------------[ Top Navbar of snap in top menu bar layout ]--- */
 
 #topMenu {
-	background: #E4E4E4 url(images/misc/header-tabs-active.png) repeat-x center top;
+	background: #595D62 url(images/misc/header.png) repeat-x center top;
 }
 #divNav {
 	z-index: 2;
