@@ -99,31 +99,34 @@ if(!empty($content["properties"])){
 // Set the item name for logger
 $_SESSION['itemname'] = $content['name'];
 
-$output = evalModule($content["modulecode"],$parameter);
-echo $output;
-include $base_path."manager/includes/sysalert.display.inc.php";
+// Run module
+// (this was the evalModule() function in MODx <1.1)
 
-// evalModule
-function evalModule($moduleCode,$params){
-	global $modx;
-	$etomite = &$modx;
-	$modx->event->params = &$params; // store params inside event object
-	if(is_array($params)) {
-		extract($params, EXTR_SKIP);
-	}
-	ob_start();
-		$mod = eval($moduleCode);
-		$msg = ob_get_contents();
-	ob_end_clean();
-	if ($php_errormsg) { 
-		if(!strpos($php_errormsg,'Deprecated')) { // ignore php5 strict errors
-			// log error		
-			global $content;
-			$modx->logEvent(1,3,"<b>$php_errormsg</b><br /><br /> $msg",$content['name']." - Module");
-			if($modx->isBackend()) $modx->event->alert("<span style='color:maroon;'><b>".$content['name']." - Module"." runtime error:</b></span><br /><br />An error occurred while loading the module. Please see the event log.");
-		}
-	}
-	unset($modx->event->params); 
-	return $mod.$msg;
+$modx->event->params = &$parameter; // store params inside event object
+if(is_array($parameter)) {
+	extract($parameter, EXTR_SKIP);
 }
-?>
+
+ob_start();
+	$mod = eval($content['modulecode']);
+	$msg = ob_get_contents();
+ob_end_clean();
+
+$err_last = error_get_last();
+
+if ($php_errormsg && !($err_last['type'] & (E_STRICT | E_NOTICE | E_WARNING | E_USER_NOTICE | E_USER_WARNING))) {
+	// log error		
+	global $content;
+	$modx->logEvent(1,3,"<b>$php_errormsg</b><br /><br /> $msg",$content['name']." - Module");
+	if($modx->isBackend())
+		{
+		include('header.inc.php');
+		$modx->event->alert("<span style='color:maroon;'><b>".$content['name']." - Module"." runtime error:</b></span><br /><br />An error occurred while loading the module. Please see the event log.");
+		include('footer.inc.php');
+		}
+} else {
+	// Module run without error (strict errors ignored)
+	unset($modx->event->params); 
+	echo $mod.$msg;
+}
+
