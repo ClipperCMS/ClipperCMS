@@ -452,7 +452,7 @@ function reflect($templatesDocumentID, $showItems, $groupByYears, $resource, $te
         
         foreach ($months as $mon=>$month) {
             $month_text = strftime("%B", mktime(10, 10, 10, $mon, 10, $year));
-            $month_url = $ditto->buildURL("month=".$mon."&year=".$year."&day=false&start=0",$templatesDocumentID,$id);
+            $month_url = ditto::buildURL("month=".$mon."&year=".$year."&day=false&start=0",$templatesDocumentID,$id);
             $month_count = count($month);
             $year_count += $month_count;
             $r_month = $ditto->template->replace(array("year"=>$year,"month"=>$month_text,"url"=>$month_url,"count"=>$month_count),$templates['month']);
@@ -467,7 +467,7 @@ function reflect($templatesDocumentID, $showItems, $groupByYears, $resource, $te
             }
         }
         if ($groupByYears) {
-            $year_url = $ditto->buildURL("year=".$year."&month=false&day=false&start=0",$templatesDocumentID,$id);
+            $year_url = ditto::buildURL("year=".$year."&month=false&day=false&start=0",$templatesDocumentID,$id);
             $r_year =  $ditto->template->replace(array("year"=>$year,"url"=>$year_url,"count"=>$year_count),$templates['year']);
             $var = $ditto->template->replace(array('wrapper'=>implode('',$items[$year])),$templates['year_inner']);
             $output .= $ditto->template->replace(array('wrapper'=>$var),$r_year);
@@ -477,7 +477,7 @@ function reflect($templatesDocumentID, $showItems, $groupByYears, $resource, $te
     }
 
     $output = $ditto->template->replace(array('wrapper'=>$output),$templates['tpl']);
-    $modx->setPlaceholder($id.'reset',$ditto->buildURL('year=false&month=false&day=false',$templatesDocumentID,$id));
+    $modx->setPlaceholder($id.'reset',ditto::buildURL('year=false&month=false&day=false',$templatesDocumentID,$id));
 
 return $output;
     

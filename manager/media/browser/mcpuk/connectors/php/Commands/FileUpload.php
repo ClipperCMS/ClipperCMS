@@ -1,5 +1,13 @@
 <?php 
 /*
+ * ------------------------------------------------------------------------------------------------------------------------------- 
+ *
+ * *** FILE EDITED FOR CLIPPER CMS                                                                                             ***
+ * *** FILE MODIFIED IN A SIMILAR MANNER TO https://github.com/Eoler/evolution/commit/cd5604a12c323fddc6e0b773dae589695cf396e2 ***
+ * *** SPACES IN UPLOADED FILENAMES NOW AVOIDED                                                                                ***
+ * 
+ * ------------------------------------------------------------------------------------------------------------------------------- 
+ *
  * FCKeditor - The text editor for internet
  * Copyright (C) 2003-2005 Frederico Caldeira Knabben
  * 
@@ -16,6 +24,7 @@
  * 
  * File Authors:
  * 		Grant French (grant@mcpuk.net)
+ * 		ClipperCMS and others
  */
 class FileUpload {
 	var $fckphp_config;
@@ -32,7 +41,35 @@ class FileUpload {
 		$this->real_cwd=str_replace("//","/",($this->fckphp_config['basedir']."/".$this->actual_cwd));
 	}
 
-	function run() {
+	function cleanFilename($filename) {
+		$fpi = pathinfo($filename);
+		$fn_alias = strip_tags($fpi['filename']); // strip HTML
+
+		// Convert all numeric entities to their actual character
+		//$fn_alias = preg_replace('/&#x([0-9a-f]{1,7});/ei', 'chr(hexdec("\\1"))', $filename);
+		//$fn_alias = preg_replace('/&#([0-9]{1,7});/e', 'chr("\\1")', $fn_alias);
+
+		// apply common transliterations table
+		$tlPath = $this->fckphp_config['basedir'].'/plugins/transalias/transliterations/common.php';
+		if (is_file($tlPath)) {
+			$tlTable = include $tlPath;
+			$tlTable['.'] = "";
+			$fn_alias = strtr($fn_alias, $tlTable);
+		} else {
+			//echo "202,'Invalid transliteration path: {$tlPath}'";
+		}
+
+		$fn_alias = preg_replace('/[^\.%A-Za-z0-9 _-]/', '', $fn_alias); // strip non-alphanumeric characters
+		$fn_alias = strtolower($fn_alias); // make lowercase
+		$word_separator = '-';
+		$fn_alias = preg_replace('/\s+/', $word_separator, $fn_alias); // convert white-space to word separator
+		$fn_alias = preg_replace('/'.$word_separator.'+/', $word_separator, $fn_alias);  // convert multiple word separators to one
+		$fn_alias = trim($fn_alias, $word_separator.'/. '); // trim excess and bad chars
+
+		return "{$fn_alias}.{$fpi['extension']}";
+	}
+
+  	function run() {
 		//If using CGI Upload script, get file info and insert into $_FILE array
 		if 	(
 				(sizeof($_FILES)==0) && 
@@ -47,6 +84,11 @@ class FileUpload {
 			} else {
 				$disp="202,'Incomplete file information from upload CGI'";
 			}
+		}
+
+		if (isset($_FILES['NewFile']) && isset($_FILES['NewFile']['name']) && ($_FILES['NewFile']['name'] != "")) {
+			// Clean filename
+			$_FILES['NewFile']['name'] = $this->cleanFilename($_FILES['NewFile']['name']);
 		}
 
 		$typeconfig=$this->fckphp_config['ResourceAreas'][$this->type];

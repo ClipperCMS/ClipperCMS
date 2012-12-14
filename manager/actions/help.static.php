@@ -1,5 +1,6 @@
 <?php
-if(IN_MANAGER_MODE!="true") die("<b>INCLUDE_ORDERING_ERROR</b><br /><br />Please use the MODx Content Manager instead of accessing this file directly.");
+if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
+
 ?>
 <script type="text/javascript" src="media/script/tabpane.js"></script>
 
@@ -13,7 +14,7 @@ if(IN_MANAGER_MODE!="true") die("<b>INCLUDE_ORDERING_ERROR</b><br /><br />Please
 <?php
 if ($handle = opendir('../assets/templates/help')) {
     while (false !== ($file = readdir($handle))) {
-        if ($file != "." && $file != ".." && $file != ".svn") {
+        if ($file[0] != "." && substr($file, -1) != '~') {
             $help[] = $file;
         }
     }

@@ -1,43 +1,32 @@
 <?php
 /*
 *************************************************************************
-	MODx Content Management System and PHP Application Framework 
-	Managed and maintained by Raymond Irving, Ryan Thrash and the
-	MODx community
+	ClipperCMS
+	Distributed under the GNU General Public License	
 *************************************************************************
-	MODx is an opensource PHP/MySQL content management system and content
-	management framework that is flexible, adaptable, supports XHTML/CSS
-	layouts, and works with most web browsers, including Safari.
-
-	MODx is distributed under the GNU General Public License	
-*************************************************************************
-
-	MODx CMS and Application Framework ("MODx")
-	Copyright 2005 and forever thereafter by Raymond Irving & Ryan Thrash.
-	All rights reserved.
 
 	This file and all related or dependant files distributed with this filie
-	are considered as a whole to make up MODx.
+	are considered as a whole to make up ClipperCMS.
 
-	MODx is free software; you can redistribute it and/or modify
+	ClipperCMS is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation; either version 2 of the License, or
 	(at your option) any later version.
 
-	MODx is distributed in the hope that it will be useful,
+	ClipperCMS is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with MODx (located in "/assets/docs/"); if not, write to the Free Software
+	along with ClipperCMS (located in "/assets/docs/"); if not, write to the Free Software
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
-	For more information on MODx please visit http://modxcms.com/
+	For more information on ClipperCMS please visit http://clippercms.com/
 	
-**************************************************************************
-    Originally based on Etomite by Alex Butter
-**************************************************************************
+******************************************************************************************
+    Based on MODX Evolution by the MODx team which is based on Etomite by Alex Butter
+******************************************************************************************
 */	
 
 /**
@@ -47,6 +36,9 @@
 
 // get start time
 $mtime = microtime(); $mtime = explode(" ",$mtime); $mtime = $mtime[1] + $mtime[0]; $tstart = $mtime;
+
+// include version info
+require_once (dirname(__FILE__).'/manager/includes/version.inc.php');
 
 // harden it
 require_once(dirname(__FILE__).'/manager/includes/protect.inc.php');
@@ -59,7 +51,7 @@ session_cache_limiter('');
 header('P3P: CP="NOI NID ADMa OUR IND UNI COM NAV"'); // header for weird cookie stuff. Blame IE.
 header('Cache-Control: private, must-revalidate');
 ob_start();
-error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
 
 /**
  *	Filename: index.php
@@ -98,7 +90,7 @@ p{ margin:20px 0; }
 a{font-size:200%;color:#f22;text-decoration:underline;margin-top: 30px;padding: 5px;}
 </style>
 <div class=\"install\">
-<p>MODx is not currently installed or the configuration file cannot be found.</p>
+<p>ClipperCMS is not currently installed or the configuration file cannot be found.</p>
 <p>Do you want to <a href=\"install/index.php\">install now</a>?</p>
 </div>";
 		exit;
@@ -111,7 +103,11 @@ startCMSSession();
 // initiate a new document parser
 include_once(MODX_MANAGER_PATH.'/includes/document.parser.class.inc.php');
 $modx = new DocumentParser;
+$modx->getSettings();
 $etomite = &$modx; // for backward compatibility
+
+// Sanitise UTF-8 GPC (needs to be done after $modx->getSettings)
+require(MODX_MANAGER_PATH.'/includes/utf8.sanitise.php');
 
 // set some parser options
 $modx->minParserPasses = 1; // min number of parser recursive loops or passes
