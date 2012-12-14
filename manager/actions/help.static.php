@@ -14,7 +14,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 <?php
 if ($handle = opendir('../assets/templates/help')) {
     while (false !== ($file = readdir($handle))) {
-        if ($file != "." && $file != ".." && $file != ".svn") {
+        if ($file[0] != "." && substr($file, -1) != '~') {
             $help[] = $file;
         }
     }

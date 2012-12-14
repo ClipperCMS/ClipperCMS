@@ -76,7 +76,9 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
 $incPath = str_replace("\\","/",dirname(__FILE__)."/includes/"); // Mod by Raymond
 set_include_path(get_include_path() . PATH_SEPARATOR . $incPath);
 
-if (version_compare(phpversion(), "5.3") < 0) {
+// Suppress magic quotes
+// WARNING: This writes to the GPC arrays. Third party scripts may try to remove slashes a second time on servers with magic quotes 'on'.
+if (version_compare(phpversion(), "5.4") < 0) {
     @set_magic_quotes_runtime(0);
 
     // include_once the magic_quotes_gpc workaround

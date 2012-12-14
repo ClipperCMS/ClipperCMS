@@ -24,10 +24,6 @@ $_lang['default_template'] = '
 
 $_lang['blank_tpl'] = "er blank eller du har en stavefejl i dit chunk navn, venligst tjek det.";
 
-$_lang['missing_placeholders_tpl'] = 'En af dine Ditto skabeloner mangler en placeholder, tjek venligst skabelonen nedenunder: <br /><br /><hr /><br /><br />';
-
-$_lang['missing_placeholders_tpl_2'] = '<br /><br /><hr /><br />';
-
 $_lang['default_splitter'] = "<!-- splitter -->";
 
 $_lang['more_text'] = "L&aelig;s mere...";

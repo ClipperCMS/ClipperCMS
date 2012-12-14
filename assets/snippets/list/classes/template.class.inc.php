@@ -208,9 +208,9 @@ class template{
 		} else if(substr($tpl, 0, 5) == "@CODE") {
 			$template = trim(substr($tpl, 5));
 		} else {
-			$template = $GLOBALS['ditto_lang']['missing_placeholders_tpl'];
+			$template = '';
 		}
-			return $template;
+		return $template;
 	}
 
 	// ---------------------------------------------------

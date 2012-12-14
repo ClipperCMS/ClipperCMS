@@ -24,10 +24,6 @@ $_lang['default_template'] = '
 
 $_lang['blank_tpl'] = "is blank or you have a typo in the chunk name, please check it.";
 
-$_lang['missing_placeholders_tpl'] = 'One of your Ditto templates are missing placeholders, please check the template below: <br /><br /><hr /><br /><br />';
-
-$_lang['missing_placeholders_tpl_2'] = '<br /><br /><hr /><br />';
-
 $_lang['default_splitter'] = "<!-- splitter -->";
 
 $_lang['more_text'] = "Read more...";
