@@ -3,9 +3,12 @@
 	 * WebUsers
 	 * Enhanced web login/register snippet derived from WebLoginPE 1.3.1
 	 *
-	 * @package WebUsers
-	 * @author Scotty Delicious; the MODx community; the Clipper community.
-	 * @version 1.3.2
+	 * @package		WebUsers
+	 * @version		1.3.2
+	 * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
+	 * @internal	@properties
+	 * @internal	@modx_category Login
+	 * @internal    @installset base, sample
 	 *
 	 * See the "docs" folder for detailed usage and parameter instructions.
 	 */
@@ -460,4 +463,4 @@
 	{
 		return;
 	}
-?>
+
