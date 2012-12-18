@@ -107,7 +107,7 @@ if(is_array($parameter)) {
 	extract($parameter, EXTR_SKIP);
 }
 
-set_error_handler(array (&$modx, 'phpError'), (error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED) | ($modx->config['error_handling_deprecated'] ? E_DEPRECATED | E_USER_DEPRECATED : 0));
+$modx->set_error_handler();
 
 ob_start();
 	$mod = eval($content['modulecode']);

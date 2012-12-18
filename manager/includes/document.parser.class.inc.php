@@ -1304,7 +1304,7 @@ class DocumentParser {
             $this->getSettings();
         }
 
-        set_error_handler(array (&$this, 'phpError'), (error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED) | ($this->config['error_handling_deprecated'] ? E_DEPRECATED | E_USER_DEPRECATED : 0));
+        $this->set_error_handler();
 
         // IIS friendly url fix
         if ($this->config['friendly_urls'] == 1 && strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== false) {
@@ -3521,6 +3521,16 @@ class DocumentParser {
     ####################################
     // END Etomite database functions //
     ####################################
+
+	/**
+	 * Set PHP error handler
+	 * 
+	 * @return void
+	 */
+	function set_error_handler()
+		{
+		set_error_handler(array (&$this, 'phpError'), (error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED) | ($this->config['error_handling_deprecated'] ? E_DEPRECATED | E_USER_DEPRECATED : 0));
+		}
 
     /**
      * PHP error handler set by http://www.php.net/manual/en/function.set-error-handler.php
