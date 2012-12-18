@@ -964,20 +964,7 @@ class DocumentParser {
         if (is_array($params)) {
             extract($params, EXTR_SKIP);
         }
-        ob_start();
         eval ($pluginCode);
-        $msg= ob_get_contents();
-        ob_end_clean();
-        if ($msg && isset ($php_errormsg)) {
-            if (!strpos($php_errormsg, 'Deprecated')) { // ignore php5 strict errors
-                // log error
-                $this->logEvent(1, 3, "<b>$php_errormsg</b><br /><br /> $msg", $this->Event->activePlugin . " - Plugin");
-                if ($this->isBackend())
-                    $this->Event->alert("An error occurred while loading. Please see the event log for more information.<p />$msg");
-            }
-        } else {
-            echo $msg;
-        }
         unset ($modx->event->params);
     }
 
@@ -999,14 +986,7 @@ class DocumentParser {
         $snip= eval ($snippet);
         $msg= ob_get_contents();
         ob_end_clean();
-        if ($msg && isset ($php_errormsg)) {
-            if (!strpos($php_errormsg, 'Deprecated')) { // ignore php5 strict errors
-                // log error
-                $this->logEvent(1, 3, "<b>$php_errormsg</b><br /><br /> $msg", $this->currentSnippet . " - Snippet");
-                if ($this->isBackend())
-                    $this->Event->alert("An error occurred while loading. Please see the event log for more information<p />$msg");
-            }
-        }
+
         unset ($modx->event->params);
         return $msg . $snip;
     }
@@ -1317,14 +1297,14 @@ class DocumentParser {
      */
     function executeParser() {
 
-	set_error_handler(array (&$this, 'phpError'), error_reporting());
-
         $this->db->connect();
 
         // get the settings
         if (empty ($this->config)) {
             $this->getSettings();
         }
+
+        set_error_handler(array (&$this, 'phpError'), (error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED) | ($this->config['error_handling_deprecated'] ? E_DEPRECATED | E_USER_DEPRECATED : 0));
 
         // IIS friendly url fix
         if ($this->config['friendly_urls'] == 1 && strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== false) {

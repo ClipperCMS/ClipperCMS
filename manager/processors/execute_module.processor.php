@@ -107,26 +107,13 @@ if(is_array($parameter)) {
 	extract($parameter, EXTR_SKIP);
 }
 
+set_error_handler(array (&$modx, 'phpError'), (error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED) | ($modx->config['error_handling_deprecated'] ? E_DEPRECATED | E_USER_DEPRECATED : 0));
+
 ob_start();
 	$mod = eval($content['modulecode']);
 	$msg = ob_get_contents();
 ob_end_clean();
 
-$err_last = error_get_last();
-
-if ($php_errormsg && !($err_last['type'] & (E_STRICT | E_NOTICE | E_WARNING | E_USER_NOTICE | E_USER_WARNING))) {
-	// log error		
-	global $content;
-	$modx->logEvent(1,3,"<b>$php_errormsg</b><br /><br /> $msg",$content['name']." - Module");
-	if($modx->isBackend())
-		{
-		include('header.inc.php');
-		$modx->event->alert("<span style='color:maroon;'><b>".$content['name']." - Module"." runtime error:</b></span><br /><br />An error occurred while loading the module. Please see the event log.");
-		include('footer.inc.php');
-		}
-} else {
-	// Module run without error (strict errors ignored)
-	unset($modx->event->params); 
-	echo $mod.$msg;
-}
+unset($modx->event->params); 
+echo $mod.$msg;
 
