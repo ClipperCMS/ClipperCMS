@@ -5,8 +5,6 @@ if(!$modx->hasPermission('save_password')) {
 	$e->setError(3);
 	$e->dumpError();
 }
-?>
-<?php
 
 $id = $_POST['id'];
 $pass1 = $_POST['pass1'];
@@ -26,12 +24,10 @@ require ('hash.inc.php');
 $HashHandler = new HashHandler(CLIPPER_HASH_PREFERRED, $modx);
 $Hash = $HashHandler->generate($pass1);
 
-$sql = 'UPDATE '.$dbase.'.'.$table_prefix.'manager_users SET hashtype='.CLIPPER_HASH_PREFERRED.', salt=\''.$modx->db->escape($Hash->salt).'\', password=\''.$modx->db->escape($Hash->hash).'\' WHERE id='.$modx->getLoginUserID();
-$rs = mysql_query($sql);
-if(!$rs){
-	echo "An error occured while attempting to save the new password.";
-	exit;
-}
+$sql = "UPDATE " . $modx->getFullTableName('manager_users') 
+. " SET hashtype=" . CLIPPER_HASH_PREFERRED . ", salt='" . $modx->db->escape($Hash->salt) . "', password='" . $modx->db->escape($Hash->hash) . "' WHERE id=" . $modx->getLoginUserID();
+
+$modx->db->query($sql);
 
 $_SESSION['mgrHashtype'] = CLIPPER_HASH_PREFERRED;
 

@@ -71,12 +71,6 @@ switch ($_REQUEST['op']) {
 			}
 			$modx->dbQuery('DELETE FROM '.$tbl_site_module_depobj.' WHERE module=\''.$id.'\' AND resource IN ('.implode(',',$opids).') AND type=\''.$type.'\'');
 			$ds = $modx->dbQuery($sql);
-			/*if(!$ds){ // Commented out as $modx->db->query() handles SQL errors.
-				echo '<script type="text/javascript">'.
-				     'function jsalert(){ alert(\'An error occured while trying to update the database. \''.mysql_error().');'.
-				     'setTimeout(\'jsalert()\',100)'.
-				     '</script>';
-			}*/
 		}
 		break;
 	case 'del':

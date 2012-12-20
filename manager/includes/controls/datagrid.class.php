@@ -167,9 +167,6 @@ class DataGrid {
 		if(!$this->_altItemStyle && !$this->_altItemClass) $this->_altItemStyle = "style='color:black;background-color:#eeeeee'";
 
 		if($this->_isDataset && !$this->columns) {
-			//$cols = mysql_num_fields($this->ds);
-			//for($i=0;$i<$cols;$i++) 
-			//	$this->columns.= ($i ? ",":"").mysql_field_name($this->ds,$i);
 			$this->columns = implode(',', $modx->db->getColumnNames($this->ds));
 		}
 		
