@@ -880,18 +880,50 @@ class DocumentParser extends Core {
                 $modifiers = null;
             }
 
-            // Handle [*<docid>:<fieldname/TVname>*]
-            // <docid> can be any id, 'parent', or contain site settings placeholders e.g. [(site_start)]
-            if (($sep_pos = strpos($key, ':')) !== false && (ctype_digit($other_docid = substr($key, 0, $sep_pos)) || ctype_digit($other_docid = $this->mergeSettingsContent(str_replace('parent', $this->documentObject['parent'], $other_docid)))) && $other_docid != '0' && $other_docid != $this->documentIdentifier) {
-                // TODO: cache handling. May need to modify checkCache()
-                if (!isset($documentObjects[$other_docid])) {
-                    $documentObjects[$other_docid] = $this->getDocumentObject('id', $other_docid);
+            if (($sep_pos = strpos($key, ':')) !== false) {
+                // Handle [*<docid>:<fieldname/TVname>*]
+                // Identify the docid first.
+                // <docid> can be any id, 'parent', 'ultimateparent', or contain site settings placeholders e.g. [(site_start)]
+                $other_docid = null;
+                if (ctype_digit($other_docid = substr($key, 0, $sep_pos))) {
+                    $other_docid = (int)$other_docid;
+                } else {
+                    switch ($other_docid) {
+                        case 'parent':
+                            $other_docid = $this->documentObject['parent'];
+                            break;
+                        case 'ultimateparent':
+                            $other_docid = $this->getUltimateParentId($this->documentIdentifier);
+                            break;
+                        default:
+                            $other_docid = trim($this->mergeSettingsContent($other_docid));
+                            if (ctype_digit($other_docid)) {
+                                $other_docid = (int)$other_docid;
+                            } else {
+                                $other_docid = null;
+                            }
+                            break;
+                    }
                 }
-                $value = $documentObjects[$other_docid][substr($key, $sep_pos+1)];
+
+                if ($other_docid) {
+                    if ($other_docid != $this->documentIdentifier) {
+                        // Another docid is found, is valid, is not zero and is not the current document.
+                        // TODO: cache handling. May need to modify checkCache()
+                        if (!isset($documentObjects[$other_docid])) {
+                            $documentObjects[$other_docid] = $this->getDocumentObject('id', $other_docid);
+                        }
+                        $value = $documentObjects[$other_docid][substr($key, $sep_pos+1)];
+                    } else {
+                        // Using the current document.
+                        $value= $this->documentObject[substr($key, $sep_pos+1)];
+                    }
+                } else {
+                    // Invalid $other_docid
+                    $value = '';
+                }
             } else {
-                if ($sep_pos !== false) { // $otherdocid = 0 or is this document
-                	$key = substr($key, $sep_pos+1);
-                }
+                // Using the current document.
                 $value= $this->documentObject[$key];
             }
 
@@ -1623,6 +1655,20 @@ class DocumentParser extends Core {
             $parents[$pkey] = $id;
         }
         return $parents;
+    }
+
+    /**
+     * Returns the ultimate parent of a document
+     *
+     * @param int $id Docid to get ultimate parent.
+     * @return int
+     */
+    function getUltimateParentId($id) {
+        while ($id) {
+        	$last_id = $id;
+            $id = $this->aliasListing[$id]['parent'];
+        }
+        return $last_id;
     }
 
     /**
