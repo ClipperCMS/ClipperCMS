@@ -26,68 +26,72 @@ if(!$udperms->checkPermissions()) {
 }
 
 // get the timestamp on which the document was deleted.
-$sql = "SELECT deletedon FROM $dbase.`".$table_prefix."site_content` WHERE $dbase.`".$table_prefix."site_content`.id=".$id." AND deleted=1;";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$sql = "SELECT deletedon FROM " . $modx->getFullTableName('site_content') . " 
+WHERE id=$id AND deleted=1";
+
+$rs = $modx->db->query($sql);
+$limit = $modx->db->getRecordCount($rs);
+
 if($limit!=1) {
-	echo "Couldn't find document to determine it's date of deletion!";
+	echo "Couldn't find document to determine its date of deletion!";
 	exit;
 } else {
-	$row=$modx->db->getRow($rs);
+	$row = $modx->db->getRow($rs);
 	$deltime = $row['deletedon'];
 }
 
 $children = array();
+getChildren($id);
+
+if(count($children)>0) {
+	$docs_to_undelete = implode(" ,", $children);
+
+	$sql = "UPDATE " . $modx->getFullTableName('site_content') . " 
+	SET deleted=0, deletedby=0, deletedon=0 WHERE id IN($docs_to_undelete)";
+
+	$modx->db->query($sql);
+}
+
+//'undelete' the document.
+$sql = "UPDATE " . $modx->getFullTableName('site_content') . " 
+SET deleted=0, deletedby=0, deletedon=0 WHERE id=$id";
+
+$modx->db->query($sql);
+
+// empty cache
+include_once "cache_sync.class.processor.php";
+
+$sync = new synccache();
+$sync->setCachepath("../assets/cache/");
+$sync->setReport(false);
+$sync->emptyCache(); 
+
+$header="Location: index.php?r=1&a=7";
+header($header);
+
 
 function getChildren($parent) {
-	
-	global $dbase;
-	global $table_prefix;
+	global $modx;
 	global $children;
 	global $deltime;
 	
 	$db->debug = true;
 	
-	$sql = "SELECT id FROM $dbase.`".$table_prefix."site_content` WHERE $dbase.`".$table_prefix."site_content`.parent=".$parent." AND deleted=1 AND deletedon=$deltime;";
-	$rs = mysql_query($sql);
-	$limit = mysql_num_rows($rs);
+	$sql = "SELECT id FROM " . $modx->getFullTableName('site_content') . " 
+	WHERE parent=$parent AND deleted=1 AND deletedon=$deltime";
+
+	$rs = $modx->db->query($sql);
+	$limit = $modx->db->getRecordCount($rs);
+
 	if($limit>0) {
 		// the document has children documents, we'll need to delete those too
 		for($i=0;$i<$limit;$i++) {
 		$row=$modx->db->getRow($rs);
+		
 			$children[] = $row['id'];
 			getChildren($row['id']);
-			//echo "Found childNode of parentNode $parent: ".$row['id']."<br />";
 		}
 	}
 }
 
-getChildren($id);
-
-if(count($children)>0) {
-	$docs_to_undelete = implode(" ,", $children);
-	$sql = "UPDATE $dbase.`".$table_prefix."site_content` SET deleted=0, deletedby=0, deletedon=0 WHERE id IN($docs_to_undelete);";
-	$rs = @mysql_query($sql);
-	if(!$rs) {
-		echo "Something went wrong while trying to set the document's children to undeleted status...";
-		exit;
-	}
-}
-//'undelete' the document.
-$sql = "UPDATE $dbase.`".$table_prefix."site_content` SET deleted=0, deletedby=0, deletedon=0 WHERE id=$id;";
-$rs = mysql_query($sql);
-if(!$rs) {
-	echo "Something went wrong while trying to set the document to undeleted status...";
-	exit;
-} else {
-	// empty cache
-	include_once "cache_sync.class.processor.php";
-	$sync = new synccache();
-	$sync->setCachepath("../assets/cache/");
-	$sync->setReport(false);
-	$sync->emptyCache(); // first empty the cache		
-	// finished emptying cache - redirect
-	$header="Location: index.php?r=1&a=7";
-	header($header);
-}
 ?>

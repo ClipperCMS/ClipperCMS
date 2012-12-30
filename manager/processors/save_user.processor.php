@@ -11,7 +11,7 @@ if (!$modx->hasPermission('save_user')) {
 // Web alert -  sends an alert to web browser
 function webAlert($msg) {
 	global $id, $modx;
-	global $dbase, $table_prefix;
+
 	$mode = $_POST['mode'];
 	$url = "index.php?a=$mode" . ($mode == '12' ? "&id=" . $id : "");
 	$modx->manager->saveFormValues($mode);
@@ -79,12 +79,16 @@ if ($_SESSION['mgrRole'] != 1) {
 		webAlert("Illegal attempt to create/modify administrator by non-administrator!");
 		exit;
 	}
+
 	// Verify that the user being edited wasn't an admin and the user ID got spoofed
-	$sql = "SELECT role FROM $dbase.`" . $table_prefix . "user_attributes` AS mua WHERE internalKey = $id";
+	$sql = "SELECT role FROM " . $modx->getFullTableName('user_attributes') . " 
+	WHERE internalKey = $id";
+
 	if ($rs = $modx->db->query($sql)) {
-		if ($rsQty = mysql_num_rows($rs)) {
+		if ($rsQty = $modx->db->getRecordCount($rs)) {
 			// There should only be one if there is one
 			$row = $modx->db->getRow($rs);
+
 			if ($row['role'] == 1) {
 				webAlert("You cannot alter an administrative user.");
 				exit;
@@ -97,24 +101,24 @@ if ($_SESSION['mgrRole'] != 1) {
 switch ($_POST['mode']) {
 	case '11' : // new user
 		// check if this user name already exist
-		$sql = "SELECT id FROM $dbase.`" . $table_prefix . "manager_users` WHERE username='$newusername_esc'";
-		if (!$rs = $modx->db->query($sql)) {
-			webAlert("An error occurred while attempting to retrieve all users with username $newusername.");
-			exit;
-		}
-		$limit = mysql_num_rows($rs);
+		$sql = "SELECT id FROM " . $modx->getFullTableName('manager_users') . " 
+		WHERE username='$newusername_esc'";
+		
+		$rs = $modx->db->query($sql);
+		$limit = $modx->db->getRecordCount($rs);
+		
 		if ($limit > 0) {
 			webAlert("User name is already in use!");
 			exit;
 		}
 
 		// check if the email address already exist
-		$sql = "SELECT id FROM $dbase.`" . $table_prefix . "user_attributes` WHERE email='$email'";
-		if (!$rs = $modx->db->query($sql)) {
-			webAlert("An error occurred while attempting to retrieve all users with email $email.");
-			exit;
-		}
-		$limit = mysql_num_rows($rs);
+		$sql = "SELECT id FROM " . $modx->getFullTableName('user_attributes') . " 
+		WHERE email='$email'";
+
+		$rs = $modx->db->query($sql); 
+		$limit = $modx->db->getRecordCount($rs);
+
 		if ($limit > 0) {
 			$row = $modx->db->getRow($rs);
 			if ($row['id'] != $id) {
@@ -143,7 +147,6 @@ switch ($_POST['mode']) {
 			exit;
 		}
 
-		// invoke OnBeforeUserFormSave event
 		$modx->invokeEvent("OnBeforeUserFormSave", array (
 			"mode" => "new",
 			"id" => $id
@@ -153,30 +156,26 @@ switch ($_POST['mode']) {
 		require ('hash.inc.php');
 		$HashHandler = new HashHandler(CLIPPER_HASH_PREFERRED, $modx);
 		$Hash = $HashHandler->generate($newpassword);
-		$sql = 'INSERT INTO '.$dbase.'.`'.$table_prefix.'manager_users` (username, hashtype, salt, password)
-						VALUES(\''.$newusername_esc.'\', '.CLIPPER_HASH_PREFERRED.', \''.$modx->db->escape($Hash->salt).'\', \''.$modx->db->escape($Hash->hash).'\')';
-		$rs = $modx->db->query($sql);
-		if (!$rs) {
-			webAlert("An error occurred while attempting to save the user.");
-			exit;
-		}
-		// now get the id
-		if (!$key = mysql_insert_id()) {
-			//get the key by sql
-		}
 
-		$sql = "INSERT INTO $dbase.`" . $table_prefix . "user_attributes` (internalKey, fullname, role, email, phone, mobilephone, fax, zip, state, country, gender, dob, photo, comment, blocked, blockeduntil, blockedafter)
-						VALUES($key, '$fullname', '$roleid', '$email', '$phone', '$mobilephone', '$fax', '$zip', '$state', '$country', '$gender', '$dob', '$photo', '$comment', '$blocked', '$blockeduntil', '$blockedafter');";
-		$rs = $modx->db->query($sql);
-		if (!$rs) {
-			webAlert("An error occurred while attempting to save the user's attributes.");
-			exit;
-		}
+		$sql = 'INSERT INTO ' . $modx->getFullTableName('manager_users') . " 
+		(username, hashtype, salt, password)
+		VALUES('$newusername_esc', " 
+		. CLIPPER_HASH_PREFERRED . ", '" 
+		. $modx->db->escape($Hash->salt) . "', '" 
+		. $modx->db->escape($Hash->hash) . "')";
+		
+		$modx->db->query($sql);
 
-		// Save User Settings
+		$key = $modx->db->getInsertId();
+
+		$sql = "INSERT INTO " . $modx->getFullTableName('user_attributes') . " 
+		(internalKey, fullname, role, email, phone, mobilephone, fax, zip, state, country, gender, dob, photo, comment, blocked, blockeduntil, blockedafter)
+		VALUES($key, '$fullname', $roleid, '$email', '$phone', '$mobilephone', '$fax', '$zip', '$state', '$country', '$gender', '$dob', '$photo', '$comment', $blocked, $blockeduntil, $blockedafter)";
+
+		$modx->db->query($sql);
+
 		saveUserSettings($key);
 
-		// invoke OnManagerSaveUser event
 		$modx->invokeEvent("OnManagerSaveUser", array (
 			"mode" => "new",
 			"userid" => $key,
@@ -187,7 +186,6 @@ switch ($_POST['mode']) {
 			"userroleid" => $roleid
 		));
 
-		// invoke OnUserFormSave event
 		$modx->invokeEvent("OnUserFormSave", array (
 			"mode" => "new",
 			"id" => $key
@@ -199,19 +197,18 @@ switch ($_POST['mode']) {
 		if ($use_udperms == 1) {
 			if (count($user_groups) > 0) {
 				for ($i = 0; $i < count($user_groups); $i++) {
-					$sql = "INSERT INTO $dbase.`" . $table_prefix . "member_groups` (user_group, member) values('" . intval($user_groups[$i]) . "', $key)";
-					$rs = $modx->db->query($sql);
-					if (!$rs) {
-						webAlert("An error occurred while attempting to add the user to a user_group.");
-						exit;
-					}
+					$sql = "INSERT INTO " . $modx->getFullTableName('member_groups') . " 
+					(user_group, member) 
+					VALUES ('" . intval($user_groups[$i]) . "', $key)";
+
+					$modx->db->query($sql);
 				}
 			}
 		}
-		// end of user_groups stuff!
 
 		if ($passwordnotifymethod == 'e') {
 			sendMailMessage($email, $newusername, $newpassword, $fullname);
+
 			if ($_POST['stay'] != '') {
 				$a = ($_POST['stay'] == '2') ? "12&id=$id" : "11";
 				$header = "Location: index.php?a=" . $a . "&r=2&stay=" . $_POST['stay'];
@@ -277,19 +274,21 @@ switch ($_POST['mode']) {
 			require ('hash.inc.php');
 			$HashHandler = new HashHandler(CLIPPER_HASH_PREFERRED, $modx);
 			$Hash = $HashHandler->generate($newpassword);
-			$updatepasswordsql = ', hashtype='.CLIPPER_HASH_PREFERRED.', salt=\''.$modx->db->escape($Hash->salt).'\', password=\''.$modx->db->escape($Hash->hash).'\'';
+
+			$updatepasswordsql = ", hashtype=" . CLIPPER_HASH_PREFERRED . ", salt='" . $modx->db->escape($Hash->salt) . "', password='" . $modx->db->escape($Hash->hash) . "'";
 		}
+
 		if ($passwordnotifymethod == 'e') {
 			sendMailMessage($email, $newusername, $newpassword, $fullname);
 		}
 
-		// check if the username already exist
-		$sql = "SELECT id FROM $dbase.`" . $table_prefix . "manager_users` WHERE username='$newusername_esc'";
-		if (!$rs = $modx->db->query($sql)) {
-			webAlert("An error occurred while attempting to retrieve all users with username $newusername.");
-			exit;
-		}
-		$limit = mysql_num_rows($rs);
+		// check if the username already exists
+		$sql = "SELECT id FROM " . $modx->getFullTableName('manager_users') . " 
+		WHERE username='$newusername_esc'";
+		
+		$rs = $modx->db->query($sql);
+		$limit = $modx->db->getRecordCount($rs);
+		
 		if ($limit > 0) {
 			$row = $modx->db->getRow($rs);
 			if ($row['id'] != $id) {
@@ -299,61 +298,45 @@ switch ($_POST['mode']) {
 		}
 
 		// check if the email address already exists
-		$sql = "SELECT internalKey FROM $dbase.`" . $table_prefix . "user_attributes` WHERE email='$email'";
-		if (!$rs = $modx->db->query($sql)) {
-			webAlert("An error occurred while attempting to retrieve all users with email $email.");
-			exit;
-		}
-		$limit = mysql_num_rows($rs);
+		$sql = "SELECT internalKey FROM " . $modx->getFullTableName('user_attributes') . " 
+		WHERE email='$email'";
+
+		$rs = $modx->db->query($sql);
+		$limit = $modx->db->getRecordCount($rs);
+
 		if ($limit > 0) {
 			$row = $modx->db->getRow($rs);
+
 			if ($row['internalKey'] != $id) {
 				webAlert("Email is already in use!");
 				exit;
 			}
 		}
 
-		// invoke OnBeforeUserFormSave event
 		$modx->invokeEvent("OnBeforeUserFormSave", array (
 			"mode" => "upd",
 			"id" => $id
 		));
 
 		// update user name and password
-		$sql = "UPDATE $dbase.`" . $table_prefix . "manager_users` SET username='$newusername'" . $updatepasswordsql . " WHERE id=$id";
-		if (!$rs = $modx->db->query($sql)) {
-			webAlert("An error occurred while attempting to update the user's data.");
-			exit;
-		}
+		$sql = "UPDATE " . $modx->getFullTableName('manager_users') . " 
+		SET username='$newusername'" . $updatepasswordsql . " 
+		WHERE id=$id";
+		
+		$modx->db->query($sql);
 
-		$sql = "UPDATE $dbase.`" . $table_prefix . "user_attributes` SET
-					fullname='" . $fullname . "',
-					role='$roleid',
-					email='$email',
-					phone='$phone',
-					mobilephone='$mobilephone',
-					fax='$fax',
-					zip='$zip' ,
-					state='$state',
-					country='$country',
-					gender='$gender',
-					dob='$dob',
-					photo='$photo',
-					comment='$comment',
-					failedlogincount='$failedlogincount',
-					blocked=$blocked,
-					blockeduntil='$blockeduntil',
-					blockedafter='$blockedafter'
-					WHERE internalKey=$id";
-		if (!$rs = $modx->db->query($sql)) {
-			webAlert("An error occurred while attempting to update the user's attributes.");
-			exit;
-		}
+		$sql = "UPDATE " . $modx->getFullTableName('user_attributes') . " 
+		SET fullname='$fullname', role='$roleid', email='$email', phone='$phone',
+		mobilephone='$mobilephone', fax='$fax', zip='$zip', state='$state',
+		country='$country', gender='$gender', dob='$dob', photo='$photo', comment='$comment',
+		failedlogincount='$failedlogincount', blocked=$blocked, blockeduntil=$blockeduntil, 
+		blockedafter=$blockedafter 
+		WHERE internalKey=$id";
 
-		// Save user settings
+		$modx->db->query($sql);
+
 		saveUserSettings($id);
 
-		// invoke OnManagerSaveUser event
 		$modx->invokeEvent("OnManagerSaveUser", array (
 			"mode" => "upd",
 			"userid" => $id,
@@ -365,7 +348,6 @@ switch ($_POST['mode']) {
 			"oldusername" => (($oldusername != $newusername
 		) ? $oldusername : ""), "olduseremail" => (($oldemail != $email) ? $oldemail : "")));
 
-		// invoke OnManagerChangePassword event
 		if ($updatepasswordsql)
 			$modx->invokeEvent("OnManagerChangePassword", array (
 				"userid" => $id,
@@ -373,7 +355,6 @@ switch ($_POST['mode']) {
 				"userpassword" => $newpassword
 			));
 
-		// invoke OnUserFormSave event
 		$modx->invokeEvent("OnUserFormSave", array (
 			"mode" => "upd",
 			"id" => $id
@@ -383,26 +364,25 @@ switch ($_POST['mode']) {
 		// put the user in the user_groups he/ she should be in
 		// first, check that up_perms are switched on!
 		if ($use_udperms == 1) {
-			// as this is an existing user, delete his/ her entries in the groups before saving the new groups
-			$sql = "DELETE FROM $dbase.`" . $table_prefix . "member_groups` WHERE member=$id;";
-			$rs = $modx->db->query($sql);
-			if (!$rs) {
-				webAlert("An error occurred while attempting to delete previous user_groups entries.");
-				exit;
-			}
+		// as this is an existing user, delete his/ her entries in the groups before saving the new groups
+			$sql = "DELETE FROM " . $modx->getFullTableName('member_groups') . " 
+			WHERE member=$id";
+
+			$modx->db->query($sql);
+
 			if (count($user_groups) > 0) {
 				for ($i = 0; $i < count($user_groups); $i++) {
-					$sql = "INSERT INTO $dbase.`" . $table_prefix . "member_groups` (user_group, member) values(" . intval($user_groups[$i]) . ", $id)";
-					$rs = $modx->db->query($sql);
-					if (!$rs) {
-						webAlert("An error occurred while attempting to add the user to a user_group.<br />$sql;");
-						exit;
-					}
+					$sql = "INSERT INTO " . $modx->getFullTableName('member_groups') . " 
+					(user_group, member) 
+					VALUES (" . intval($user_groups[$i]) . ", $id)";
+
+					$modx->db->query($sql);
 				}
 			}
 		}
 		// end of user_groups stuff!
 		/*******************************************************************************/
+
 		if ($id == $modx->getLoginUserID() && ($genpassword !==1 && $passwordnotifymethod !='s')) {
 ?>
 			<body bgcolor='#efefef'>
@@ -563,6 +543,7 @@ function saveUserSettings($id) {
 
 	// get user setting field names
 	$settings= array ();
+
 	foreach ($_POST as $n => $v) {
 		if (in_array($n, $ignore) || (!in_array($n, $defaults) && trim($v) == '')) continue; // ignore blacklist and empties
 
@@ -579,8 +560,7 @@ function saveUserSettings($id) {
 	}
 
 	$usrTable = $modx->getFullTableName('user_settings');
-
-	mysql_query('DELETE FROM '.$usrTable.' WHERE user='.$id);
+	$modx->db->query("DELETE FROM $usrTable WHERE user= $id");
 
 	$savethese = array();
 	foreach ($settings as $k => $v) {
@@ -588,11 +568,10 @@ function saveUserSettings($id) {
 	    $savethese[] = '('.$id.', \''.$modx->db->escape($k).'\', \''.$modx->db->escape($v).'\')';
 	}
 
-	$sql = 'INSERT INTO '.$usrTable.' (user, setting_name, setting_value)
-		VALUES '.implode(', ', $savethese);
-	if (!@$rs = $modx->db->query($sql)) {
-		die('Failed to update user settings!');
-	}
+	$sql = "INSERT INTO $usrTable (user, setting_name, setting_value)
+	VALUES " . implode(', ', $savethese);
+
+	$modx->db->query($sql);
 }
 
 // converts date format dd-mm-yyyy to php date

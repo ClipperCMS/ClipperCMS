@@ -139,6 +139,8 @@ function tplUseTvs($tpl_id, $tvs='', $types='') {
 
 // Create a MySQL-safe list from an array
 function makeSqlList($arr) {
+	global $modx;
+	
 	$arr = makeArray($arr);
 	foreach($arr as $k=>$tv) {
         //if (substr($tv, 0, 2) == 'tv') {$tv=substr($tv,2);}
@@ -181,4 +183,3 @@ function includeCss($url, $output_type='js') {
 		return;	
 	}
 }
-

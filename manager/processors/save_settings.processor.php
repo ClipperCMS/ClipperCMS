@@ -1,12 +1,14 @@
 <?php
-if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
+if (!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
-if(!$modx->hasPermission('settings')) {
+if (!$modx->hasPermission('settings')) {
 	$e->setError(3);
 	$e->dumpError();
 }
+
 if (isset($_POST) && count($_POST) > 0) {
 	$savethese = array();
+
 	foreach ($_POST as $k => $v) {
 		switch ($k) {
 			case 'error_page':
@@ -15,52 +17,58 @@ if (isset($_POST) && count($_POST) > 0) {
 				$v = $_POST['site_start'];
 			}
 			break;
-	
+ 
 			case 'lst_custom_contenttype':
 			case 'txt_custom_contenttype':
 				// Skip these
 				continue 2;
 				break;
+
 			case 'rb_base_dir':
 			case 'rb_base_url':
 			case 'filemanager_path':
 				if (substr(trim($v), -1) !== '/') {
-					$v = $v .'/';
+					$v = $v . '/';
 				}
 				break;
-            case 'manager_language':
-                $langDir = realpath(MODX_BASE_PATH . 'manager/includes/lang');
-                $langFile = realpath(MODX_BASE_PATH . '/manager/includes/lang/' . $v . '.inc.php');
-                $langFileDir = dirname($langFile);
-                if($langDir !== $langFileDir || !file_exists($langFile)) {
-                    $v = 'english';
-                }
+
+			case 'manager_language':
+				$langDir = realpath(MODX_BASE_PATH . 'manager/includes/lang');
+				$langFile = realpath(MODX_BASE_PATH . '/manager/includes/lang/' . $v . '.inc.php');
+				$langFileDir = dirname($langFile);
+				if ($langDir !== $langFileDir || !file_exists($langFile)) {
+					$v = 'english';
+				}
 			default:
 			break;
 		}
+
 		$v = is_array($v) ? implode(",", $v) : $v;
 
-		$savethese[] = '(\''.$modx->db->escape($k).'\', \''.$modx->db->escape($v).'\')';
+		$savethese[] = "('" . $modx->db->escape($k) . "', '" . $modx->db->escape($v) . "')";
 	}
 	
 	// Run a single query to save all the values
-	$sql = "REPLACE INTO ".$modx->getFullTableName("system_settings")." (setting_name, setting_value)
-		VALUES ".implode(', ', $savethese);
-	if(!@$rs = $modx->db->query($sql)) {
-		echo "Failed to update setting value!";
-		exit;
-	}
-	
+	$sql = "REPLACE INTO " . $modx->getFullTableName('system_settings') . " (setting_name, setting_value)
+		VALUES " . implode(', ', $savethese);
+
+	$modx->db->query($sql);
+
 	// Reset Template Pages
 	if (isset($_POST['reset_template'])) {
 		$template = $_POST['default_template'];
 		$oldtemplate = $_POST['old_template'];
-		$tbl = $dbase.".`".$table_prefix."site_content`";
+		$tbl = $modx->getFullTableName('site_content');
 		$reset = $_POST['reset_template'];
-		if($reset==1) mysql_query("UPDATE $tbl SET template = '$template' WHERE type='document'");
-		else if($reset==2) mysql_query("UPDATE $tbl SET template = '$template' WHERE template = $oldtemplate");
+		
+		if ($reset == 1) {
+			$modx->db->query("UPDATE $tbl SET template = '$template' WHERE type='document'");
+		}
+		else if ($reset == 2) {
+			$modx->db->query("UPDATE $tbl SET template = '$template' WHERE template = $oldtemplate");
+		}
 	}
-	// lose the POST now, gets rid of quirky issue with Safari 3 - see FS#972
+	// lose the POST now, gets rid of quirky issue with Safari 3
 	unset($_POST);
 	
 	// empty cache
@@ -68,8 +76,9 @@ if (isset($_POST) && count($_POST) > 0) {
 	$sync = new synccache();
 	$sync->setCachepath("../assets/cache/");
 	$sync->setReport(false);
-	$sync->emptyCache(); // first empty the cache
+	$sync->emptyCache();
 }
+
 $header="Location: index.php?a=7&r=10";
 header($header);
 ?>

@@ -1,12 +1,10 @@
 <?php
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
-if(!$modx->hasPermission('save_snippet')) {
+if (!$modx->hasPermission('save_snippet')) {
 	$e->setError(3);
 	$e->dumpError();	
 }
-?>
-<?php
 
 $id = intval($_POST['id']);
 $name = $modx->db->escape(trim($_POST['name']));
@@ -23,7 +21,6 @@ $properties = $modx->db->escape($_POST['properties']);
 $moduleguid = $modx->db->escape($_POST['moduleguid']);
 $sysevents = $_POST['sysevents'];
 
-//Kyle Jaebker - added category support
 if (empty($_POST['newcategory']) && $_POST['categoryid'] > 0) {
     $categoryid = $modx->db->escape($_POST['categoryid']);
 } elseif (empty($_POST['newcategory']) && $_POST['categoryid'] <= 0) {
@@ -38,12 +35,12 @@ if (empty($_POST['newcategory']) && $_POST['categoryid'] > 0) {
     }
 }
 
-if($name=="") $name = "Untitled snippet";
+if (empty($name)) {
+	$name = "Untitled snippet";
+} 
 
 switch ($_POST['mode']) {
     case '23':
-
-		// invoke OnBeforeSnipFormSave event
 		$modx->invokeEvent("OnBeforeSnipFormSave",
 								array(
 									"mode"	=> "new",
@@ -51,10 +48,14 @@ switch ($_POST['mode']) {
 								));
 								
 		// disallow duplicate names for new snippets
-		$sql = "SELECT COUNT(id) FROM {$dbase}.`{$table_prefix}site_snippets` WHERE name = '{$name}'";
+		$sql = "SELECT COUNT(id) FROM " . $modx->getFullTableName('site_snippets') . " 
+		WHERE name = '$name'";
+
 		$rs = $modx->db->query($sql);
+
 		$count = $modx->db->getValue($rs);
-		if($count > 0) {
+
+		if ($count > 0) {
 			$modx->event->alert(sprintf($_lang['duplicate_name_found_general'], $_lang["snippet"], $name));
 
 			// prepare a few variables prior to redisplaying form...
@@ -76,86 +77,74 @@ switch ($_POST['mode']) {
 			exit;
 		}
 
-		//do stuff to save the new doc
-		$sql = "INSERT INTO $dbase.`".$table_prefix."site_snippets` (name, description, snippet, moduleguid, locked, properties, category) VALUES('".$name."', '".$description."', '".$snippet."', '".$moduleguid."', '".$locked."','".$properties."', '".$categoryid."');";
-		$rs = $modx->db->query($sql);
-		if(!$rs){
-			echo "\$rs not set! New snippet not saved!";
-			exit;
-		} 
-		else {	
-			// get the id
-			if(!$newid=mysql_insert_id()) {
-				echo "Couldn't get last insert key!";
-				exit;
-			}
+		$sql = "INSERT INTO " . $modx->getFullTableName('site_snippets') . " (name, description, snippet, moduleguid, locked, properties, category) 
+		VALUES('$name', '$description', '$snippet', '$moduleguid', '$locked', '$properties', '$categoryid');";
 
-			// invoke OnSnipFormSave event
-			$modx->invokeEvent("OnSnipFormSave",
-									array(
-										"mode"	=> "new",
-										"id"	=> $newid
-									));
-			// empty cache
-			include_once "cache_sync.class.processor.php";
-			$sync = new synccache();
-			$sync->setCachepath("../assets/cache/");
-			$sync->setReport(false);
-			$sync->emptyCache(); // first empty the cache		
-			// finished emptying cache - redirect
-			if($_POST['stay']!='') {
-				$a = ($_POST['stay']=='2') ? "22&id=$newid":"23";
-				$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
-				header($header);
-			} else {
-				$header="Location: index.php?a=76&r=2";
-				header($header);
-			}
-		}		
+		$modx->db->query($sql);
+		
+		$newid = $modx->db->getInsertId();
+
+		$modx->invokeEvent("OnSnipFormSave",
+								array(
+									"mode"	=> "new",
+									"id"	=> $newid
+								));
+
+		// empty cache
+		include_once "cache_sync.class.processor.php";
+		$sync = new synccache();
+		$sync->setCachepath("../assets/cache/");
+		$sync->setReport(false);
+		$sync->emptyCache();
+
+		if($_POST['stay']!='') {
+			$a = ($_POST['stay']=='2') ? "22&id=$newid":"23";
+			$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
+			header($header);
+		} else {
+			$header="Location: index.php?a=76&r=2";
+			header($header);
+		}
         break;
+
     case '22':
-		// invoke OnBeforeSnipFormSave event
 		$modx->invokeEvent("OnBeforeSnipFormSave",
 								array(
 									"mode"	=> "upd",
 									"id"	=> $id
 								));	
 								
-		//do stuff to save the edited doc	
-		$sql = "UPDATE $dbase.`".$table_prefix."site_snippets` SET name='".$name."', description='".$description."', snippet='".$snippet."', moduleguid='".$moduleguid."', locked='".$locked."', properties='".$properties."', category='".$categoryid."'  WHERE id='".$id."';";
-		$rs = $modx->db->query($sql);
-		if(!$rs){
-			echo "\$rs not set! Edited snippet not saved!";
-			exit;
-		} 
-		else {		
-			// invoke OnSnipFormSave event
-			$modx->invokeEvent("OnSnipFormSave",
-									array(
-										"mode"	=> "upd",
-										"id"	=> $id
-									));	
-			// empty cache
-			include_once "cache_sync.class.processor.php";
-			$sync = new synccache();
-			$sync->setCachepath("../assets/cache/");
-			$sync->setReport(false);
-			$sync->emptyCache(); // first empty the cache
-			if($_POST['runsnippet']) run_snippet($snippet);
-			// finished emptying cache - redirect	
-			if($_POST['stay']!='') {
-				$a = ($_POST['stay']=='2') ? "22&id=$id":"23";
-				$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
-				header($header);
-			} else {
-				$header="Location: index.php?a=76&r=2";
-				header($header);
-			}
-		}		
+		$sql = "UPDATE " . $modx->getFullTableName('site_snippets') . " 
+			SET name='$name', description='$description', snippet='$snippet', moduleguid='$moduleguid', locked='$locked', properties='$properties', category='$categoryid'  
+			WHERE id='".$id."';";
+
+		$modx->db->query($sql);
+
+		$modx->invokeEvent("OnSnipFormSave",
+								array(
+									"mode"	=> "upd",
+									"id"	=> $id
+								));	
+
+		// empty cache
+		include_once "cache_sync.class.processor.php";
+		$sync = new synccache();
+		$sync->setCachepath("../assets/cache/");
+		$sync->setReport(false);
+		$sync->emptyCache();
+		
+		if ($_POST['runsnippet']) {
+		 	run_snippet($snippet);	
+		}
+		
+		if ($_POST['stay'] != '') {
+			$a = ($_POST['stay']=='2') ? "22&id=$id":"23";
+			$header="Location: index.php?a=".$a."&r=2&stay=".$_POST['stay'];
+			header($header);
+		} else {
+			$header="Location: index.php?a=76&r=2";
+			header($header);
+		}
         break;
-    default:
-	?>	
-		Erm... You supposed to be here now? 	
-	<?php
 }
 ?>

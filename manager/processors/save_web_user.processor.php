@@ -1,18 +1,15 @@
 <?php
-if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
+if (!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
 if (!$modx->hasPermission('save_web_user')) {
 	$e->setError(3);
 	$e->dumpError();
 }
-?>
-<?php
-
 
 // Web alert -  sends an alert to web browser
 function webAlert($msg) {
 	global $id, $modx;
-	global $dbase, $table_prefix;
+
 	$mode = $_POST['mode'];
 	$url = "index.php?a=$mode" . ($mode == '88' ? "&id=" . $id : "");
 	$modx->manager->saveFormValues($mode);
@@ -75,24 +72,24 @@ if ($email == '' || !preg_match("/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i", $
 switch ($_POST['mode']) {
 	case '87' : // new user
 		// check if this user name already exist
-		$sql = "SELECT id FROM $dbase.`" . $table_prefix . "web_users` WHERE username='$newusername'";
-		if (!$rs = $modx->db->query($sql)) {
-			webAlert("An error occurred while attempting to retrieve all users with username $newusername.");
-			exit;
-		}
-		$limit = mysql_num_rows($rs);
+		$sql = "SELECT id FROM " . $modx->getFullTableName('web_users') . " 
+		WHERE username='$newusername'";
+
+		$rs = $modx->db->query($sql);
+		$limit = $modx->db->getRecordCount($rs);
+
 		if ($limit > 0) {
 			webAlert("User name is already in use!");
 			exit;
 		}
 
-		// check if the email address already exist
-		$sql = "SELECT id FROM $dbase.`" . $table_prefix . "web_user_attributes` WHERE email='$email'";
-		if (!$rs = $modx->db->query($sql)) {
-			webAlert("An error occurred while attempting to retrieve all users with email $email.");
-			exit;
-		}
-		$limit = mysql_num_rows($rs);
+		// check if the email address already exists
+		$sql = "SELECT id FROM " . $modx->getFullTableName('web_user_attributes') . " 
+			WHERE email='$email'";
+
+		$rs = $modx->db->query($sql);
+		$limit = $modx->db->getRecordCount($rs);
+
 		if ($limit > 0) {
 			$row = $modx->db->getRow($rs);
 			if ($row['id'] != $id) {
@@ -121,37 +118,24 @@ switch ($_POST['mode']) {
 			exit;
 		}
 
-		// invoke OnBeforeWUsrFormSave event
 		$modx->invokeEvent("OnBeforeWUsrFormSave", array (
 			"mode" => "new",
 			"id" => $id
 		));
 
-		// create the user account
-		$sql = "INSERT INTO $dbase.`" . $table_prefix . "web_users` (username, password)
-						VALUES('" . $newusername . "', md5('" . $newpassword . "'));";
-		$rs = $modx->db->query($sql);
-		if (!$rs) {
-			webAlert("An error occurred while attempting to save the user.");
-			exit;
-		}
-		// now get the id
-		if (!$key = mysql_insert_id()) {
-			//get the key by sql
-		}
+		$sql = "INSERT INTO " . $modx->getFullTableName('web_users') . " (username, password)
+			VALUES('$newusername', md5('$newpassword'));";
 
-		$sql = "INSERT INTO $dbase.`" . $table_prefix . "web_user_attributes` (internalKey, fullname, role, email, phone, mobilephone, fax, zip, state, country, gender, dob, photo, comment, blocked, blockeduntil, blockedafter)
-						VALUES($key, '$fullname', '$roleid', '$email', '$phone', '$mobilephone', '$fax', '$zip', '$state', '$country', '$gender', '$dob', '$photo', '$comment', '$blocked', '$blockeduntil', '$blockedafter');";
-		$rs = $modx->db->query($sql);
-		if (!$rs) {
-			webAlert("An error occurred while attempting to save the user's attributes.");
-			exit;
-		}
+		$modx->db->query($sql);
+		$key = $modx->db->getInsertId();
 
-		// Save User Settings
+		$sql = "INSERT INTO " . $modx->getFullTableName('web_user_attributes') . "  (internalKey, fullname, role, email, phone, mobilephone, fax, zip, state, country, gender, dob, photo, comment, blocked, blockeduntil, blockedafter)
+			VALUES($key, '$fullname', '$roleid', '$email', '$phone', '$mobilephone', '$fax', '$zip', '$state', '$country', '$gender', '$dob', '$photo', '$comment', $blocked, $blockeduntil, $blockedafter)";
+
+		$modx->db->query($sql);
+
 		saveUserSettings($key);
 
-		// invoke OnWebSaveUser event
 		$modx->invokeEvent("OnWebSaveUser", array (
 			"mode" => "new",
 			"userid" => $key,
@@ -161,7 +145,6 @@ switch ($_POST['mode']) {
 			"userfullname" => $fullname
 		));
 
-		// invoke OnWUsrFormSave event
 		$modx->invokeEvent("OnWUsrFormSave", array (
 			"mode" => "new",
 			"id" => $key
@@ -173,16 +156,13 @@ switch ($_POST['mode']) {
 		if ($use_udperms == 1) {
 			if (count($user_groups) > 0) {
 				for ($i = 0; $i < count($user_groups); $i++) {
-					$sql = "INSERT INTO $dbase.`" . $table_prefix . "web_groups` (webgroup, webuser) values('" . intval($user_groups[$i]) . "', '" . $key . "')";
-					$rs = $modx->db->query($sql);
-					if (!$rs) {
-						webAlert("An error occurred while attempting to add the user to a web group.");
-						exit;
-					}
+					$sql = "INSERT INTO " . $modx->getFullTableName('web_groups') . " (webgroup, webuser) 
+						VALUES('" . intval($user_groups[$i]) . "', '$key')";
+
+					$modx->db->query($sql);
 				}
 			}
 		}
-		// end of user_groups stuff!
 
 		if ($passwordnotifymethod == 'e') {
 			sendMailMessage($email, $newusername, $newpassword, $fullname);
@@ -225,6 +205,7 @@ switch ($_POST['mode']) {
 			include_once "footer.inc.php";
 		}
 		break;
+
 	case '88' : // edit user
 		// generate a new password for this user
 		if ($genpassword == 1) {
@@ -252,13 +233,13 @@ switch ($_POST['mode']) {
 			sendMailMessage($email, $newusername, $newpassword, $fullname);
 		}
 
-		// check if the username already exist
-		$sql = "SELECT id FROM $dbase.`" . $table_prefix . "web_users` WHERE username='$newusername'";
-		if (!$rs = $modx->db->query($sql)) {
-			webAlert("An error occurred while attempting to retrieve all users with username $newusername.");
-			exit;
-		}
-		$limit = mysql_num_rows($rs);
+		// check if the username already exists
+		$sql = "SELECT id FROM " . $modx->getFullTableName('web_users') . " 
+			WHERE username='$newusername'";
+
+		$rs = $modx->db->query($sql);
+		$limit = $modx->db->getRecordCount($rs);
+
 		if ($limit > 0) {
 			$row = $modx->db->getRow($rs);
 			if ($row['id'] != $id) {
@@ -268,12 +249,12 @@ switch ($_POST['mode']) {
 		}
 
 		// check if the email address already exists
-		$sql = "SELECT internalKey FROM $dbase.`" . $table_prefix . "web_user_attributes` WHERE email='$email'";
-		if (!$rs = $modx->db->query($sql)) {
-			webAlert("An error occurred while attempting to retrieve all users with email $email.");
-			exit;
-		}
-		$limit = mysql_num_rows($rs);
+		$sql = "SELECT internalKey FROM " . $modx->getFullTableName('web_user_attributes') . " 
+			WHERE email='$email'";
+
+		$rs = $modx->db->query($sql);
+		$limit = $modx->db->getRecordCount($rs);
+
 		if ($limit > 0) {
 			$row = $modx->db->getRow($rs);
 			if ($row['internalKey'] != $id) {
@@ -282,21 +263,19 @@ switch ($_POST['mode']) {
 			}
 		}
 
-		// invoke OnBeforeWUsrFormSave event
 		$modx->invokeEvent("OnBeforeWUsrFormSave", array (
 			"mode" => "upd",
 			"id" => $id
 		));
 
-		// update user name and password
-		$sql = "UPDATE $dbase.`" . $table_prefix . "web_users` SET username='$newusername'" . $updatepasswordsql . " WHERE id=$id";
-		if (!$rs = $modx->db->query($sql)) {
-			webAlert("An error occurred while attempting to update the user's data.");
-			exit;
-		}
+		$sql = "UPDATE " . $modx->getFullTableName('web_users') . " 
+			SET username='$newusername'" . $updatepasswordsql . " 
+			WHERE id=$id";
+
+		$modx->db->query($sql);
 		
-		$sql = "UPDATE $dbase.`" . $table_prefix . "web_user_attributes` SET 
-					fullname='" . $fullname . "', 
+		$sql = "UPDATE " . $modx->getFullTableName('web_user_attributes') . " 
+				SET fullname='" . $fullname . "', 
 					role='$roleid', 
 					email='$email', 
 					phone='$phone',
@@ -311,18 +290,14 @@ switch ($_POST['mode']) {
 					comment='$comment',
 					failedlogincount='$failedlogincount', 
 					blocked=$blocked, 
-					blockeduntil='$blockeduntil', 
-					blockedafter='$blockedafter' 
+					blockeduntil=$blockeduntil, 
+					blockedafter=$blockedafter 
 					WHERE internalKey=$id";
-		if (!$rs = $modx->db->query($sql)) {
-			webAlert("An error occurred while attempting to update the user's attributes.");
-			exit;
-		}
 
-		// Save User Settings
+		$modx->db->query($sql);
+
 		saveUserSettings($id);
 
-		// invoke OnWebSaveUser event
 		$modx->invokeEvent("OnWebSaveUser", array (
 			"mode" => "upd",
 			"userid" => $id,
@@ -333,7 +308,6 @@ switch ($_POST['mode']) {
 			"oldusername" => (($oldusername != $newusername
 		) ? $oldusername : ""), "olduseremail" => (($oldemail != $email) ? $oldemail : "")));
 
-		// invoke OnWebChangePassword event
 		if ($updatepasswordsql)
 			$modx->invokeEvent("OnWebChangePassword", array (
 				"userid" => $id,
@@ -341,7 +315,6 @@ switch ($_POST['mode']) {
 				"userpassword" => $newpassword
 			));
 
-		// invoke OnWUsrFormSave event
 		$modx->invokeEvent("OnWUsrFormSave", array (
 			"mode" => "upd",
 			"id" => $id
@@ -352,24 +325,21 @@ switch ($_POST['mode']) {
 		// first, check that up_perms are switched on!
 		if ($use_udperms == 1) {
 			// as this is an existing user, delete his/ her entries in the groups before saving the new groups
-			$sql = "DELETE FROM $dbase.`" . $table_prefix . "web_groups` WHERE webuser=$id;";
-			$rs = $modx->db->query($sql);
-			if (!$rs) {
-				webAlert("An error occurred while attempting to delete previous user_groups entries.");
-				exit;
-			}
+			$sql = "DELETE FROM " . $modx->getFullTableName('web_groups') . " 
+				WHERE webuser=$id;";
+
+			$modx->db->query($sql);
+
 			if (count($user_groups) > 0) {
 				for ($i = 0; $i < count($user_groups); $i++) {
-					$sql = "INSERT INTO $dbase.`" . $table_prefix . "web_groups` (webgroup, webuser) VALUES('" . intval($user_groups[$i]) . "', '$id')";
-					$rs = $modx->db->query($sql);
-					if (!$rs) {
-						webAlert("An error occurred while attempting to add the user to a user_group.<br />$sql;");
-						exit;
-					}
+					$sql = "INSERT INTO " . $modx->getFullTableName('web_groups') . " (webgroup, webuser) 
+						VALUES('" . intval($user_groups[$i]) . "', '$id')";
+
+					$modx->db->query($sql);
 				}
 			}
 		}
-		// end of user_groups stuff!
+
 		/*******************************************************************************/
 
 		if ($genpassword == 1 && $passwordnotifymethod == 's') {
@@ -410,6 +380,7 @@ switch ($_POST['mode']) {
 			}
 		}
 		break;
+
 	default :
 		webAlert("Unauthorized access");
 		exit;
@@ -442,7 +413,7 @@ function sendMailMessage($email, $uid, $pwd, $ufn) {
 
 // Save User Settings
 function saveUserSettings($id) {
-	global $modx, $dbase, $table_prefix;
+	global $modx;
 
 	$settings = array (
 		"login_home",
@@ -450,15 +421,19 @@ function saveUserSettings($id) {
 		"allowed_days"
 	);
 
-	mysql_query("DELETE FROM $dbase.`" . $table_prefix . "web_user_settings` WHERE webuser='$id'");
-
+	$sql = ("DELETE FROM " . $modx->getFullTableName('web_user_settings') . " 
+		WHERE webuser='$id'");
+	$modx->db->query($sql);
+	
 	for ($i = 0; $i < count($settings); $i++) {
 		$n = $settings[$i];
 		$vl = $_POST[$n];
 		if (is_array($vl))
 			$vl = implode(",", $vl);
 		if ($vl != '')
-			mysql_query("INSERT INTO $dbase.`" . $table_prefix . "web_user_settings` (webuser,setting_name,setting_value) VALUES($id,'$n','" . $modx->db->escape($vl) . "')");
+			$sql = ("INSERT INTO " . $modx->getFullTableName('web_user_settings') . " (webuser,setting_name,setting_value) 
+				VALUES($id, '$n', '" . $modx->db->escape($vl) . "')");
+			$modx->db->query($sql);
 	}
 }
 

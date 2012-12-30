@@ -9,8 +9,6 @@ class udperms{
 	
 	function checkPermissions() {
 		
-		global $table_prefix;
-		global $dbase;
 		global $udperms_allowroot;
 		global $modx;
 
@@ -32,59 +30,19 @@ class udperms{
 			return true; // permissions aren't in use
 		}
 		
-		$parent = $modx->db->getValue('SELECT parent FROM '.$modx->getFullTableName('site_content').' WHERE id='.$this->document);
+		$parent = $modx->db->getValue("
+			SELECT parent 
+			FROM " . $modx->getFullTableName('site_content') . " 
+			WHERE id=" . $this->document
+			);
+
 		if ($this->duplicateDoc==true && $parent==0 && $udperms_allowroot==0) {
 			return false; // deny duplicate document at root if Allow Root is No
 		}
-		
-		/*// get the groups this user is a member of
-		$sql = "SELECT * FROM $dbase.`".$table_prefix."member_groups` WHERE $dbase.`".$table_prefix."member_groups`.member = $user;";
-		$rs = mysql_query($sql);
-		$limit = mysql_num_rows($rs);
-		if($limit<1) {
-			return false;
-		}
-		for($i=0; $i < $limit; $i++) {
-			$row = $modx->db->getRow($rs);
-			$membergroups[$i] = $row['user_group'];
-		}
-
-		$list = implode(",", $membergroups);
-
-		// get the permissions for the groups this user is a member of
-		$sql = "SELECT * FROM $dbase.`".$table_prefix."membergroup_access` WHERE $dbase.`".$table_prefix."membergroup_access`.membergroup IN($list);";
-		$rs = mysql_query($sql);
-		$limit = mysql_num_rows($rs);
-		if($limit<1) {
-			return false;
-		}
-		
-		for($i=0; $i < $limit; $i++) {
-			$row = $modx->db->getRow($rs);
-			$documentgroups[$i] = $row['documentgroup'];
-		}
-		
-		$list = implode(",", $documentgroups);
-
-		// get the groups this user has permissions for
-		$sql = "SELECT * FROM $dbase.`".$table_prefix."document_groups` WHERE $dbase.`".$table_prefix."document_groups`.document_group IN($list);";
-		$rs = mysql_query($sql);
-		$limit = mysql_num_rows($rs);
-		if($limit<1) {
-			return false;
-		}
-		
-		for($i=0; $i < $limit; $i++) {
-			$row = $modx->db->getRow($rs);
-			if($row['document']==$document) {
-				$permissionsok = true;
-			}
-		}*/
-
 
 		// get document groups for current user
 		if($_SESSION['mgrDocgroups']) {
-			$docgrp = implode(" || dg.document_group = ",$_SESSION['mgrDocgroups']);
+			$docgrp = implode(" || dg.document_group = ", $_SESSION['mgrDocgroups']);
 		}
 
 		/* Note:
@@ -93,20 +51,27 @@ class udperms{
 			the document is assigned to a document group that is not yet linked 
 			to a user group then that document will be made public. Documents that 
 			are private to the manager users will not be private to web users if the 
-			document group is not assigned to a web user group and visa versa.
+			document group is not assigned to a web user group and vice versa.
 		 */
-		$tblsc = $dbase.".`".$table_prefix."site_content`";
-		$tbldg = $dbase.".`".$table_prefix."document_groups`";
-		$tbldgn = $dbase.".`".$table_prefix."documentgroup_names`";
+		$tblsc = $modx->getFullTableName('site_content');
+		$tbldg = $modx->getFullTableName('document_groups');
+		$tbldgn = $modx->getFullTableName('documentgroup_names');
+		
 		$sql = "SELECT DISTINCT sc.id 
 				FROM $tblsc sc 
 				LEFT JOIN $tbldg dg on dg.document = sc.id
 				LEFT JOIN $tbldgn dgn ON dgn.id = dg.document_group
-				WHERE sc.id = $document 
-				AND (". ( (!$docgrp) ? null : "dg.document_group = ".$docgrp." ||" ) . " sc.privatemgr = 0)";
+				WHERE sc.id = $document AND ";
+
+		if (isset($docgrp)) {
+			$sql .= "(dg.document_group = " . $docgrp . " || sc.privatemgr = 0)";
+		} else {
+			$sql .= "sc.privatemgr = 0";
+		}
 				   
-		$rs = mysql_query($sql);
-		$limit = mysql_num_rows($rs);
+		$rs = $modx->db->query($sql);
+		$limit = $modx->db->getRecordCount($rs);
+
 		if($limit==1) $permissionsok = true;
 		
 		return $permissionsok;
