@@ -95,11 +95,11 @@ class DBAPI {
          $this->parent->messageQuit("Failed to create the database connection!");
          exit;
       } else {
-         $dbase = str_replace('`', '', $dbase); // remove the `` chars
-         if (!@ mysql_select_db($dbase, $this->conn)) {
-            $this->parent->messageQuit("Failed to select the database '" . $dbase . "'!");
-            exit;
-         }
+         $dbase = str_replace('`', "", $dbase); // remove the `` chars
+	         if (!@ mysql_select_db($dbase, $this->conn)) {
+	            $this->parent->messageQuit("Failed to select the database '" . $dbase . "'!");
+	            exit;
+	         }
          $this->host = $host;
          $this->dbase = $dbase;
          @mysql_query("{$connection_method} {$charset}", $this->conn);
@@ -124,10 +124,10 @@ class DBAPI {
    }
 
    function escape($s) {
-      if (function_exists('mysql_real_escape_string') && $this->conn) {
+      if ($this->conn) {
          $s = mysql_real_escape_string($s, $this->conn);
       } else {
-         $s = mysql_escape_string($s);
+         $s = mysql_real_escape_string($s);
       }
       return $s;
    }
@@ -280,9 +280,17 @@ class DBAPI {
     * @name:  getLastError
     *
     */
-   function getLastError($conn=NULL) {
-      if (!is_resource($conn)) $conn =& $this->conn;
-      return mysql_error($conn);
+   function getLastError($conn=NULL, $type='text') {
+      if (!is_resource($conn)) {
+      	$conn =& $this->conn;
+      }
+	  
+	  if ($type == 'text') {
+	  	$result = mysql_error($conn);
+	  } else {
+	  	$result = mysql_errno($conn);
+	  }
+      return $result;
    }
 
    /**
@@ -545,6 +553,29 @@ class DBAPI {
    function getDBname() {
    		return $this->dbase;
    }
+
+  /**
+    * Test database connection or selection
+    *
+    * @return boolean
+    */
+	function testConnect($host = '', $dbase = '', $uid = '', $pwd = '', $query = '') {
+		$connect = @ mysql_connect($host, $uid, $pwd); 
+		$output = $connect;
+		
+		if ($connect && !empty($dbase)) {
+			$dbase = trim($dbase, '`');
+			$select = @ mysql_select_db($dbase, $connect);
+			$output = $select;
+		}
+		
+		elseif ($connect && !empty($query)) {
+			$output = @ mysql_query($query);			
+		}
+		
+		return $output;
+	}
+
 
 }
 

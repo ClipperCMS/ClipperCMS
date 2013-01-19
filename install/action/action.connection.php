@@ -2,43 +2,48 @@
 $installMode = intval($_POST['installmode']);
 
 // Determine upgradeability
-$upgradeable= 0;
+$upgradeable = 0;
+
 if ($installMode > 0) {
   if (file_exists("../manager/includes/config.inc.php")) {
       // Include the file so we can test its validity
       include "../manager/includes/config.inc.php";
-      // We need to have all connection settings - but prefix may be empty so we have to ignore it
+
       if ($dbase) {
-          if (!@ $conn = mysql_connect($database_server, $database_user, $database_password)) {
+          if (! $install->db->testConnect($database_server, '', $database_user, $database_password)) { 
               $upgradeable = isset ($_POST['installmode']) && $_POST['installmode'] == 'new' ? 0 : 2;
           }
-          elseif (!@ mysql_select_db(trim($dbase, '`'), $conn)) {
+          elseif (! $install->db->testConnect($database_server, $dbase, $database_user, $database_password)) { 
               $upgradeable = isset ($_POST['installmode']) && $_POST['installmode'] == 'new' ? 0 : 2;
           } else {
               $upgradeable = 1;
           }
-          $database_name= trim($dbase, '`');
+          $database_name = trim($dbase, '`');
       } else {
-          $upgradable= 2;
+          $upgradeable = 2;
       }
   }
 } else {
-    $database_name= 'clipper';
-    $database_server= 'localhost';
-    $table_prefix= 'clpr_';
+    $database_name = 'clipper';
+    $database_server = 'localhost';
+    $table_prefix = 'clpr_';
 }
 
 // check the database collation if not specified in the configuration
 if ($upgradeable && (!isset ($database_connection_charset) || empty($database_connection_charset))) {
-    if (!$rs = @ mysql_query("show session variables like 'collation_database'")) {
-        $rs = @ mysql_query("show session variables like 'collation_server'");
+
+    if (!$rs = $install->db->query("SHOW SESSION VARIABLES LIKE 'collation_database'")) {
+        $rs = $install->db->query("SHOW SESSION VARIABLES LIKE 'collation_server'");
     }
-    if ($rs && $collation = mysql_fetch_row($rs)) {
+
+    if ($rs && $collation = $install->db->getRow($rs, 'num')) {
         $database_collation = $collation[1];
     }
+
     if (empty ($database_collation)) {
         $database_collation = 'utf8_general_ci';
     }
+
     $database_charset = substr($database_collation, 0, strpos($database_collation, '_'));
     $database_connection_charset = $database_charset;
 } else {
@@ -61,13 +66,14 @@ if ($upgradeable && (!isset($database_connection_method) || empty($database_conn
 
   <h2><?php echo $_lang['connection_screen_database_info']?></h2>
   <h3><?php echo $_lang['connection_screen_server_connection_information']?></h3>
-  <p><a href="#" onclick="document.getElementById('creation-sql').style.display = 'block'; return false"><?php echo $_lang["connection_screen_database_creation"]; ?></a>
+  <p><a href="#" onclick="document.getElementById('creation-sql').style.display = 'block'; return false"><?php echo $_lang["connection_screen_database_creation"]; ?></a></p>
   		<div id="creation-sql" style="display: none";>
   			<p><?php echo $_lang["connection_screen_database_creation_note"]; ?>
 	  		<pre>
 	  			CREATE DATABASE clipper CHARACTER SET utf8 COLLATE utf8_general_ci
 				GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, INDEX, DROP ON clipper.* TO 'clipper'@'localhost' IDENTIFIED BY '********'
 	  		</pre>
+			</p>
 	  	</div>
   <p><?php echo $_lang['connection_screen_server_connection_note']?></p>
 
@@ -87,7 +93,6 @@ if ($upgradeable && (!isset($database_connection_method) || empty($database_conn
   </div>
   <div class="status" id="serverstatus"></div>
 <!-- end connection test action/status message -->
-
 
 <div id="setCollation"><div id="collationMask">
   <h3><?php echo $_lang['connection_screen_database_connection_information']?></h3>

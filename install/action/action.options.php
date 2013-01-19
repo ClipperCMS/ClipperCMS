@@ -12,20 +12,23 @@ if ($installMode == 0 || $installMode == 2) {
 elseif ($installMode == 1) {
     include "../manager/includes/config.inc.php";
 
-    if (@ $conn = mysql_connect($database_server, $database_user, $database_password)) {
-        if (@ mysql_query("USE {$dbase}")) {
-            if (!$rs = @ mysql_query("show session variables like 'collation_database'")) {
-                $rs = @ mysql_query("show session variables like 'collation_server'");
+    if ($install->db->testConnect($database_server, '', $database_user, $database_password)) {
+        if ($install->db->testConnect($database_server, '', $database_user, "USE $dbase")) {
+            if (! $rs = $install->db->testConnect($database_server, '', $database_user, "SHOW SESSION VARIABLES LIKE 'collation_database'")) {
+                $rs = $install->db->testConnect($database_server, '', $database_user, "SHOW SESSION VARIABLES LIKE 'collation_server'");
             }
-            if ($rs && $collation = mysql_fetch_row($rs)) {
+            if ($rs && $collation = $install->db->getRow($rs, 'num')) {
                 $database_collation = trim($collation[1]);
             }
         }
     }
+
     if (empty ($database_collation)) {
         $database_collation = 'utf8_unicode_ci';
     }
+
     $database_charset = substr($database_collation, 0, strpos($database_collation, '_'));
+
     if (!isset ($database_connection_charset) || empty ($database_connection_charset)) {
         $database_connection_charset = $database_charset;
     }
@@ -33,6 +36,7 @@ elseif ($installMode == 1) {
     if (!isset ($database_connection_method) || empty ($database_connection_method)) {
         $database_connection_method = 'SET CHARACTER SET';
     }
+
     if ($database_connection_method != 'SET NAMES' && $database_connection_charset != $database_charset) {
         $database_connection_method = 'SET NAMES';
     }

@@ -35,7 +35,7 @@ if(is_dir($templatePath) && is_readable($templatePath)) {
                 "$templatePath/{$params['filename']}",
                 $params['modx_category'],
                 $params['lock_template'],
-                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : false
+                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : array()
             );
         }
     }
@@ -64,7 +64,7 @@ if(is_dir($tvPath) && is_readable($tvPath)) {
                 $params['template_assignments'], /* comma-separated list of template names */
                 $params['modx_category'],
                 $params['lock_tv'],  /* value should be 1 or 0 */
-                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : false
+                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : array()
             );
         }
     }
@@ -87,7 +87,7 @@ if(is_dir($chunkPath) && is_readable($chunkPath)) {
                 "$chunkPath/{$params['filename']}",
                 $params['modx_category'],
                 array_key_exists('overwrite', $params) ? $params['overwrite'] : 'true',
-                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : false
+                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : array()
             );
         }
     }
@@ -111,7 +111,7 @@ if(is_dir($snippetPath) && is_readable($snippetPath)) {
                 "$snippetPath/{$params['filename']}",
                 $params['properties'],
                 $params['modx_category'],
-                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : false
+                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : array()
             );
         }
     }
@@ -138,7 +138,7 @@ if(is_dir($pluginPath) && is_readable($pluginPath)) {
                 $params['guid'],
                 $params['modx_category'],
                 $params['legacy_names'],
-                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : false
+                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : array()
             );
         }
     }
@@ -164,7 +164,7 @@ if(is_dir($modulePath) && is_readable($modulePath)) {
                 $params['guid'],
                 intval($params['shareparams']),
                 $params['modx_category'],
-                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : false
+                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : array()
             );
         }
     }
@@ -174,80 +174,56 @@ if(is_dir($modulePath) && is_readable($modulePath)) {
 // setup callback function
 $callBackFnc = "clean_up";
 
-function clean_up($sqlParser) {
-    $ids = array();
-    $mysqlVerOk = -1;
+function clean_up($install) {
 
-    if(function_exists("mysql_get_server_info")) {
-        $mysqlVerOk = (version_compare(mysql_get_server_info(),"4.0.2")>=0);
-    }
+    $ids = array();
 
     // secure web documents - privateweb
-    mysql_query("UPDATE `".$sqlParser->prefix."site_content` SET privateweb = 0 WHERE privateweb = 1",$sqlParser->conn);
+    $install->db->query("UPDATE `" . $install->prefix . "site_content` 
+	SET privateweb = 0 
+	WHERE privateweb = 1");
+
     $sql =  "SELECT DISTINCT sc.id
-             FROM `".$sqlParser->prefix."site_content` sc
-             LEFT JOIN `".$sqlParser->prefix."document_groups` dg ON dg.document = sc.id
-             LEFT JOIN `".$sqlParser->prefix."webgroup_access` wga ON wga.documentgroup = dg.document_group
+             FROM `" . $install->prefix . "site_content` sc
+             LEFT JOIN `" . $install->prefix . "document_groups` dg ON dg.document = sc.id
+             LEFT JOIN `" . $install->prefix . "webgroup_access` wga ON wga.documentgroup = dg.document_group
              WHERE wga.id>0";
-    $ds = mysql_query($sql,$sqlParser->conn);
-    if(!$ds) {
-        echo "An error occurred while executing a query: ".mysql_error();
-    }
-    else {
-        while($r = mysql_fetch_assoc($ds)) $ids[]=$r["id"];
-        if(count($ids)>0) {
-            mysql_query("UPDATE `".$sqlParser->prefix."site_content` SET privateweb = 1 WHERE id IN (".implode(", ",$ids).")");
-            unset($ids);
-        }
-    }
+
+    $ds = $install->db->query($sql);
+
+	while ($r = $install->db->getRow($ds)) {
+		$ids[]=$r["id"];
+	} 
+
+	if (count($ids)>0) {
+	    $install->db->query("UPDATE `" . $install->prefix . "site_content` 
+		SET privateweb = 1 
+		WHERE id IN (" . implode(", ",$ids) . ")");
+	    unset($ids);
+	}
 
     // secure manager documents privatemgr
-    mysql_query("UPDATE `".$sqlParser->prefix."site_content` SET privatemgr = 0 WHERE privatemgr = 1");
-    $sql =  "SELECT DISTINCT sc.id
-             FROM `".$sqlParser->prefix."site_content` sc
-             LEFT JOIN `".$sqlParser->prefix."document_groups` dg ON dg.document = sc.id
-             LEFT JOIN `".$sqlParser->prefix."membergroup_access` mga ON mga.documentgroup = dg.document_group
-             WHERE mga.id>0";
-    $ds = mysql_query($sql);
-    if(!$ds) {
-        echo "An error occurred while executing a query: ".mysql_error();
-    }
-    else {
-        while($r = mysql_fetch_assoc($ds)) $ids[]=$r["id"];
-        if(count($ids)>0) {
-            mysql_query("UPDATE `".$sqlParser->prefix."site_content` SET privatemgr = 1 WHERE id IN (".implode(", ",$ids).")");
-            unset($ids);
-        }
-    }
+    $install->db->query("UPDATE `" . $install->prefix . "site_content` 
+	SET privatemgr = 0 
+	WHERE privatemgr = 1");
 
-    /**** Add Quick Plugin to Module
-    // get quick edit module id
-    $ds = mysql_query("SELECT id FROM `".$sqlParser->prefix."site_modules` WHERE name='QuickEdit'");
-    if(!$ds) {
-        echo "An error occurred while executing a query: ".mysql_error();
-    }
-    else {
-        $row = mysql_fetch_assoc($ds);
-        $moduleid=$row["id"];
-    }
-    // get plugin id
-    $ds = mysql_query("SELECT id FROM `".$sqlParser->prefix."site_plugins` WHERE name='QuickEdit'");
-    if(!$ds) {
-        echo "An error occurred while executing a query: ".mysql_error();
-    }
-    else {
-        $row = mysql_fetch_assoc($ds);
-        $pluginid=$row["id"];
-    }
-    // setup plugin as module dependency
-    $ds = mysql_query("SELECT module FROM `".$sqlParser->prefix."site_module_depobj` WHERE module='$moduleid' AND resource='$pluginid' AND type='30' LIMIT 1");
-    if(!$ds) {
-        echo "An error occurred while executing a query: ".mysql_error();
-    }
-    elseif (mysql_num_rows($ds)==0){
-        mysql_query("INSERT INTO `".$sqlParser->prefix."site_module_depobj` (module, resource, type) VALUES('$moduleid','$pluginid',30)");
-    }
-    ***/
+    $sql =  "SELECT DISTINCT sc.id
+             FROM `" . $install->prefix . "site_content` sc
+             LEFT JOIN `" . $install->prefix . "document_groups` dg ON dg.document = sc.id
+             LEFT JOIN `" . $install->prefix . "membergroup_access` mga ON mga.documentgroup = dg.document_group
+             WHERE mga.id>0";
+
+    $ds = $install->db->query($sql);
+
+	while ($r = $install->db->getRow($ds)) {
+		$ids[]=$r["id"];
+	}
+
+	if(count($ids)>0) {
+	   $install->db->query("UPDATE `" . $install->prefix . "site_content` 
+	   SET privatemgr = 1 WHERE id IN (" . implode(", ",$ids) . ")");
+	   unset($ids);
+	}
 }
 
 function parse_docblock($element_dir, $filename) {
