@@ -160,10 +160,10 @@ global $_lang;
 
 $output = '';
 $event_name = $modx->Event->name;
-$action = ((isset($_GET['action']) && !is_array($_GET['action']) && $_GET['action']!='') ? $_GET['action'] : '');
-$username = ((isset($_GET['username']) && !is_array($_GET['username']) && $_GET['username']!='') ? $_GET['username'] : '');
-$to = ((isset($_GET['email']) &&  !is_array($_GET['email']) && $_GET['email']!='') ?  $_GET['email'] : '');
-$hash = ((isset($_GET['hash']) && !is_array($_GET['hash']) && $_GET['hash']!='') ? $_GET['hash'] : '');
+$action = isset($_GET['action']) ? (string)$_GET['action'] : '';
+$username = isset($_GET['username']) ? (string)$_GET['username'] : '';
+$to = isset($_GET['email']) ? (string)$_GET['email'] : '';
+$hash = isset($_GET['hash']) ? (string)$_GET['hash'] : '';
 $forgot = new ForgotManagerPassword();
 
 if($event_name == 'OnManagerLoginFormRender') {
