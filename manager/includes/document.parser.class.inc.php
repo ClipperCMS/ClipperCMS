@@ -2296,7 +2296,7 @@ class DocumentParser {
         return $this->getChunk($chunkName);
     }
 
-    function parseChunk($chunkName, $chunkArr, $prefix= "{", $suffix= "}") {
+    function parseChunk($chunkName, $chunkArr, $prefix= "[+", $suffix= "+]") {
         if (!is_array($chunkArr)) {
             return false;
         }
