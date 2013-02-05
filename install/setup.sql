@@ -886,7 +886,7 @@ REPLACE INTO `{PREFIX}user_roles`
 
 INSERT IGNORE INTO `{PREFIX}system_settings` 
 (setting_name, setting_value) VALUES 
-('manager_theme','ClipperCarbon'),
+('manager_theme','ClipperModern'),
 ('settings_version',''),
 ('show_meta','0'),
 ('server_offset_time','0'),
