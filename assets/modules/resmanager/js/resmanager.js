@@ -1,131 +1,170 @@
-function getCookie(name) {
-    var dc = document.cookie;
-    var prefix = name + "=";
-    var begin = dc.indexOf("; " + prefix);
-    if (begin == -1) {
-        begin = dc.indexOf(prefix);
-        if (begin != 0) return null;
-    } else {
-        begin += 2;
-    }
-    var end = document.cookie.indexOf(";", begin);
-    if (end == -1) {
-        end = dc.length;
-    }
-    return unescape(dc.substring(begin + prefix.length, end));
-}
-
-function getSelectedRadio(buttonGroup) { 
-    if (buttonGroup[0]) {
-        for (var i=0; i<buttonGroup.length; i++) { 
-            if (buttonGroup[i].checked) { 
-                return i; 
-            } 
-        } 
-    } else { 
-        if (buttonGroup.checked) {
-            return 0;
-        }
-    } 
-    return -1; 
-}
-
-function getSelectedRadioValue(buttonGroup) { 
-    var i = getSelectedRadio(buttonGroup); 
-    if (i == -1) { 
-        return ''; 
-    } else { 
-        if (buttonGroup[i]) {
-            return buttonGroup[i].value; 
-        } else {
-             return buttonGroup.value; 
-        } 
-    } 
-}
 
 function changeOtherLabels() {
-   var choice1 = $('choice_label_1');
-   var choice2 = $('choice_label_2');
+   
+   var choice1 = $('#choice_label_1');
+   var choice2 = $('#choice_label_2');
 
-   if ($('misc').value=='1') {
-       choice1.innerHTML = $('option1').value;
-       choice2.innerHTML = $('option2').value;
-   } else if ($('misc').value=='2') {
-       choice1.innerHTML = $('option3').value;
-       choice2.innerHTML = $('option4').value;
-   } else if ($('misc').value=='3') {
-       choice1.innerHTML = $('option5').value;
-       choice2.innerHTML = $('option6').value;
-   } else if ($('misc').value=='4') {
-       choice1.innerHTML = $('option7').value;
-       choice2.innerHTML = $('option8').value;
-   } else if ($('misc').value=='5') {
-       choice1.innerHTML = $('option9').value;
-       choice2.innerHTML = $('option10').value;
-   } else if ($('misc').value=='6') {
-       choice1.innerHTML = $('option11').value;
-       choice2.innerHTML = $('option12').value;
-   } else if ($('misc').value=='0') {
-       choice1.innerHTML = " - ";
-       choice2.innerHTML = " - ";
+   var miscSetting = $('select#misc').val();
+
+   if (miscSetting == '1') {
+		choice1.text($('#option1').val());
+		choice2.text($('#option2').val());
+   } else if (miscSetting == '2') {
+		choice1.text($('#option3').val());
+		choice2.text($('#option4').val());
+   } else if (miscSetting == '3') {
+		choice1.text($('#option5').val());
+		choice2.text($('#option6').val());
+   } else if (miscSetting == '4') {
+		choice1.text($('#option7').val());
+		choice2.text($('#option8').val());
+   } else if (miscSetting == '5') {
+		choice1.text($('#option9').val());
+		choice2.text($('#option10').val());
+   } else if (miscSetting == '6') {
+		choice1.text($('#option11').val());
+		choice2.text($('#option12').val());
+   } else if (miscSetting == '0') {
+       	choice1.text('-');
+		choice2.text('-');
     }
 }
 
 function postForm() {
-    var tabActiveID = getCookie("webfxtab_resManagerPane");
-	
+
+	//get active tab
+	var tabActiveID = $("#resmanager-main-tabs").tabs('option', 'selected');
+
 	if (tabActiveID == '0' || tabActiveID == null) {
-		$('tabaction').value = 'changeTemplate';
-		$('newvalue').value = getSelectedRadioValue(document.template.id); 
 		
-		document.range.submit(); 
+		//set tab action
+		$('#tabaction').val('changeTemplate');
+		
+		//set template id to be changed
+		var selectedTemplateId = $("form[name='template'] input[name='id']:checked").val();
+		$('#newvalue').val(selectedTemplateId);
+
+		//submit it
+		$('#range').submit();
+		
 	} else if (tabActiveID == '1') {
-	    $('pids_tv').value = $('pids').value;
-	    $('template_id').value = getSelectedRadioValue(document.templatevariables.tid);
+	
+		//get range of ids from "range" form and update "templatevariables" form field
+		$('#pids_tv').val($('#pids').val());
+
+	    //get selected TV
+	    var selectedTvId = $("form[name='templatevariables'] input[name='tid']:checked").val();
+	    $('#template_id').val(selectedTvId);
+
+	    //submit it
+		$('form[name="templatevariables"]').submit();
 	    
-	    document.templatevariables.submit();
-	} else if (tabActiveID == '2') {		
-		$('tabaction').value = getSelectedRadioValue(document.docgroups.tabAction);
-		$('newvalue').value = getSelectedRadioValue(document.docgroups.docgroupid); 
+	} else if (tabActiveID == '2') {
 		
-		document.range.submit(); 
+		//get action to be applied (add or remove)
+	    var tabAction = $("form[name='docgroups'] input[name='tabAction']:checked").val();
+		$('#tabaction').val(tabAction);
+		
+		//get doc group id if any defined
+		var newvalue = $("form[name='docgroups'] input[name='docgroupid']:checked").val();
+		$('#newvalue').val(newvalue);
+		
+		//submit it
+		$('#range').submit();
+		
 	} else if (tabActiveID == '3') {
+	   
 	   /* handled separately using save() function */
-	} else if (tabActiveID == '4') {	
-		$('tabaction').value = 'changeOther';
-
-		$('setoption').value = document.other.misc.value; 
-		$('newvalue').value = getSelectedRadioValue(document.other.choice);
-
-		$('pubdate').value = document.dates.date_pubdate.value; 
-		$('unpubdate').value = document.dates.date_unpubdate.value; 
-		$('createdon').value = document.dates.date_createdon.value; 
-		$('editedon').value = document.dates.date_editedon.value;
+	   
+	} else if (tabActiveID == '4') {
+	
+		//set tab action
+		$('#tabaction').val('changeOther');
 		
-		$('author_createdby').value = document.authors.author_createdby.value; 
-		$('author_editedby').value = document.authors.author_editedby.value;
+		//get misc setting
+		var miscSetting = $('select#misc').val();
+		$('#setoption').val(miscSetting);
 		
-		document.range.submit(); 
+		//get misc setting option
+		var miscSettingChoice = $("form[name='other'] input[name='choice']:checked").val();
+		$('#newvalue').val(miscSettingChoice);
+
+		var publishDate = $('#date_pubdate').val();
+		$('#pubdate').val(publishDate);
+		
+		var unpubdate = $('#date_unpubdate').val();
+		$('#unpubdate').val(unpubdate);
+		
+		var createdon = $('#date_createdon').val();
+		$('#createdon').val(createdon);
+		
+		var editedon = $('#date_editedon').val();
+		$('#editedon').val(editedon);
+		
+		var author_createdby = $('select[name="author_createdby"]').val();
+		$('#author_createdby').val(author_createdby);
+
+		var author_editedby = $('select[name="author_editedby"]').val();
+		$('#author_editedby').val(author_editedby);
+
+		//submit it
+		$('#range').submit();
+
     }
 }
 
 function hideInteraction() {
-    var tabActiveID = getCookie("webfxtab_resManagerPane");
-    if (tabActiveID == '1') { 
-        $('tvloading').style.display = 'none';
+
+    //get active tab
+	var tabActiveID = $("#resmanager-main-tabs").tabs('option', 'selected');
+    
+    if (tabActiveID == '1') {
+        $("#tvloading").hide();
     }
+    
     if (tabActiveID == '3') {
-        if ($('interaction')) {
-            $('interaction').style.display = 'none';
+    
+        if($('#interaction').length) {
+        	$('#interaction').hide();
         }
-        parent.tree.ca = 'move';
+        
+        if(parent.tree !== undefined){
+        	parent.tree.ca = 'move';
+        }
+        	
     } else {
-        $('interaction').style.display = '';
-        parent.tree.ca = '';
+        
+        $('#interaction').show();
+        
+        if(parent.tree !== undefined){
+        	parent.tree.ca = '';
+        }
     }
     
     return true;
 }
 
-window.addEvent('domready', hideInteraction);
-document.addEvent('click', hideInteraction);
+$(document).ready(function($) {
+	
+	hideInteraction();
+
+	//show interaction on tab click
+	$("#resmanager-main-tabs").on("tabsbeforeactivate", function(event, ui){
+		
+		if (ui.newTab.index() == '3') {
+			//hide it if sort menu items
+			$('#interaction').hide();
+		}else{
+			$('#interaction').show();
+		}
+		
+	});
+	
+});
+
+
+
+
+
+
+

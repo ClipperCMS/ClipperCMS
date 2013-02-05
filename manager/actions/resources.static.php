@@ -47,7 +47,7 @@ function createResourceList($resourceTable,$action,$tablePre,$nameField = 'name'
 <h1><?php echo $_lang['element_management']; ?></h1>
 
 <div class="sectionBody">
-	<div id="tabs">
+	<div id="resources-tabs" class="js-tabs">
 		
 		<ul>
 			<?php 	if($modx->hasPermission('new_template') || $modx->hasPermission('edit_template')) { ?>

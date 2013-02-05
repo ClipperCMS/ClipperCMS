@@ -64,97 +64,23 @@ if($limit>1) {
         if ($preEvt !== $plugins['evtid']) {
             $sortables[] = $plugins['evtid'];
             $evtLists .= $insideUl? '</ul><br />': '';
-            $evtLists .= '<strong>'.$plugins['evtname'].'</strong><br /><ul id="'.$plugins['evtid'].'" class="sortableList">';
+            $evtLists .= '<strong>'.$plugins['evtname'].'</strong><br /><ul id="'.$plugins['evtid'].'" class="sortableList plugin-execution-order">';
             $insideUl = 1;
         }
-        $evtLists .= '<li id="item_'.$plugins['pluginid'].'">'.$plugins['name'].'</li>';
+        $evtLists .= '<li id="item_'.$plugins['pluginid'].'" class="ui-state-default">'.$plugins['name'].'</li>';
         $preEvt = $plugins['evtid'];
     }
 }
 
 $evtLists .= '</ul>';
 
+require('header.inc.php');
+
 $header = '
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-	<title>'.CMS_NAME.'</title>
-	<meta http-equiv="Content-Type" content="text/html; charset='.$modx_manager_charset.'" />
-	<link rel="stylesheet" type="text/css" href="media/style/'.$useTheme.'style.css" />
-	<script type="text/javascript" src="media/script/mootools/mootools.js"></script>
-
-	<style type="text/css">
-        .topdiv {
-			border: 0;
-		}
-
-		.subdiv {
-			border: 0;
-		}
-
-		li {list-style:none;}
-
-		.tplbutton {
-			text-align: right;
-		}
-
-		ul.sortableList {
-			padding-left: 20px;
-			margin: 0px;
-			width: 300px;
-			font-family: Arial, sans-serif;
-		}
-
-		ul.sortableList li {
-            font-weight: bold;
-            cursor: move;
-            color: #444444;
-            padding: 3px 5px;
-            margin: 4px 0px;
-            border: 1px solid #CCCCCC;
-			background-image: url("media/style/'.$useTheme.'images/misc/fade.gif");
-			background-repeat: repeat-x;
-		}
-
-        #sortableListForm {display:none;}
-	</style>
-    <script type="text/javascript">
-        function save() {
-        	setTimeout("document.sortableListForm.submit()",1000);
-    	}
-    		
-    	window.addEvent(\'domready\', function() {';
-foreach ($sortables as $list) {
-	
-	$header .= 'new Sortables($(\''.$list.'\'), {
-	               initialize: function() {
-                        $$(\'#'.$list.' li\').each(function(el, i)
-                        {
-                            el.setStyle(\'padding\', \'3px 5px\');
-                            el.setStyle(\'font-weight\', \'bold\');
-                            el.setStyle(\'width\', \'300px\');
-                            el.setStyle(\'background-color\', \'#ccc\');
-                            el.setStyle(\'cursor\', \'move\');
-                        });
-                    }
-                    ,onComplete: function() {
-                       	var id = null;
-                       	var list = this.serialize(function(el) {
-                            id = el.getParent().id;
-                           	return el.id;
-                        });
-                       $(\'list_\' + id).value = list;
-                    }
-                });' ."\n";
-}
-	$header .= '});
-</script>
-</head>
-<body ondragstart="return false;">
 
 <h1>'.$_lang['plugin_priority_title'].'</h1>
 
-<div id="actions"
+<div id="actions">
    <ul class="actionButtons">
        	<li><a href="#" onclick="save();"><img src="'.$_style["icons_save"].'" /> '.$_lang['save'].'</a></li>
 		<li><a href="#" onclick="document.location.href=\'index.php?a=76\';"><img src="'.$_style["icons_cancel"].'" /> '.$_lang['cancel'].'</a></li>
@@ -181,5 +107,13 @@ foreach ($sortables as $list) {
             
 echo '	</form>
 	</div>
+	<script type="text/javascript">
+        //TODO: think about a more generic form of submitting
+        function save() {
+        	setTimeout("document.sortableListForm.submit()",1000);
+    	}
+    </script>
+	
+	
 ';
 ?>

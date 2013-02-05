@@ -530,7 +530,7 @@ function decode(s) {
 		<!-- start main wrapper -->
 		<div class="sectionBody">
 		
-			<div id="tabs">
+			<div id="mutate-content-tabs" class="js-tabs">
 				<ul>
 					<li><a href="#tabGeneral"><?php echo $_lang['settings_general']?></a></li>
 					<li><a href="#tabSettings"><?php echo $_lang['settings_page_settings']?></a></li>

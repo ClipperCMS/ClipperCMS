@@ -225,7 +225,7 @@ function movedocument() {
 
 
 
-	<div id="tabs">
+	<div id="document-data-tabs" class="js-tabs">
 		<ul>
 			<li><a href="#tabDocGeneral"><?php echo $_lang['settings_general']?></a></li>
 			<li><a href="#tabChildren"><?php echo $_lang['view_child_resources_in_container']?></a></li>

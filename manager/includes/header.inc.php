@@ -71,7 +71,9 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 		var dontShowWorker = false;
 		function document_onunload() {
 			if(!dontShowWorker) {
-				top.mainMenu.work();
+				if(top.mainMenu !== undefined){
+					top.mainMenu.work();
+				}
 			}
 		};
 

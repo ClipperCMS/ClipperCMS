@@ -30,9 +30,25 @@ $rm->ph['datepicker.year_range'] = $modx->config['datepicker_year_range'];
 $rm->ph['date.format'] = $modx->config['date_format'];
 $rm->ph['time.format'] = $modx->config['time_format'];
 
+$rm->ph['style.css'] = '';
+if (is_file(MODX_MANAGER_PATH."media/style/$manager_theme/style.css")) {
+    $rm->ph['style.css'] = '<link rel="stylesheet" type="text/css" href="media/style/'.$manager_theme."/style.css\" />\n";
+}
+
+$rm->ph['manager.css'] = '';
+if (is_file(MODX_MANAGER_PATH."media/style/$manager_theme/manager.css")) {
+    $rm->ph['manager.css'] =  '<link rel="stylesheet" type="text/css" href="media/style/'.$manager_theme."/manager.css\" />\n";
+}
+
+$rm->ph['jquery'] = $modx->getJqueryTag();
+$rm->ph['jquery.ui'] = $modx->getJqueryPluginTag('jquery-ui-custom-clippermanager', 'jquery-ui-custom-clippermanager.min.js');
+$rm->ph['jquery.timepicker'] =$modx->getJqueryPluginTag('jquery-ui-timepicker', 'jquery-ui-timepicker-addon.js');
+
 if (isset($_POST['tabAction'])) {
+
     $rmb->handlePostback();
 } else {
+
     $rmf->getViews();
     echo $rm->parseTemplate('main.tpl', $rm->ph);
 }

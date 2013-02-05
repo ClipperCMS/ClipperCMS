@@ -363,7 +363,7 @@ function SetUrl(url, width, height, alt) {
 <div class="sectionBody">
 	<p><img class="icon" src="media/style/<?php echo $manager_theme?>images/icons/modules.gif" alt="." width="32" height="32" style="vertical-align:middle;text-align:left;" /> <?php echo $_lang['module_msg']?></p>
 
-	<div id="tabs">
+	<div id="mutate-module-tabs" class="js-tabs">
 		<ul>
 			<li><a href="#tabModule"><?php echo $_lang['settings_general']?></a></li>
 			<li><a href="#tabConfig"><?php echo $_lang['settings_config']?></a></li>

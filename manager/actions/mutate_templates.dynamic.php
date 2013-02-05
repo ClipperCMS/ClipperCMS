@@ -124,7 +124,7 @@ function deletedocument() {
 <div class="sectionBody">
 
 	<?php if ($_REQUEST['a'] == '16') { ?>
-	<div id="tabs">
+	<div id="mutate-templates-tabs" class="js-tabs">
 		
 		<ul>
 			<li><a href="#tabTemplate"><?php echo $_lang["template_edit_tab"] ?></a></li>

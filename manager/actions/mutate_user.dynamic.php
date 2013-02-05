@@ -257,7 +257,7 @@ if (is_array($evtOut))
 <link type="text/css" rel="stylesheet" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css<?php echo "?$theme_refresher";?>" />
 
 
-	<div id="tabs">
+	<div id="mutate-user-tabs" class="js-tabs">
 		<ul>
 			<li><a href="#tabGeneral"><?php echo $_lang["settings_general"] ?></a></li>
 			<li><a href="#tabSettings"><?php echo $_lang["settings_users"] ?></a></li>

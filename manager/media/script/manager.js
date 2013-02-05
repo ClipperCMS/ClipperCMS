@@ -25,8 +25,31 @@ $(document).ready(function($) {
 		timeFormat: config.time_format
 	});
 
-	$("#tabs").tabs();
-	
+	//tabs and tab history
+	(function ($) {
+		$(".js-tabs").tabs({
+			activate: function( event, ui ) {
+				//set session storage with the latest selected tab
+				var tabsId = $(this).attr('id');
+				var panelId = $(ui.newPanel).attr('id');
+				if(tabsId && panelId){
+					sessionStorage.setItem(tabsId, panelId);
+				}
+			}
+		});
+		
+		//check if tabs are present and higlight the selected value in session storage
+		if($(".js-tabs").length){
+			var tabsId = $(".js-tabs").attr('id');
+			//get session storage
+			var savedPanelId = sessionStorage.getItem(tabsId);
+			if(savedPanelId){
+				var index = $('#'+tabsId+' a[href="#'+savedPanelId+'"]').parent().index(); 
+				$(".js-tabs").tabs("option", "active", index);
+			}
+		}
+	}(jQuery));
+
 	//hide configuration tab if empty
 	if(typeof(config_display) != "undefined" && !config_display){
 		$('#tabs').tabs('remove', 1);
@@ -82,6 +105,38 @@ $(document).ready(function($) {
 			return true;
 		}
 		return false;
-	})
+	});
+	
+	$('.plugin-execution-order').sortable({
+		placeholder: "ui-state-highlight",
+		stop: function( event, ui ) {
+			var parent = $(ui.item).parent()
+			var parentId = parent.attr('id');
+			
+			//make list to be send to form field
+			var list = [];
+			$(parent).find('li').each(function(i){
+			   list.push($(this).attr('id'));
+			});
+			$('#list_' + parentId).val(list.join(','));
+		}
+	});
+	
+	$('#tv-sort-order').sortable({
+		placeholder: "ui-state-highlight",
+		stop: function( event, ui ) {
+		
+			var parent = $(ui.item).parent()
+			//make list to be send to form field
+			var list = [];
+			$(parent).find('li').each(function(i){
+			   list.push($(this).attr('id'));
+			});
+			
+			$('#list').val(list.join(';'));
+		}
+	});
+	
+	
 
 });

@@ -296,7 +296,7 @@ if(is_array($evtOut)) echo implode("",$evtOut);
 <div class="tab-pane" id="snipetPane">
 
 	
-	<div id="tabs">
+	<div id="mutate-plugin-tabs" class="js-tabs">
 		<ul>
 			<li><a href="#tabSnippet"><?php echo $_lang["settings_general"] ?></a></li>
 			<li><a href="#tabProps"><?php echo $_lang["settings_config"] ?></a></li>

@@ -56,7 +56,7 @@ foreach($help as $k=>$v) {
 
 <div class="sectionBody">
 	
-	<div id="tabs">
+	<div id="help-tabs" class="js-tabs">
 		<ul>
 			<?php echo $tabs; ?>
 		</ul>

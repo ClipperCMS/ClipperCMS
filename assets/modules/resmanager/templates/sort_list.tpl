@@ -2,9 +2,15 @@
 <html>
 <head>
     <title>[+lang.RM_module_title+]</title>
-    <link rel="stylesheet" type="text/css" href="media/style[+theme+]/style.css" /> 
-    <script type="text/javascript" src="media/script/mootools/mootools.js"></script>
-    <script type="text/javascript" src="media/script/mootools/moodx.js"></script> 
+    
+    <link rel="stylesheet" type="text/css" href="media/style/common/style.css" />
+	[+style.css+]
+	[+manager.css+]
+    
+    [+jquery+]
+	[+jquery.ui+]
+	[+jquery.timepicker+]
+    
     <script type="text/javascript" src="../assets/modules/resmanager/js/resmanager.js"></script>
     <script type="text/javascript">
 	    function save() { 
@@ -16,23 +22,33 @@
 	       document.resetform.submit();
 	    }
 	    
-	    window.addEvent('domready', function() {
-	       new Sortables($('sortlist'), {
-	           onComplete: function() {
-	               var list = '';
-	               $$('li.sort').each(function(el, i) {
-	                   list += el.id + ';';
-	               });
-	               $('list').value = list;
-	           }
-	       });
-	       
-	       if ([+sort.disable_tree_select+] == true) {
-	           parent.tree.ca = '';
-	       }
-	    });
+	    $(document).ready(function($) {
 	    
+	    	$('#sortlist').sortable({
+				placeholder: "ui-state-highlight",
+				axis: "y",
+				stop: function( event, ui ) {
+				
+					var parent = $(ui.item).parent()
+					//make list to be send to form field
+					var list = [];
+					$(parent).find('li').each(function(i){
+					   list.push($(this).attr('id'));
+					});
+					
+					$('#list').val(list.join(';'));
+				}
+			});
+	    
+	    
+	    	if ([+sort.disable_tree_select+] == true) {
+	           parent.tree.ca = '';
+	        }
+	       
+	    });
+   
 	    parent.tree.updateTree();
+	    
     </script>
     <style type="text/css">        
         li {

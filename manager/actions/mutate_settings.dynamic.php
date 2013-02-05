@@ -195,7 +195,7 @@ function confirmLangChange(el, lkey, elupd){
 
     <div class="tab-pane" id="settingsPane">
 
-        <div id="tabs">
+        <div id="mutate-settings-tabs" class="js-tabs">
             <ul>
                 <li><a href="#tabSettingsSite"><?php echo $_lang["settings_site"] ?></a></li>
                 <li><a href="#tabSettingsFurl"><?php echo $_lang["settings_furls"] ?></a></li>

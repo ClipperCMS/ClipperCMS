@@ -17,5 +17,6 @@
     </form>
     <br />
     [+lang.RM_select_range_text+]
-    <div style="clear:both;"></div> 
+    <div style="clear:both;"></div>
+    </div>
 </div>

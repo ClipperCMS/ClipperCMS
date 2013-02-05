@@ -47,7 +47,7 @@ if ($modx->db->getRecordCount($rs) < 1) {
 <div class="sectionBody">
 	<p><?php echo $_lang['access_permissions_introtext']?></p><?php echo $use_udperms!=1 ? '<p>'.$_lang['access_permissions_off'].'</p>' : ''?>
 
-	<div id="tabs">
+	<div id="access-permissions-tabs" class="js-tabs">
 		<ul>
 			<li><a href="#tabPermUserGroups"><?php echo $_lang['access_permissions_user_groups']?></a></li>
 			<li><a href="#tabPermResGroups"><?php echo $_lang['access_permissions_resource_groups']?></a></li>

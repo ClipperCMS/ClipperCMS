@@ -2,12 +2,18 @@
 <html>
     <head>
         <title>[+lang.RM_update_title+]</title>
-        <link rel="stylesheet" type="text/css" href="media/style[+theme+]/style.css" />
-        <script type="text/javascript" src="media/script/mootools/mootools.js"></script>
-        <script type="text/javascript" src="media/script/mootools/moodx.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="media/style/common/style.css" />
+		[+style.css+]
+		[+manager.css+]
+	   
+	    [+jquery+]
+		[+jquery.ui+]
+		[+jquery.timepicker+]
+
         <script type="text/javascript">
 	        function reset() {
-	           $('backform').submit();
+	           $('#backform').submit();
 	        }
         </script>
         <style type="text/css"> 
@@ -21,7 +27,10 @@
                 list-style:none;
             } 
         </style>
-        <script type="text/javascript">parent.tree.updateTree();</script>
+        <script type="text/javascript">
+        	if(parent.tree !== undefined)
+        		parent.tree.updateTree();
+        </script>
     </head>
     <body>
         <h1>[+lang.RM_module_title+]</h1>

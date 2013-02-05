@@ -1804,3 +1804,9 @@ input:focus.DatePicker, #mutate input:focus.DatePicker, #userPane input:focus.Da
 .sysAlert {width: 500px;height: 330px;white-space: nowrap;overflow: auto;}
 
 .phptextarea {font-family: 'Courier New','Courier', monospace;}
+
+
+/*jquery sortable*/
+.sortableList { list-style-type: none; margin: 0; padding: 0;}
+.sortableList li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; list-style: none}
+.sortableList li:hover{cursor: move}

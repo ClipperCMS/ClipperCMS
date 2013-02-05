@@ -298,7 +298,7 @@ function decode(s){
 	<?php echo $_lang['snippet_msg']?>
 	<link type="text/css" rel="stylesheet" href="media/style/<?php echo $manager_theme?>style.css<?php echo '?'.$theme_refresher?>" />
 
-	<div id="tabs">
+	<div id="mutate-snippet-tabs" class="js-tabs">
 		<ul>
 			<li><a href="#tabSnippet"><?php echo $_lang['settings_general']?></a></li>
 			<li><a href="#tabProps"><?php echo $_lang['settings_properties']?></a></li>

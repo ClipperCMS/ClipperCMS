@@ -2,34 +2,99 @@
 <html>
 	<head>
 		<title>[+lang.RM_module_title+]</title>
-		<link rel="stylesheet" type="text/css" href="media/style[+theme+]/style.css" />
-		<link rel="stylesheet" type="text/css" href="media/style/[+theme+]/jquery-ui/jquery-ui-1.9.2.custom.min.css" />
-		<script type="text/javascript" src="media/script/mootools/mootools.js"></script>
-		<script type="text/javascript" src="media/script/mootools/moodx.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="media/style/common/style.css" />
+		[+style.css+]
+		[+manager.css+]
+		
+		[+jquery+]
+		[+jquery.ui+]
+		[+jquery.timepicker+]
+		
+		<script type="text/javascript">
+	
+			$(document).ready(function($) {
+			
+				$('#date_pubdate, #date_unpubdate, #date_createdon, #date_editedon, input.DatePicker').datetimepicker({
+					changeMonth: true,
+					changeYear: true,
+					yearRangeType: 'c-'+[+datepicker.year_range+]+':c+'+[+datepicker.year_range+],
+					dateFormat: '[+date.format+]',
+					timeFormat: '[+time.format+]'
+				});
+				
+				$('input[id^=tv].DatePicker').live('focus', function(){
+					$(this).datetimepicker({
+						changeMonth: true,
+						changeYear: true,
+						yearRangeType: 'c-'+[+datepicker.year_range+]+':c+'+[+datepicker.year_range+],
+						dateFormat: '[+date.format+]',
+						timeFormat: '[+time.format+]'
+					});
+				});	
+				
+				$("#resmanager-main-tabs").tabs();
+				
+				
+				//tabs and tab history
+				(function ($) {
+					$("#resmanager-main-tabs").tabs({
+						activate: function( event, ui ) {
+							//set session storage with the latest selected tab
+							var tabsId = $(this).attr('id');
+							var panelId = $(ui.newPanel).attr('id');
+							if(tabsId && panelId){
+								sessionStorage.setItem(tabsId, panelId);
+							}
+						}
+					});
+					
+					//check if tabs are present and higlight the selected value in session storage
+					if($("#resmanager-main-tabs").length){
+						var tabsId = $("#resmanager-main-tabs").attr('id');
+						//get session storage
+						var savedPanelId = sessionStorage.getItem(tabsId);
+						if(savedPanelId){
+							var index = $('#'+tabsId+' a[href="#'+savedPanelId+'"]').parent().index(); 
+							$("#resmanager-main-tabs").tabs("option", "active", index);
+						}
+					}
+				}(jQuery));
+				
+			});
+			
+		</script>
+
 		<script type="text/javascript" src="../assets/modules/resmanager/js/resmanager.js"></script>
+		
 		<script type="text/javascript">
 			function loadTemplateVars(tplId) {
-				$('tvloading').style.display = 'block';
-				new Ajax('[+ajax.endpoint+]', {
-					update: 'results',
-					method: 'post',
-					postBody: 'theme=[+theme+]&tplID=' + tplId,
-					evalScripts: true,
-					onComplete: function(r) {
-						$('tvloading').style.display = 'none';
-					}
+				$('#tvloading').show();
+				//$('tvloading').style.display = 'block';
 				
-				}).request();
+				jQuery.ajax({
+			        type: 'POST',
+			        url: '[+ajax.endpoint+]',
+			        data: { theme: "[+theme+]", tplID: tplId },
+			        success: function(data) {
+			            $('#results').html(data);
+			            $('#tvloading').hide();
+			        }
+			    });
+				
 			}
 			
 			function save() {
-				document.newdocumentparent.submit();
+				//submit it
+				$('form[name="newdocumentparent"]').submit()
+				//document.newdocumentparent.submit();
 			}	
 
 			function setMoveValue(pId, pName) {
 			  if (pId==0 || checkParentChildRelation(pId, pName)) {
 				document.newdocumentparent.new_parent.value=pId;
-				$('parentName').innerHTML = "Parent: <strong>" + pId + "</strong> (" + pName + ")";
+				$('#parentName').html("Parent: <strong>" + pId + "</strong> (" + pName + ")");
+				//$('parentName').innerHTML = "Parent: <strong>" + pId + "</strong> (" + pName + ")";
 			  }
 			}
 
@@ -51,38 +116,6 @@
 			}
 		</script>
 		
-		<script src="../assets/js/jquery.min.js" type="text/javascript"></script>
-		<script src="../assets/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
-		<script src="../assets/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
-		
-		<script type="text/javascript">
-	
-			$.noConflict();
-			jQuery(document).ready(function($) {
-			
-				$('#date_pubdate, #date_unpubdate, #date_createdon, #date_editedon, input.DatePicker').datetimepicker({
-					changeMonth: true,
-					changeYear: true,
-					yearRangeType: 'c-'+[+datepicker.year_range+]+':c+'+[+datepicker.year_range+],
-					dateFormat: '[+date.format+]',
-					timeFormat: '[+time.format+]'
-				});
-				
-				$('input[id^=tv].DatePicker').live('focus', function(){
-					$(this).datetimepicker({
-						changeMonth: true,
-						changeYear: true,
-						yearRangeType: 'c-'+[+datepicker.year_range+]+':c+'+[+datepicker.year_range+],
-						dateFormat: '[+date.format+]',
-						timeFormat: '[+time.format+]'
-					});
-				});	
-				
-				$("#tabs").tabs();
-			});
-			
-		</script>
-
 	</head>
 	<body>
 		<h1>[+lang.RM_module_title+]</h1>
@@ -94,7 +127,7 @@
 		<div class="sectionHeader">[+lang.RM_action_title+]</div>
 		<div class="sectionBody"> 
 		
-		<div id="tabs">
+		<div id="resmanager-main-tabs" class="js-tabs">
 		
 			<ul>
 				<li><a href="#tabTemplates">[+lang.RM_change_template+]</a></li>
