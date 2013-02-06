@@ -100,25 +100,6 @@ if (!is_writable("../assets/images") || !is_writable("../assets/files") || !is_w
     echo "<span class=\"ok\">".$_lang['ok']."</span></p>";
 }
 
-// export exists?
-echo "<p>".$_lang['checking_if_export_exists'];
-
-if (!file_exists("../assets/export")) {
-    echo "<span class=\"notok\">".$_lang['failed']."</span></p>";
-    $errors += 1;
-} else {
-    echo "<span class=\"ok\">".$_lang['ok']."</span></p>";
-}
-
-// export writable?
-echo "<p>".$_lang['checking_if_export_writable'];
-
-if (!is_writable("../assets/export")) {
-    echo "<span class=\"notok\">".$_lang['failed']."</span></p>";
-    $errors += 1;
-} else {
-    echo "<span class=\"ok\">".$_lang['ok']."</span></p>";
-}
 // config.inc.php writable?
 echo "<p>".$_lang['checking_if_config_exist_and_writable'];
 
