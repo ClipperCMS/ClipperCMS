@@ -170,17 +170,6 @@ if (!$rt||(is_array($rt) && !in_array(TRUE,$rt))) {
     }
 }
 
-if($use_captcha==1) {
-	if (!isset ($_SESSION['veriword'])) {
-		jsAlert('Captcha is not configured properly.');
-		return;
-	}
-	elseif ($_SESSION['veriword'] != $captcha_code) {
-        jsAlert($e->errors[905]);
-        $newloginerror = 1;
-    }
-}
-
 if($newloginerror) {
 	//increment the failed login counter
     $failedlogins += 1;

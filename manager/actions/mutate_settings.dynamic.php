@@ -812,24 +812,6 @@ function confirmLangChange(el, lkey, elupd){
                     <td width="200">&nbsp;</td>
                     <td class='comment'><?php echo $_lang["blocked_minutes_message"] ?></td>
                   </tr>
-                   <tr>
-                    <td colspan="2"><div class='split'></div></td>
-                  </tr>
-                  <?php
-                      // Check for GD before allowing captcha to be enabled
-                      $gdAvailable = extension_loaded('gd');
-                  ?>
-                  <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["captcha_title"] ?></b></td>
-                    <td> <input onchange="documentDirty=true;" type="radio" name="use_captcha" value="1" <?php echo ($use_captcha=='1' && $gdAvailable) ? 'checked="checked"' : "" ; echo (!$gdAvailable)? ' readonly="readonly"' : ''; ?> />
-                      <?php echo $_lang["yes"]?><br />
-                      <input onchange="documentDirty=true;" type="radio" name="use_captcha" value="0" <?php echo ($use_captcha=='0' || !isset($use_captcha) || !$gdAvailable) ? 'checked="checked"' : "" ; echo (!$gdAvailable)? ' readonly="readonly"' : '';?> />
-                      <?php echo $_lang["no"]?> </td>
-                  </tr>
-                  <tr>
-                    <td width="200">&nbsp;</td>
-                    <td class='comment'><?php echo $_lang["captcha_message"] ?></td>
-                  </tr>
                   <tr>
                     <td colspan="2"><div class='split'></div></td>
                   </tr>

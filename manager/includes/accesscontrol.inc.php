@@ -88,12 +88,6 @@ if(!isset($_SESSION['mgrValidated'])){
 		}
 	}
 
-	if($use_captcha==1)  {
-		$modx->setPlaceholder('login_captcha_message',$_lang["login_captcha_message"]);
-		$modx->setPlaceholder('captcha_image','<a href="'.MODX_MANAGER_URL.'" class="loginCaptcha"><img id="captcha_image" src="'.$modx->getManagerPath().'includes/veriword.php?rand='.rand().'" alt="'.$_lang["login_captcha_message"].'" /></a>');
-		$modx->setPlaceholder('captcha_input','<label>'.$_lang["captcha_code"].'</label> <input type="text" name="captcha_code" tabindex="3" value="" />');
-	}
-
 	// login info
 	$uid =  isset($_COOKIE['modx_remember_manager']) ? preg_replace('/[^a-zA-Z0-9\-_@\.]*/', '',  $_COOKIE['modx_remember_manager']) :''; 
 	$modx->setPlaceholder('uid',$uid);
