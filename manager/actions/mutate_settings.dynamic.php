@@ -1397,7 +1397,7 @@ function confirmLangChange(el, lkey, elupd){
                   </tr>
                   <tr>
                     <td width="200">&nbsp;</td>
-                    <td class='comment'><?php echo $_lang["upload_maxsize_message"]?></td>
+                    <td class='comment'><?php echo $_lang["upload_maxsize_message"]?><br /><em>Not currently applicable to kcfinder. May be removed entirely in future versions.</em></td>
                   </tr>
                   <tr>
                     <td colspan="2"><div class='split'></div></td>
