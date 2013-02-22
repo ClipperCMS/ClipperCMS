@@ -192,7 +192,7 @@ while ($row = $modx->db->getRow($rs)) {
 	switch ($row['type']) {
 		case 'url':
 			$tmplvar = $_POST["tv" . $row['id']];
-			if ($_POST["tv" . $row['id'] . '_prefix'] != '--') {
+			if ($tmplvar && $_POST["tv" . $row['id'] . '_prefix'] != '--') {
 				$tmplvar = str_replace(array (
 					"feed://",
 					"ftp://",
