@@ -39,7 +39,6 @@
     .sectionHeader {padding: 5px 3px 5px 18px;font-weight: bold;color: #000;background: #EAECEE url([+manager_theme_url+]images/misc/fade.gif) repeat-x top;}
     .sectionBody {padding: 20px 20px 20px;display: block;background: #fff;}
     #mx_loginbox {width: 460px;margin: 30px auto 0;}
-    img.loginCaptcha {border: 1px solid #039;width: 148px;height: 60px;}
     label {display: block;font-weight: bold;}
     input {margin: 0 0 10px 0;}
     input.checkbox {float: left;clear: left;margin-right: 3px;}
@@ -94,10 +93,6 @@
 
             if (header.toLowerCase()=='location:') top.location = response.substr(10);
             else {
-                var cimg = $('captcha_image');
-                if (cimg) {
-                	cimg.src = 'includes/veriword.php?rand=' + Math.random();
-                }
                 $$('input').removeProperty('readonly');
                 alert(response);
             }
@@ -118,9 +113,6 @@
             <input type="text" class="text" name="username" id="username" tabindex="1" value="[+uid+]" />
             <label>[+password+] </label>
             <input type="password" class="text" name="password" id="password" tabindex="2" value="" />
-            <p class="caption">[+login_captcha_message+]</p>
-            <div>[+captcha_image+]</div>
-            [+captcha_input+]
             <input type="checkbox" id="rememberme" name="rememberme" tabindex="4" value="1" class="checkbox" [+remember_me+] /><label for="rememberme" style="cursor:pointer">[+remember_username+]</label>
             <input type="submit" class="login" id="submitButton" value="[+login_button+]" />
             <!-- anything to output before the login box via a plugin ... like the forgot password link? -->
