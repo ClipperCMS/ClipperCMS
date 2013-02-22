@@ -98,6 +98,7 @@ EOD;
 				$mail->CharSet = $modx->config['modx_charset'];
 				$mail->From = 'no-reply@'.$_SERVER['SERVER_NAME'];
 				$mail->FromName = $modx->config['site_name'];
+				$mail->AddReplyTo($modx->config['emailsender']);
 				$mail->Subject = $_lang['password_change_request'];
 				$mail->isHTML(true);
 				$mail->Body = <<<EOD
