@@ -186,7 +186,7 @@ hr {
 #topbar a:link,
 #topbar a:visited {
 	color: #DDD;
-	text-decoration: underline;	
+	text-decoration: none;
 }
 #topbar a:hover {
 	color: #FFF;
