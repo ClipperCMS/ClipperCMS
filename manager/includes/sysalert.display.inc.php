@@ -23,10 +23,6 @@
 	if($sysMsgs!="") {
 ?>
 
-<?php // fetch the styles
-	echo '<link rel="stylesheet" type="text/css" href="'.$modx->config['base_url'].'manager/media/style/'.$manager_theme.'/style.css'.'" />'; // <<<< required??
-?>
-
 <script type="text/javascript">
 $(function() {
 	var sysAlert = $('<div id="sysAlert"><?php echo $modx->db->escape($sysMsgs);?></div>')
