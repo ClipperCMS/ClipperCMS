@@ -22,7 +22,6 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset; ?>" />
     <link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
     <script src="media/script/mootools/mootools.js" type="text/javascript"></script>
-    <script src="media/script/mootools/moodx.js" type="text/javascript"></script>
     <script type="text/javascript">
     window.addEvent('load', function(){
         resizeTree();

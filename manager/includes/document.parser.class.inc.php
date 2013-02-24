@@ -825,32 +825,9 @@ class DocumentParser extends Core {
      * @param string $template
      * @return string
      */
+     //TODO: remove in the future
     function mergeDocumentMETATags($template) {
-        if ($this->documentObject['haskeywords'] == 1) {
-            // insert keywords
-            $keywords = $this->getKeywords();
-            if (is_array($keywords) && count($keywords) > 0) {
-	            $keywords = implode(", ", $keywords);
-	            $metas= "\t<meta name=\"keywords\" content=\"$keywords\" />\n";
-            }
-
-	    // Don't process when cached
-	    $this->documentObject['haskeywords'] = '0';
-        }
-        if ($this->documentObject['hasmetatags'] == 1) {
-            // insert meta tags
-            $tags= $this->getMETATags();
-            foreach ($tags as $n => $col) {
-                $tag= strtolower($col['tag']);
-                $tagvalue= $col['tagvalue'];
-                $tagstyle= $col['http_equiv'] ? 'http-equiv' : 'name';
-                $metas .= "\t<meta $tagstyle=\"$tag\" content=\"$tagvalue\" />\n";
-            }
-
-	    // Don't process when cached
-	    $this->documentObject['hasmetatags'] = '0';
-        }
-	if ($metas) $template = preg_replace("/(<head>)/i", "\\1\n\t" . trim($metas), $template);
+        //content removed as this function is deprecated
         return $template;
     }
 
@@ -1299,8 +1276,8 @@ class DocumentParser extends Core {
             $source= $this->mergeSettingsContent($source);
             // replace HTMLSnippets in document
             $source= $this->mergeChunkContent($source);
-	    // insert META tags & keywords
-	    $source= $this->mergeDocumentMETATags($source);
+            // insert META tags & keywords
+            $source= $this->mergeDocumentMETATags($source);
             // find and merge snippets
             $source= $this->evalSnippets($source);
             // find and replace Placeholders (must be parsed last) - Added by Raymond
@@ -2176,22 +2153,11 @@ class DocumentParser extends Core {
      *                Default: 0
      * @return array
      */
+     
+     //TODO: remove in future updates
     function getKeywords($id= 0) {
-        if ($id == 0) {
-            $id= $this->documentObject['id'];
-        }
-        $tblKeywords= $this->getFullTableName('site_keywords');
-        $tblKeywordXref= $this->getFullTableName('keyword_xref');
-        $sql= "SELECT keywords.keyword FROM " . $tblKeywords . " AS keywords INNER JOIN " . $tblKeywordXref . " AS xref ON keywords.id=xref.keyword_id WHERE xref.content_id = '$id'";
-        $result= $this->db->query($sql);
-        $limit= $this->db->getRecordCount($result);
+    	//content removed as this function is deprecated
         $keywords= array ();
-        if ($limit > 0) {
-            for ($i= 0; $i < $limit; $i++) {
-                $row= $this->db->getRow($result);
-                $keywords[]= $row['keyword'];
-            }
-        }
         return $keywords;
     }
 
@@ -2202,27 +2168,11 @@ class DocumentParser extends Core {
      *                Default: 0
      * @return array
      */
+     
+     //TODO: remove in future updates
     function getMETATags($id= 0) {
-        if ($id == 0) {
-            $id= $this->documentObject['id'];
-        }
-        $sql= "SELECT smt.* " .
-        "FROM " . $this->getFullTableName("site_metatags") . " smt " .
-        "INNER JOIN " . $this->getFullTableName("site_content_metatags") . " cmt ON cmt.metatag_id=smt.id " .
-        "WHERE cmt.content_id = '$id'";
-        $ds= $this->db->query($sql);
-        $limit= $this->db->getRecordCount($ds);
+    	//content removed as this function is deprecated
         $metatags= array ();
-        if ($limit > 0) {
-            for ($i= 0; $i < $limit; $i++) {
-                $row= $this->db->getRow($ds);
-                $metatags[$row['name']]= array (
-                    "tag" => $row['tag'],
-                    "tagvalue" => $row['tagvalue'],
-                    "http_equiv" => $row['http_equiv']
-                );
-            }
-        }
         return $metatags;
     }
 

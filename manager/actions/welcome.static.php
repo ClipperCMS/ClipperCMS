@@ -43,7 +43,7 @@ if($modx->hasPermission('new_module') || $modx->hasPermission('edit_module')) {
     $icon = '<a class="hometblink" href="index.php?a=106"><img src="'.$_style['icons_modules_large'].'" width="32" height="32" alt="'.$_lang['manage_modules'].'" /><br />'.$_lang['modules'].'</a>';
     $modx->setPlaceholder('ModulesIcon',$icon);
 }
-if($modx->hasPermission('new_template') || $modx->hasPermission('edit_template') || $modx->hasPermission('new_snippet') || $modx->hasPermission('edit_snippet') || $modx->hasPermission('new_plugin') || $modx->hasPermission('edit_plugin') || $modx->hasPermission('manage_metatags')) {
+if($modx->hasPermission('new_template') || $modx->hasPermission('edit_template') || $modx->hasPermission('new_snippet') || $modx->hasPermission('edit_snippet') || $modx->hasPermission('new_plugin') || $modx->hasPermission('edit_plugin')) {
     $icon = '<a class="hometblink" href="index.php?a=76"><img src="'.$_style['icons_resources_large'].'" width="32" height="32" alt="'.$_lang['element_management'].'" /><br />'.$_lang['elements'].'</a>';
     $modx->setPlaceholder('ResourcesIcon',$icon);
 }

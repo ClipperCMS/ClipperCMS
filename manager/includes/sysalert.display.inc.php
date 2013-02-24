@@ -23,23 +23,21 @@
 	if($sysMsgs!="") {
 ?>
 
-<?php // fetch the styles
-	echo '<link rel="stylesheet" type="text/css" href="'.$modx->config['base_url'].'manager/media/style/'.$manager_theme.'/style.css'.'" />'; // <<<< required??
-?>
 <script type="text/javascript">
-// <![CDATA[
-window.addEvent('domready', function() {
-			var sysAlert = new Element('div').setProperties({
-				'class': 'sysAlert'
-			});
-			sysAlert.innerHTML = '<?php echo $modx->db->escape($sysMsgs);?>';
-			var boxHtml = new MooPrompt('<?php echo $_lang['sys_alert']; ?>', sysAlert, {
-				buttons: 1,
-				button1: 'Ok',
-				width: 500
-			});
+$(function() {
+	var sysAlert = $('<div id="sysAlert"><?php echo $modx->db->escape($sysMsgs);?></div>')
+		.appendTo('body')
+		.dialog({
+			modal: true,
+			autoOpen: true,
+			title: "<?php echo $_lang['sys_alert']; ?>",
+			buttons: {
+				Ok: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
 });
-// ]]>
 </script>
 <?php
 	}

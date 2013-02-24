@@ -32,23 +32,29 @@ $(document).ready(function($) {
 				//set session storage with the latest selected tab
 				var tabsId = $(this).attr('id');
 				var panelId = $(ui.newPanel).attr('id');
-				if(tabsId && panelId){
+				if(tabsId && panelId && config.remember_last_tab){
 					sessionStorage.setItem(tabsId, panelId);
+				}else{
+					sessionStorage.removeItem(tabsId);
 				}
 			}
 		});
 		
-		//check if tabs are present and higlight the selected value in session storage
+		//check if tabs are present and higlight the selected value in session storage if remember_last_tab is configured
 		if($(".js-tabs").length){
 			var tabsId = $(".js-tabs").attr('id');
 			//get session storage
-			var savedPanelId = sessionStorage.getItem(tabsId);
+			var savedPanelId = 0;
+			if(config.remember_last_tab != 0){
+				 savedPanelId = sessionStorage.getItem(tabsId);
+			}
 			if(savedPanelId){
 				var index = $('#'+tabsId+' a[href="#'+savedPanelId+'"]').parent().index(); 
 				$(".js-tabs").tabs("option", "active", index);
 			}
 		}
 	}(jQuery));
+	
 
 	//hide configuration tab if empty
 	if(typeof(config_display) != "undefined" && !config_display){
@@ -78,7 +84,7 @@ $(document).ready(function($) {
 	
 	$('.tooltip').tooltip();
 
-	//TODO: change to databales ajax pagination - remove old type pagination
+	//TODO: change to datatable ajax pagination - remove old type pagination
 	$('#manager-logs').dataTable({
 		"bPaginate" : false,
 		"bFilter": false,

@@ -186,7 +186,7 @@ hr {
 #topbar a:link,
 #topbar a:visited {
 	color: #DDD;
-	text-decoration: underline;	
+	text-decoration: none;
 }
 #topbar a:hover {
 	color: #FFF;
@@ -1563,30 +1563,6 @@ form#mutate fieldset#settings_page_settings select {
 	width: 155px;
 }
 /*
-* Individual Styles for fieldset#meta_keywords
-*/
-form#mutate fieldset#meta_keywords {
-}
-form#mutate fieldset#meta_keywords {
-}
-form#mutate fieldset#meta_keywords select.inputBox {
-	display: block;
-	margin-bottom: 0;
-}
-form#mutate fieldset#meta_keywords dl.keywords {
-	float: left;
-	margin-right: 30px;
-}
-form#mutate fieldset#meta_keywords dl.metatags {
-	float: left;
-}
-form#mutate fieldset#meta_keywords dl dt label {
-	width: 100px;
-}
-form#mutate fieldset#meta_keywords dl dd {
-	margin-left: 110px;
-}
-/*
 * Individual Styles for fieldset#preview
 */
 fieldset#preview iframe {
@@ -1803,5 +1779,5 @@ input:focus.DatePicker, #mutate input:focus.DatePicker, #userPane input:focus.Da
 .cbBox .cbButtons {text-align:center;}
 .sysAlert {width: 500px;height: 330px;white-space: nowrap;overflow: auto;}
 
-.phptextarea {font-family: 'Courier New','Courier', monospace;}
+.sectionBody .phptextarea, .phptextarea {font-family: 'Courier New','Courier', monospace;}
 
