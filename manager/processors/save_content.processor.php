@@ -27,8 +27,6 @@ $pub_date = $_POST['pub_date'];
 $unpub_date = $_POST['unpub_date'];
 $document_groups = (isset($_POST['chkalldocs']) && $_POST['chkalldocs'] == 'on') ? array() : $_POST['docgroups'];
 $type = $_POST['type'];
-$keywords = $_POST['keywords'];
-$metatags = $_POST['metatags'];
 $contentType = $modx->db->escape($_POST['contentType']);
 $contentdispo = intval($_POST['content_dispo']);
 $longtitle = $modx->db->escape($_POST['longtitle']);
@@ -49,9 +47,7 @@ $tbl_document_groups            = $modx->getFullTableName('document_groups');
 $tbl_documentgroup_names        = $modx->getFullTableName('documentgroup_names');
 $tbl_member_groups              = $modx->getFullTableName('member_groups');
 $tbl_membergroup_access         = $modx->getFullTableName('membergroup_access');
-$tbl_keyword_xref               = $modx->getFullTableName('keyword_xref');
 $tbl_site_content               = $modx->getFullTableName('site_content');
-$tbl_site_content_metatags      = $modx->getFullTableName('site_content_metatags');
 $tbl_site_tmplvar_access        = $modx->getFullTableName('site_tmplvar_access');
 $tbl_site_tmplvar_contentvalues = $modx->getFullTableName('site_tmplvar_contentvalues');
 $tbl_site_tmplvar_templates     = $modx->getFullTableName('site_tmplvar_templates');
@@ -366,9 +362,6 @@ switch ($actionToTake) {
 			}
 		}
 
-		// save META Keywords
-		saveMETAKeywords($key);
-
 		// invoke OnDocFormSave event
 		$modx->invokeEvent("OnDocFormSave", array (
 			"mode" => "new",
@@ -603,9 +596,6 @@ switch ($actionToTake) {
 			}
 		}
 
-		// save META Keywords
-		saveMETAKeywords($id);
-
 		// invoke OnDocFormSave event
 		$modx->invokeEvent("OnDocFormSave", array (
 			"mode" => "upd",
@@ -662,42 +652,6 @@ switch ($actionToTake) {
  */
 function stripAlias($alias) {
    return $GLOBALS['modx']->stripAlias($alias);
-}
-
-// -- Save META Keywords --
-function saveMETAKeywords($id) {
-	global $modx, $keywords, $metatags,
-	       $tbl_keyword_xref,
-	       $tbl_site_content,
-	       $tbl_site_content_metatags;
-
-	if ($modx->hasPermission('edit_doc_metatags')) {
-		// keywords - remove old keywords first
-		$modx->db->delete($tbl_keyword_xref, "content_id=$id");
-		for ($i = 0; $i < count($keywords); $i++) {
-			$kwid = $keywords[$i];
-			$flds = array (
-				'content_id' => $id,
-				'keyword_id' => $kwid
-			);
-			$modx->db->insert($flds, $tbl_keyword_xref);
-		}
-		// meta tags - remove old tags first
-		$modx->db->delete($tbl_site_content_metatags, "content_id=$id");
-		for ($i = 0; $i < count($metatags); $i++) {
-			$kwid = $metatags[$i];
-			$flds = array (
-				'content_id' => $id,
-				'metatag_id' => $kwid
-			);
-			$modx->db->insert($flds, $tbl_site_content_metatags);
-		}
-		$flds = array (
-			'haskeywords' => (count($keywords) ? 1 : 0),
-			'hasmetatags' => (count($metatags) ? 1 : 0)
-		);
-		$modx->db->update($flds, $tbl_site_content, "id=$id");
-	}
 }
 
 ?>

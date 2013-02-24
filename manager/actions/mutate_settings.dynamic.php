@@ -1015,21 +1015,6 @@ function confirmLangChange(el, lkey, elupd){
                     <tr>
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
-                     <tr>
-                         <td nowrap class="warning"><b><?php echo $_lang["show_meta"] ?></b></td>
-                         <td> <input onchange="documentDirty=true;" type="radio" name="show_meta" value="1" <?php echo $show_meta=='1' ? 'checked="checked"' : ""; ?> />
-                           <?php echo $_lang["yes"]?><br />
-                           <input onchange="documentDirty=true;" type="radio" name="show_meta" value="0" <?php echo ($show_meta=='0' || !isset($show_meta)) ? 'checked="checked"' : ""; ?> />
-                           <?php echo $_lang["no"]?></td>
-                       </tr>
-                     <tr>
-                       <td width="200">&nbsp;</td>
-                       <td class='comment'><?php echo $_lang["show_meta_message"]?></td>
-                     </tr>
-        <tr>
-          <td colspan="2"><div class='split'></div></td>
-        </tr>
-        
                     <tr>
                         <td nowrap class="warning"><b><?php echo $_lang["datepicker_year_range"] ?></b></td>
                         <td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="datepicker_year_range" value="<?php echo isset($datepicker_year_range) ? $datepicker_year_range : '10' ; ?>" /></td>

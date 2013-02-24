@@ -15,12 +15,8 @@ $url = $modx->config['site_url'];
 
 // Get table names (alphabetical)
 $tbl_document_groups       = $modx->getFullTableName('document_groups');
-$tbl_keyword_xref          = $modx->getFullTableName('keyword_xref');
 $tbl_manager_users         = $modx->getFullTableName('manager_users');
 $tbl_site_content          = $modx->getFullTableName('site_content');
-$tbl_site_content_metatags = $modx->getFullTableName('site_content_metatags');
-$tbl_site_keywords         = $modx->getFullTableName('site_keywords');
-$tbl_site_metatags         = $modx->getFullTableName('site_metatags');
 $tbl_site_templates        = $modx->getFullTableName('site_templates');
 
 // Get access permissions
@@ -67,35 +63,6 @@ if ($row = $modx->db->getRow($rs))
 
 // Set the item name for logging
 $_SESSION['itemname'] = $content['pagetitle'];
-
-// Get list of current keywords for this document
-$keywords = array();
-$sql = 'SELECT k.keyword FROM '.$tbl_site_keywords.' AS k, '.$tbl_keyword_xref.' AS x '.
-       'WHERE k.id = x.keyword_id AND x.content_id = \''.$id.'\' '.
-       'ORDER BY k.keyword ASC';
-$rs = $modx->db->query($sql);
-$limit = $modx->db->getRecordCount($rs);
-if ($limit > 0) {
-	for ($i = 0; $i < $limit; $i++) {
-		$row = $modx->db->getRow($rs);
-		$keywords[$i] = $row['keyword'];
-	}
-}
-
-// Get list of selected site META tags for this document
-$metatags_selected = array();
-$sql = 'SELECT meta.id, meta.name, meta.tagvalue '.
-       'FROM '.$tbl_site_metatags.' AS meta '.
-       'LEFT JOIN '.$tbl_site_content_metatags.' AS sc ON sc.metatag_id = meta.id '.
-       'WHERE sc.content_id=\''.$content['id'].'\'';
-$rs = $modx->db->query($sql);
-$limit = $modx->db->getRecordCount($rs);
-if ($limit > 0) {
-	for ($i = 0; $i < $limit; $i++) {
-		$row = $modx->db->getRow($rs);
-		$metatags_selected[] = $row['name'].': <i>'.$row['tagvalue'].'</i>';
-	}
-}
 
 /**
  * "View Children" tab setup
@@ -251,18 +218,6 @@ function movedocument() {
 						<td><?php echo $content['type']=='reference' ? $_lang['weblink'] : $_lang['resource']?></td></tr>
 					<tr><td valign="top"><?php echo $_lang['resource_alias']?>: </td>
 						<td><?php echo $content['alias']!='' ? $content['alias'] : "(<i>".$_lang['not_set']."</i>)"?></td></tr>
-					<tr><td valign="top"><?php echo $_lang['keywords']?>: </td>
-						<td><?php // Keywords
-						if(count($keywords) != 0)
-							echo join($keywords, ", ");
-						else    echo "(<i>".$_lang['not_set']."</i>)";
-						?></td></tr>
-					<tr><td valign="top"><?php echo $_lang['metatags']?>: </td>
-						<td><?php // META Tags
-						if(count($metatags_selected) != 0)
-							echo join($metatags_selected, "<br /> ");
-						else    echo "(<i>".$_lang['not_set']."</i>)";
-						?></td></tr>
 				<tr><td colspan="2">&nbsp;</td></tr>
 					<tr><td colspan="2"><b><?php echo $_lang['page_data_changes']?></b></td></tr>
 					<tr><td><?php echo $_lang['page_data_created']?>: </td>

@@ -737,17 +737,6 @@ switch ($action) {
         include_once "footer.inc.php";
     break;
 /********************************************************************/
-/* keywords management                                              */
-/********************************************************************/
-    case 81:
-        require_once('header.inc.php');
-        include_once "actions/manage_metatags.dynamic.php";
-        include_once "footer.inc.php";
-    break;
-    case 82:
-        include_once "processors/metatags.processor.php";
-    break;
-/********************************************************************/
 /* Resource Selector                                                    */
 /********************************************************************/
     case 84:
