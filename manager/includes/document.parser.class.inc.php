@@ -1388,8 +1388,6 @@ class DocumentParser extends Core {
             $source= $this->mergeSettingsContent($source);
             // replace HTMLSnippets in document
             $source= $this->mergeChunkContent($source);
-            // insert META tags & keywords
-            $source= $this->mergeDocumentMETATags($source);
             // find and merge snippets
             $source= $this->evalSnippets($source);
             // find and replace Placeholders (must be parsed last) - Added by Raymond
