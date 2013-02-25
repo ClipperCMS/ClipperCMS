@@ -36,8 +36,6 @@ $_lang["checking_if_cache_file2_writable"] = 'Comprobando que el archivo <span c
 $_lang["checking_if_cache_file_writable"] = 'Comprobando que el archivo <span class="mono">assets/cache/siteCache.idx.php</span> es escribible: ';
 $_lang["checking_if_cache_writable"] = 'Comprobando que el directorio <span class="mono">assets/cache</span>  es escribible: ';
 $_lang["checking_if_config_exist_and_writable"] = 'Comprobando que el archivo <span class="mono">manager/includes/config.inc.php</span> existe y es escribible: ';
-$_lang["checking_if_export_exists"] = 'Comprobando que el directorio <span class="mono">assets/export</span> existe: ';
-$_lang["checking_if_export_writable"] = 'Comprobando que el directorio <span class="mono">assets/export</span> es escribible: ';
 $_lang["checking_if_images_exist"] = 'Comprobando que los directorios <span class="mono">assets/images</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> y <span class="mono">/assets/media</span> existan: ';
 $_lang["checking_if_images_writable"] = 'Comprobando que los directorios <span class="mono">assets/images</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> y <span class="mono">/assets/media</span> sean escribibles: ';
 $_lang["checking_mysql_strict_mode"] = 'Checando MySQL para el sql_mode estricto: ';

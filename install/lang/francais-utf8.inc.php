@@ -36,8 +36,6 @@ $_lang["checking_if_cache_file2_writable"] = 'Vérification des droits en écrit
 $_lang["checking_if_cache_file_writable"] = 'Vérification des droits en écriture du fichier <span class=\"mono\">assets/cache/siteCache.idx.php</span>: ';
 $_lang["checking_if_cache_writable"] = 'Vérification des droits en écriture du répertoire <span class=\"mono\">assets/cache</span>: ';
 $_lang["checking_if_config_exist_and_writable"] = 'Vérification de l\'existence et des droits en écriture du fichier <span class=\"mono\">manager/includes/config.inc.php</span>: ';
-$_lang["checking_if_export_exists"] = 'Vérification de l\'existence du répertoire <span class=\"mono\">assets/export</span>: ';
-$_lang["checking_if_export_writable"] = 'Vérification des droits en écriture du répertoire <span class=\"mono\">assets/export</span>: ';
 $_lang["checking_if_images_exist"] = 'Vérification de l\'existence du répertoire <span class=\"mono\">assets/images</span>: ';
 $_lang["checking_if_images_writable"] = 'Vérification des droits en écriture des répertoires <span class="mono">/assets/images</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> et <span class="mono">/assets/media</span>: ';
 $_lang["checking_mysql_strict_mode"] = 'Vérification du mode strict MySQL: ';

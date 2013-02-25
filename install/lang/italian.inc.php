@@ -36,8 +36,6 @@ $_lang["checking_if_cache_file_writable"] = 'Controllo i permessi di scrittura s
 $_lang["checking_if_cache_file2_writable"] = 'Controllo i permessi di scrittura sul file <span class="mono">/assets/cache/sitePublishing.idx.php</span> : ';
 $_lang["checking_if_cache_writable"] = 'Controllo i permessi di scrittura sulle directories <span class="mono">/assets/cache</span> e <span class="mono">/assets/cache/rss</span> : ';
 $_lang["checking_if_config_exist_and_writable"] = 'Controllo l\'esistenza e i permessi di scrittura di <span class="mono">/manager/includes/config.inc.php</span> : ';
-$_lang["checking_if_export_exists"] = 'Controllo se esiste la directory <span class="mono">/assets/export</span> : ';
-$_lang["checking_if_export_writable"] = 'Controllo i permessi di scrittura della directory <span class="mono">/assets/export</span> : ';
 $_lang["checking_if_images_exist"] = 'Controllo se esistono le directories <span class="mono">/assets/images</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> e <span class="mono">/assets/media</span> : ';
 $_lang["checking_if_images_writable"] = 'Controllo i permessi di scrittura delle directories <span class="mono">/assets/images</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> e <span class="mono">/assets/media</span> : ';
 $_lang["checking_mysql_strict_mode"] = 'Controllo la modalit&agrave; strict sql_mode di MySql: ';

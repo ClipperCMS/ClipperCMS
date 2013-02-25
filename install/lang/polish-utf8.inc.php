@@ -42,8 +42,6 @@ $_lang["checking_if_cache_file_writable"] = 'Sprawdzanie, czy plik <span class=\
 $_lang["checking_if_cache_file2_writable"] = 'Sprawdzanie, czy plik <span class=\"mono\">/assets/cache/sitePublishing.idx.php</span> jest zapisywalny: ';
 $_lang["checking_if_cache_writable"] = 'Sprawdzanie, czy foldery <span class=\"mono\">/assets/cache</span> oraz <span class=\"mono\">/assets/cache/rss</span> są zapisywalne: ';
 $_lang["checking_if_config_exist_and_writable"] = 'Sprawdzanie, czy plik <span class=\"mono\">/manager/includes/config.inc.php</span> istnieje i jest zapisywalny: ';
-$_lang["checking_if_export_exists"] = 'Sprawdzanie, czy istnieje folder <span class=\"mono\">/assets/export</span>: ';
-$_lang["checking_if_export_writable"] = 'Sprawdzanie, czy folder <span class=\"mono\">/assets/export</span> jest zapisywalny: ';
 $_lang["checking_if_images_exist"] = 'Sprawdzanie, czy istnieją foldery <span class=\"mono\">/assets/images</span>, <span class=\"mono\">/assets/files</span>, <span class=\"mono\">/assets/flash</span> oraz <span class=\"mono\">/assets/media</span>: ';
 $_lang["checking_if_images_writable"] = 'Sprawdzanie, czy foldery <span class=\"mono\">/assets/images</span>, <span class=\"mono\">/assets/files</span>, <span class=\"mono\">/assets/flash</span> oraz <span class=\"mono\">/assets/media</span> są zapisywalne: ';
 $_lang["checking_mysql_strict_mode"] = 'Sprawdzanie trybu "strict sql_mode" dla MySQL: ';
