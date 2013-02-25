@@ -5,8 +5,7 @@ if(!$modx->hasPermission('delete_document')) {
 	$e->setError(3);
 	$e->dumpError();
 }
-?>
-<?php
+
 // check the document doesn't have any children
 $id=intval($_GET['id']);
 $deltime = time();
@@ -29,40 +28,36 @@ if(!$udperms->checkPermissions()) {
 	exit;
 }
 
-function getChildren($parent) {
+$clpr_site_content = $modx->getFullTableName('site_content');
+
+function getChildren($parent, $site_content_table) {
 
 	global $modx;
-	global $dbase;
-	global $table_prefix;
 	global $children;
-	global $site_start;
-	global $site_unavailable_page;
 
-	$db->debug = true;
-
-	$sql = "SELECT id FROM $dbase.`".$table_prefix."site_content` WHERE $dbase.`".$table_prefix."site_content`.parent=".$parent." AND deleted=0;";
-	$rs = $modx->db->query($sql);
+	$rs = $modx->db->query("SELECT id FROM $site_content_table WHERE parent=$parent AND deleted=0;");
 	$limit = $modx->db->getRecordCount($rs);
 	if($limit>0) {
 		// the document has children documents, we'll need to delete those too
 		for($i=0;$i<$limit;$i++) {
 		$row=$modx->db->getRow($rs);
-			if($row['id']==$site_start) {
+			if($row['id']==$modx->config['site_start']) {
 				echo "The document you are trying to delete is a folder containing document ".$row['id'].". This document is registered as the 'Site start' document, and cannot be deleted. Please assign another document as your 'Site start' document and try again.";
 				exit;
 			}
-			if($row['id']==$site_unavailable_page) {
+			if($row['id']==$modx->config['site_unavailable_page']) {
 				echo "The document you are trying to delete is a folder containing document ".$row['id'].". This document is registered as the 'Site unavailable page' document, and cannot be deleted. Please assign another document as your 'Site unavailable page' document and try again.";
 				exit;
 			}
 			$children[] = $row['id'];
-			getChildren($row['id']);
-			//echo "Found childNode of parentNode $parent: ".$row['id']."<br />";
+			$children = array_merge($children, getChildren($row['id'], $site_content_table));
 		}
 	}
+	
+	return $children;
 }
 
-getChildren($id);
+$children = getChildren($id, $clpr_site_content);
 
 // invoke OnBeforeDocFormDelete event
 $modx->invokeEvent("OnBeforeDocFormDelete",
@@ -73,7 +68,7 @@ $modx->invokeEvent("OnBeforeDocFormDelete",
 
 if(count($children)>0) {
 	$docs_to_delete = implode(" ,", $children);
-	$sql = "UPDATE $dbase.`".$table_prefix."site_content` SET deleted=1, deletedby=".$modx->getLoginUserID().", deletedon=$deltime WHERE id IN($docs_to_delete);";
+	$sql = "UPDATE $clpr_site_content SET deleted=1, deletedby=".$modx->getLoginUserID().", deletedon=$deltime WHERE id IN($docs_to_delete);";
 	$rs = @$modx->db->query($sql);
 	if(!$rs) {
 		echo "Something went wrong while trying to set the document's children to deleted status...";
@@ -81,18 +76,18 @@ if(count($children)>0) {
 	}
 }
 
-if($site_start==$id){
+if($modx->config['site_start']==$id){
 	echo "Document is 'Site start' and cannot be deleted!";
 	exit;
 }
 
-if($site_unavailable_page==$id){
+if($modx->config['site_unavailable_page']==$id){
 	echo "Document is used as the 'Site unavailable page' and cannot be deleted!";
 	exit;
 }
 
 //ok, 'delete' the document.
-$sql = "UPDATE $dbase.`".$table_prefix."site_content` SET deleted=1, deletedby=".$modx->getLoginUserID().", deletedon=$deltime WHERE id=$id;";
+$sql = "UPDATE $clpr_site_content SET deleted=1, deletedby=".$modx->getLoginUserID().", deletedon=$deltime WHERE id=$id;";
 $rs = $modx->db->query($sql);
 if(!$rs) {
 	echo "Something went wrong while trying to set the document to deleted status...";
