@@ -84,7 +84,6 @@ $GLOBALS['action_list'] = array(
 	'80'	=> 'Deleting Chunk (HTML Snippet)',
 	'81'	=> 'Managing keywords',
 	'81'	=> 'Managing keywords',
-	'83'	=> 'Exporting a resource to HTML',
 	'84'	=> 'Load Element Selector',
 	'85'	=> 'Create Folder',
 	'86'	=> 'Role management',

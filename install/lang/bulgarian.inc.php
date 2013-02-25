@@ -36,8 +36,6 @@ $_lang["checking_if_cache_file2_writable"] = 'Проверка дали може
 $_lang["checking_if_cache_file_writable"] = 'Проверка дали може да се пише във файла <span class=\"mono\">assets/cache/siteCache.idx.php</span> : ';
 $_lang["checking_if_cache_writable"] = 'Проверка дали в директорията <span class=\"mono\">assets/cache</span> може да се пише: ';
 $_lang["checking_if_config_exist_and_writable"] = 'Проверка дали <span class=\"mono\">manager/includes/config.inc.php</span> съществува и може да се пише в него: ';
-$_lang["checking_if_export_exists"] = 'Проверка дали съществува директорията <span class=\"mono\">assets/export</span> : ';
-$_lang["checking_if_export_writable"] = 'Проверка дали в директорията <span class=\"mono\">assets/export</span> може да се пише: ';
 $_lang["checking_if_images_exist"] = 'Проверка дали съществува директорията <span class=\"mono\">assets/images</span> : ';
 $_lang["checking_if_images_writable"] = 'Проверка дали в директорията <span class=\"mono\">assets/images</span> може да се пише: ';
 $_lang["checking_mysql_strict_mode"] = 'Проверка дали MySQL е в strict mode: ';

@@ -36,8 +36,6 @@ $_lang["checking_if_cache_file_writable"] = 'Überprüfe ob die Datei <span clas
 $_lang["checking_if_cache_file2_writable"] = 'Überprüfe ob die Datei <span class="mono">assets/cache/sitePublishing.idx.php</span> beschreibbar ist: ';
 $_lang["checking_if_cache_writable"] = 'Überprüfe ob der Ordner <span class="mono">assets/cache</span> beschreibbar ist: ';
 $_lang["checking_if_config_exist_and_writable"] = 'Überprüfe ob die Datei <span class="mono">manager/includes/config.inc.php</span> existiert und beschreibbar ist: ';
-$_lang["checking_if_export_exists"] = 'Überprüfe ob der Ordner <span class="mono">assets/export</span> existiert: ';
-$_lang["checking_if_export_writable"] = 'Überprüfe ob der Ordner <span class="mono">assets/export</span> beschreibbar ist: ';
 $_lang["checking_if_images_exist"] = 'Überprüfe ob der Ordner <span class="mono">assets/images</span>, <span class="mono">assets/files</span>, <span class="mono">assets/flash</span>, <span class="mono">assets/media</span> existiert: ';
 $_lang["checking_if_images_writable"] = 'Überprüfe ob der Ordner <span class="mono">assets/images</span>, <span class="mono">assets/files</span>, <span class="mono">assets/flash</span>, <span class="mono">assets/media</span>  beschreibbar ist: ';
 $_lang["checking_mysql_strict_mode"] = 'Überprüfe MySQL Strict-Mode: ';

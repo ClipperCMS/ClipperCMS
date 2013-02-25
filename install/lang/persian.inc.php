@@ -37,8 +37,6 @@ $_lang["checking_if_cache_file2_writable"] = 'ررو اینکه آیا فایل 
 $_lang["checking_if_cache_file_writable"] = 'مرور اینکه آیا فایل <span class=\"mono\">assets/cache/siteCache.idx.php</span> قابل نوشتن است: ';
 $_lang["checking_if_cache_writable"] = 'مرور اینکه آیا <span class=\"mono\">assets/cache</span> قابل نوشتن است: ';
 $_lang["checking_if_config_exist_and_writable"] = 'مرور اینکه آیا فایل <span class=\"mono\">manager/includes/config.inc.php</span> موجود است و قابل نوشتن است: ';
-$_lang["checking_if_export_exists"] = 'مرور اینکه آیا <span class=\"mono\">assets/export</span> موجود است: ';
-$_lang["checking_if_export_writable"] = 'مرور اینکه آیا <span class=\"mono\">assets/export</span> قابل نوشتن است: ';
 $_lang["checking_if_images_exist"] = 'مرور اینکه آیا <span class=\"mono\">assets/images</span> موجود است: ';
 $_lang["checking_if_images_writable"] = 'مرور اینکه آیا <span class=\"mono\">assets/images</span> قابل نوشتن است: ';
 $_lang["checking_mysql_strict_mode"] = 'مرور MySQL برای strict mode: ';

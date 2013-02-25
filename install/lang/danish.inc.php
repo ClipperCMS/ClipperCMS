@@ -38,8 +38,6 @@ $_lang["checking_if_cache_file_writable"] = 'Kontrollerer om <span class="mono">
 $_lang["checking_if_cache_file2_writable"] = 'Kontrollerer om <span class="mono">/assets/cache/sitePublishing.idx.php</span> filen er skrivbar: ';
 $_lang["checking_if_cache_writable"] = 'Kontrollerer om  <span class="mono">/assets/cache</span> og <span class="mono">/assets/cache/rss</span> mapperne er skrivbare: ';
 $_lang["checking_if_config_exist_and_writable"] = 'Kontrollerer om <span class="mono">/manager/includes/config.inc.php</span> er oprettet og er skrivbar: ';
-$_lang["checking_if_export_exists"] = 'Kontrollerer om <span class="mono">/assets/export</span> mappen er oprettet: ';
-$_lang["checking_if_export_writable"] = 'Kontrollerer om <span class="mono">/assets/export</span> mappen er skrivbar: ';
 $_lang["checking_if_images_exist"] = 'Kontrollerer om <span class="mono">/assets/images</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> og <span class="mono">/assets/media</span> mapperne er oprettet: ';
 $_lang["checking_if_images_writable"] = 'Kontrollerer om <span class="mono">/assets/images</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> og <span class="mono">/assets/media</span> mapperne er skrivbare: ';
 $_lang["checking_mysql_strict_mode"] = 'Kontrollerer om MySQL håndterer strict sql_mode: ';
