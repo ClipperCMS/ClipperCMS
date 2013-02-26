@@ -12,7 +12,7 @@ class ClipperMailer extends PHPMailer {
         }
         
         $this->CharSet = $modx->config['modx_charset'];
-        $this->From = 'ClipperCMS@'.$_SERVER['SERVER_NAME'];  // <<<< maybe to put into a config setting
+        $this->From = 'ClipperCMS@'.php_uname('n');         // <<<< maybe to put into a config setting
         $this->FromName = $modx->config['site_name'];       // <<<< maybe to put into a config setting
         $this->AddReplyTo($modx->config['emailsender']);    // <<<< maybe to put into a config setting
         
