@@ -12,9 +12,12 @@ class ClipperMailer extends PHPMailer {
         }
         
         $this->CharSet = $modx->config['modx_charset'];
-        $this->From = 'ClipperCMS@'.php_uname('n');         // <<<< maybe to put into a config setting
-        $this->FromName = $modx->config['site_name'];       // <<<< maybe to put into a config setting
-        $this->AddReplyTo($modx->config['emailsender']);    // <<<< maybe to put into a config setting
+        
+        // Minimise risk of messages being out in spam bins.
+        $this->From = 'ClipperCMS@'.php_uname('n');
+        $this->FromName = $modx->config['site_name'];
+        
+        $this->AddReplyTo($modx->config['emailsender']);
         
     }
 
