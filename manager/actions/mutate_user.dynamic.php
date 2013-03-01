@@ -254,7 +254,7 @@ if (is_array($evtOut))
     </div>
 <!-- Tab Start -->
 <div class="sectionBody">
-<link type="text/css" rel="stylesheet" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css<?php echo "?$theme_refresher";?>" />
+<link type="text/css" rel="stylesheet" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
 
 
 	<div id="mutate-user-tabs" class="js-tabs">
@@ -555,7 +555,7 @@ if (is_array($evtOut))
 	          </tr>
 	          <tr>
 	          <td nowrap class="warning"><b><?php echo $_lang["manager_theme"]?></b></td>
-	            <td> <select name="manager_theme" size="1" class="inputBox" onchange="documentDirty=true;document.userform.theme_refresher.value = Date.parse(new Date())">
+	            <td> <select name="manager_theme" size="1" class="inputBox" onchange="documentDirty=true;">
 			<option value=""> </option>
 	<?php
 			$dir = dir("media/style/");
@@ -570,7 +570,7 @@ if (is_array($evtOut))
 			}
 			$dir->close();
 	?>
-	             </select><input type="hidden" name="theme_refresher" value=""></td>
+	             </select></td>
 	          </tr>
 	          <tr>
 	            <td width="200">&nbsp;</td>

@@ -240,7 +240,7 @@ function showHide(what, onoff){
 <!-- Tab Start -->
 <div class="sectionBody">
 
-<link type="text/css" rel="stylesheet" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css<?php echo "?$theme_refresher";?>" />
+<link type="text/css" rel="stylesheet" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
 
 	<div id="mutate-web-user-tabs" class="js-tabs">
 		<ul>
