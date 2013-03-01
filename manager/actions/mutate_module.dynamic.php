@@ -316,8 +316,6 @@ function SetUrl(url, width, height, alt) {
 }
 </script>
 
-<link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme?>style.css" />
-
 <form name="mutate" id="mutate" class="module" method="post" action="index.php?a=109">
 <?php
 	// invoke OnModFormPrerender event

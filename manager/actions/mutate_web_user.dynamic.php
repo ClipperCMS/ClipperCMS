@@ -239,9 +239,6 @@ function showHide(what, onoff){
 
 <!-- Tab Start -->
 <div class="sectionBody">
-
-<link type="text/css" rel="stylesheet" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
-
 	<div id="mutate-web-user-tabs" class="js-tabs">
 		<ul>
 			<li><a href="#tabGeneral"><?php echo $_lang["settings_general"] ?></a></li>
