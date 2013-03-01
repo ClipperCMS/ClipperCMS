@@ -262,12 +262,22 @@ if ($installMode == 0) {
 	}
 }
 
+// Locales
+$locale_string = '';
+if ($_POST['locale_lc_all']) {
+	$locale_string .= "setlocale(LC_ALL, '{$_POST['locale_lc_all']}');\n";
+	if ($_POST['locale_lc_numeric']) {
+		$locale_string .= "setlocale(LC_NUMERIC, '{$_POST['locale_lc_numeric']}');\n";
+	}
+}
+
 // write the config.inc.php file if new installation
 echo "<p>" . $_lang['writing_config_file'];
 $configString = '<?php
 /**
  * CMS Configuration file
  */
+'.$locale_string.'
 $database_type = \'mysql\';
 $database_server = \'' . $database_server . '\';
 $database_user = \'' . $install->db->escape($database_user) . '\';

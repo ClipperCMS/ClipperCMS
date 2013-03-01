@@ -286,6 +286,9 @@ $agreeToggle= $errors > 0 ? '' : ' onclick="if(document.getElementById(\'chkagre
     <input type="hidden" value="1" name="options_selected" />
     
     <input type="hidden" value="<?php echo $_POST['installdata'] ?>" name="installdata" />
+    
+    <input type="hidden" value="<?php echo $_POST['locale_lc_all']; ?>" name="locale_lc_all" />
+    <input type="hidden" value="<?php echo $_POST['locale_lc_numeric']; ?>" name="locale_lc_numeric" />
 <?php
 $templates = isset ($_POST['template']) ? $_POST['template'] : array ();
 foreach ($templates as $i => $template) echo "<input type=\"hidden\" name=\"template[]\" value=\"$template\" />\n";

@@ -106,6 +106,8 @@ $_lang["installed"] = 'Installed';
 $_lang["installing_demo_site"] = 'Installing demo site: ';
 $_lang["language_code"] = 'en';	// for html element e.g. <html xml:lang="en" lang="en">
 $_lang["loading"] = 'Loading...';
+$_lang["locales_note"] = 'If you are not aware of how locales work, leave this option blank. If you select a locale, then when moving servers you may have to change this option manually in the config.inc.php file. You can define different locales for different categories by editing config.inc.php.';
+$_lang["locales_note_LC_NUMERIC"] = 'This is used if and only if you have selected a value for LC_ALL. It is offered as a special case to override locales where the decimal point is a comma, which may introduce errors into PHP code that generates SQL queries using floating point numbers.';
 $_lang["modules"] = 'Modules';
 $_lang["modx_footer1"] = '&copy; 2012 the <a href="http://www.clippercms.org/" target="_blank" >ClipperCMS</a> Content Management Framework (CMF) project. All rights reserved. ClipperCMS is licensed under the GNU GPL.';
 $_lang["modx_footer2"] = 'ClipperCMS is free software.  We encourage you to be creative and make use of ClipperCMS in any way you see fit. Just make sure that if you do make changes and decide to redistribute your modified ClipperCMS, that you keep the source code free!';

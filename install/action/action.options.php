@@ -85,8 +85,29 @@ require("{$setupPath}/setup.info.php");
 
 echo "<h2>" . $_lang['optional_items'] . "</h2><p>" . $_lang['optional_items_note'] . "</p>";
 
+// Locales
+$locales = trim(@shell_exec('locale -a'));
+if ($locales) {
+	$locales = explode("\n", $locales);
+	$lc_numeric = setlocale(LC_NUMERIC, 0);
+	echo
+	'<h3>Locales</h3>
+	<p><label>LC_ALL: <select name="locale_lc_all"><option></option>';
+	foreach($locales as $locale) {
+		echo '<option>'.$locale.'</option>';
+	}
+	echo '</select></label></p>
+	<p>'.$_lang['locales_note'].'</p>
+	<p><label>LC_NUMERIC: <select name="locale_lc_numeric"><option></option>';
+	foreach($locales as $locale) {
+		echo '<option'.(($lc_numeric == $locale) ? ' selected="selected"' : '').'>'.$locale.'</option>';
+	}
+	echo '</select></label></p>
+	<p>'.$_lang['locales_note_LC_NUMERIC'].'</p>';
+}
+
 $chk = isset ($_POST['installdata']) && $_POST['installdata'] == "1" ? 'checked="checked"' : "";
-echo '<img src="img/sample_site.png" class="options" alt="Sample Data" />';
+//echo '<img src="img/sample_site.png" class="options" alt="Sample Data" />';
 echo "<h3>" . $_lang['sample_web_site'] . "</h3>";
 echo "<p><input type=\"checkbox\" name=\"installdata\" id=\"installdata_field\" value=\"1\" $chk />&nbsp;<label for=\"installdata_field\">" . $_lang['install_overwrite'] . " <span class=\"comname\">" . $_lang['sample_web_site'] . "</span></label></p><p><em>&nbsp;" . $_lang['sample_web_site_note'] . "</em></p>";
 
