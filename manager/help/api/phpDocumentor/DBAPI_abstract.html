@@ -1,0 +1,1908 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class DBAPI_abstract</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class DBAPI_abstract</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|													<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_manager---includes---extenders---dbapi.abstract.class.inc.php.html">/manager/includes/extenders/dbapi.abstract.class.inc.php</a> (line <span class="field"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a2">2</a></span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"></td>
+					<td>
+											
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																																																																																																																																																																																																												
+												<div class="method-definition">
+											<span class="method-result">DBAPI_abstract</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type">$parent</span>&nbsp;<span class="var-name">$parent</span>, [<span class="var-type">$host</span>&nbsp;<span class="var-name">$host</span> = <span class="var-default">''</span>], [<span class="var-type">$dbase</span>&nbsp;<span class="var-name">$dbase</span> = <span class="var-default">''</span>], [<span class="var-type">$uid</span>&nbsp;<span class="var-name">$uid</span> = <span class="var-default">''</span>], [<span class="var-type">$pwd</span>&nbsp;<span class="var-name">$pwd</span> = <span class="var-default">''</span>], [<span class="var-type">$pre</span>&nbsp;<span class="var-name">$pre</span> = <span class="var-default">null</span>], [<span class="var-type">$charset</span>&nbsp;<span class="var-name">$charset</span> = <span class="var-default">''</span>], [<span class="var-type">$connection</span>&nbsp;<span class="var-name">$connection_method</span> = <span class="var-default">'SET CHARACTER SET'</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#connect" title="details" class="method-name">connect</a>
+											([<span class="var-type">$host</span>&nbsp;<span class="var-name">$host</span> = <span class="var-default">''</span>], [<span class="var-type">$dbase</span>&nbsp;<span class="var-name">$dbase</span> = <span class="var-default">''</span>], [<span class="var-type">$uid</span>&nbsp;<span class="var-name">$uid</span> = <span class="var-default">''</span>], [<span class="var-type">$pwd</span>&nbsp;<span class="var-name">$pwd</span> = <span class="var-default">''</span>], [<span class="var-type">$persist</span>&nbsp;<span class="var-name">$persist</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#connection_check" title="details" class="method-name">connection_check</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">resource</span>
+										<a href="#delete" title="details" class="method-name">delete</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$from</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">''</span>], [<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fields</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#disconnect" title="details" class="method-name">disconnect</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#escape" title="details" class="method-name">escape</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$s</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getAffectedRows" title="details" class="method-name">getAffectedRows</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getColumn" title="details" class="method-name">getColumn</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$rsq</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getColumnNames" title="details" class="method-name">getColumnNames</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$rsq</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getDBname" title="details" class="method-name">getDBname</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getHostname" title="details" class="method-name">getHostname</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getHTMLGrid" title="details" class="method-name">getHTMLGrid</a>
+											(<span class="var-type">string|resource</span>&nbsp;<span class="var-name">$rsq</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getInsertId" title="details" class="method-name">getInsertId</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getLastError" title="details" class="method-name">getLastError</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$return_number</span> = <span class="var-default">false</span>], <span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getRecordCount" title="details" class="method-name">getRecordCount</a>
+											(<span class="var-type">resource</span>&nbsp;<span class="var-name">$rs</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getRow" title="details" class="method-name">getRow</a>
+											(<span class="var-type">resource</span>&nbsp;<span class="var-name">$rs</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$mode</span> = <span class="var-default">'assoc'</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getTableMetaData" title="details" class="method-name">getTableMetaData</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$table</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getValue" title="details" class="method-name">getValue</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$rsq</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getVersion" title="details" class="method-name">getVersion</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getXML" title="details" class="method-name">getXML</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$rsq</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#initDataTypes" title="details" class="method-name">initDataTypes</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#insert" title="details" class="method-name">insert</a>
+											(<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fields</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$intotable</span>, [<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fromfields</span> = <span class="var-default">&quot;*&quot;</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$fromtable</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#insert_ignore" title="details" class="method-name">insert_ignore</a>
+											(<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fields</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$intotable</span>, [<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fromfields</span> = <span class="var-default">&quot;*&quot;</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$fromtable</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#is_handle" title="details" class="method-name">is_handle</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$var</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#makeArray" title="details" class="method-name">makeArray</a>
+											(<span class="var-type">resource</span>&nbsp;<span class="var-name">$rs</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#make_connection" title="details" class="method-name">make_connection</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$host</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$uid</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$pwd</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#make_persistent_connection" title="details" class="method-name">make_persistent_connection</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$host</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$uid</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$pwd</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#prepareDate" title="details" class="method-name">prepareDate</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$timestamp</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$fieldType</span> = <span class="var-default">'DATETIME'</span>], <span class="var-type">int</span>&nbsp;<span class="var-name">$timestamp:</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$fieldType:</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#p_connect" title="details" class="method-name">p_connect</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">resource</span>
+										<a href="#query" title="details" class="method-name">query</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$sql</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$suppress_errors</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#replace" title="details" class="method-name">replace</a>
+											(<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fields</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$intotable</span>, [<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fromfields</span> = <span class="var-default">&quot;*&quot;</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$fromtable</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">resource</span>
+										<a href="#select" title="details" class="method-name">select</a>
+											([<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fields</span> = <span class="var-default">&quot;*&quot;</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$from</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$orderby</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#select_db" title="details" class="method-name">select_db</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$dbname</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool;</span>
+										<a href="#tables_present" title="details" class="method-name">tables_present</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$prefix</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#table_engine" title="details" class="method-name">table_engine</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$table</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#test_connect" title="details" class="method-name">test_connect</a>
+											([<span class="var-type">$host</span>&nbsp;<span class="var-name">$host</span> = <span class="var-default">''</span>], [<span class="var-type">$dbase</span>&nbsp;<span class="var-name">$dbase</span> = <span class="var-default">''</span>], [<span class="var-type">$uid</span>&nbsp;<span class="var-name">$uid</span> = <span class="var-default">''</span>], [<span class="var-type">$pwd</span>&nbsp;<span class="var-name">$pwd</span> = <span class="var-default">''</span>], [<span class="var-type">$query</span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">resource</span>
+										<a href="#update" title="details" class="method-name">update</a>
+											(<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fields</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$table</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_escape" title="details" class="method-name">_escape</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$s</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#_getColumnNames" title="details" class="method-name">_getColumnNames</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$rs</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_getInsertId" title="details" class="method-name">_getInsertId</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_getRowAssoc" title="details" class="method-name">_getRowAssoc</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$rs</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_getRowBoth" title="details" class="method-name">_getRowBoth</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$rs</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_getRowNumeric" title="details" class="method-name">_getRowNumeric</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$rs</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_query" title="details" class="method-name">_query</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$sql</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_recordcount" title="details" class="method-name">_recordcount</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$rs</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a22">22</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The constructor. Can optionally have the database details passed to it, or alternatively it can use the globals (using the globals is deprecated functionality).</p>
+<p class="description"><p>&lt;&lt;&lt;&lt; TODO throw E_USER_DEPRECATED after ensuring that Install and DocumentParser do not use the globals.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">DBAPI_abstract</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type">$parent</span>&nbsp;<span class="var-name">$parent</span>, [<span class="var-type">$host</span>&nbsp;<span class="var-name">$host</span> = <span class="var-default">''</span>], [<span class="var-type">$dbase</span>&nbsp;<span class="var-name">$dbase</span> = <span class="var-default">''</span>], [<span class="var-type">$uid</span>&nbsp;<span class="var-name">$uid</span> = <span class="var-default">''</span>], [<span class="var-type">$pwd</span>&nbsp;<span class="var-name">$pwd</span> = <span class="var-default">''</span>], [<span class="var-type">$pre</span>&nbsp;<span class="var-name">$pre</span> = <span class="var-default">null</span>], [<span class="var-type">$charset</span>&nbsp;<span class="var-name">$charset</span> = <span class="var-default">''</span>], [<span class="var-type">$connection</span>&nbsp;<span class="var-name">$connection_method</span> = <span class="var-default">'SET CHARACTER SET'</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">$parent</span>
+				<span class="var-name">$parent</span><span class="var-description">: Parent object e.g. $modx or $install</span>			</li>
+					<li>
+				<span class="var-type">$host</span>
+				<span class="var-name">$host</span><span class="var-description">: db hostname</span>			</li>
+					<li>
+				<span class="var-type">$dbase</span>
+				<span class="var-name">$dbase</span><span class="var-description">: db schema name</span>			</li>
+					<li>
+				<span class="var-type">$uid</span>
+				<span class="var-name">$uid</span><span class="var-description">: db username</span>			</li>
+					<li>
+				<span class="var-type">$pwd</span>
+				<span class="var-name">$pwd</span><span class="var-description">: db password</span>			</li>
+					<li>
+				<span class="var-type">$pre</span>
+				<span class="var-name">$pre</span><span class="var-description">: table prefix</span>			</li>
+					<li>
+				<span class="var-type">$charset</span>
+				<span class="var-name">$charset</span><span class="var-description">: client character set</span>			</li>
+					<li>
+				<span class="var-type">$connection</span>
+				<span class="var-name">$connection_method</span><span class="var-description">: SQL to set connection character set</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodconnect" id="connect"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">connect</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a58">58</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Connect to the database.</p>
+<p class="description"><p>Can optionally have the database details passed to it but this is deprecated functionality. Pass the details in the constructor instead.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			connect
+		</span>
+					([<span class="var-type">$host</span>&nbsp;<span class="var-name">$host</span> = <span class="var-default">''</span>], [<span class="var-type">$dbase</span>&nbsp;<span class="var-name">$dbase</span> = <span class="var-default">''</span>], [<span class="var-type">$uid</span>&nbsp;<span class="var-name">$uid</span> = <span class="var-default">''</span>], [<span class="var-type">$pwd</span>&nbsp;<span class="var-name">$pwd</span> = <span class="var-default">''</span>], [<span class="var-type">$persist</span>&nbsp;<span class="var-name">$persist</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">$host</span>
+				<span class="var-name">$host</span><span class="var-description">: db hostname</span>			</li>
+					<li>
+				<span class="var-type">$dbase</span>
+				<span class="var-name">$dbase</span><span class="var-description">: db schema name</span>			</li>
+					<li>
+				<span class="var-type">$uid</span>
+				<span class="var-name">$uid</span><span class="var-description">: db username</span>			</li>
+					<li>
+				<span class="var-type">$pwd</span>
+				<span class="var-name">$pwd</span><span class="var-description">: db password</span>			</li>
+					<li>
+				<span class="var-type">$persist</span>
+				<span class="var-name">$persist</span><span class="var-description">: If true, make a persistent connection.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodconnection_check" id="connection_check"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">connection_check</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a137">137</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check for connection</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			connection_check
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methoddelete" id="delete"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">delete</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a228">228</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">DELETE</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">resource</span>
+		<span class="method-name">
+			delete
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$from</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">''</span>], [<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fields</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$from</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$where</span>			</li>
+					<li>
+				<span class="var-type">string|array</span>
+				<span class="var-name">$fields</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddisconnect" id="disconnect"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">disconnect</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a173">173</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Disconnect from db.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			disconnect
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#methoddisconnect">DBAPI::disconnect()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodescape" id="escape"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">escape</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a185">185</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Escape a string</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			escape
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$s</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$s</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetAffectedRows" id="getAffectedRows"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAffectedRows</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a374">374</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the number of affected rows.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getAffectedRows
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#methodgetAffectedRows">DBAPI::getAffectedRows()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodgetColumn" id="getColumn"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getColumn</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a424">424</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns an array of the values found on column $name</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getColumn
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$rsq</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: Column name</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$rsq</span><span class="var-description">: Resultset or query string</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetColumnNames" id="getColumnNames"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getColumnNames</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a445">445</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns an array containing the column names in a resultset.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getColumnNames
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$rsq</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$rsq</span><span class="var-description">: Resultset or query string</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetDBname" id="getDBname"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getDBname</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a645">645</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get name of database.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getDBname
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetHostname" id="getHostname"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getHostname</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a636">636</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get name of host.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getHostname
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetHTMLGrid" id="getHTMLGrid"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getHTMLGrid</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a568">568</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getHTMLGrid
+		</span>
+					(<span class="var-type">string|resource</span>&nbsp;<span class="var-name">$rsq</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string|resource</span>
+				<span class="var-name">$rsq</span><span class="var-description">: Resultset or SQL query</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$params</span><span class="var-description">: Data grid parameters             columnHeaderClass             tableClass             itemClass             altItemClass             columnHeaderStyle             tableStyle             itemStyle             altItemStyle             columns             fields             colWidths             colAligns             colColors             colTypes             cellPadding             cellSpacing             header             footer             pageSize             pagerLocation             pagerClass             pagerStyle</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetInsertId" id="getInsertId"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getInsertId</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a363">363</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the last insert ID</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getInsertId
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetLastError" id="getLastError"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getLastError</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a384">384</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the last error.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getLastError
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$return_number</span> = <span class="var-default">false</span>], <span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$type</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$return_number</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#methodgetLastError">DBAPI::getLastError()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodgetRecordCount" id="getRecordCount"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getRecordCount</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a392">392</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the number of rows in a resultset. Return 0 if resultset invalid.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getRecordCount
+		</span>
+					(<span class="var-type">resource</span>&nbsp;<span class="var-name">$rs</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">resource</span>
+				<span class="var-name">$rs</span><span class="var-description">: Resultset</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetRow" id="getRow"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getRow</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a403">403</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return an array of column values</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getRow
+		</span>
+					(<span class="var-type">resource</span>&nbsp;<span class="var-name">$rs</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$mode</span> = <span class="var-default">'assoc'</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">resource</span>
+				<span class="var-name">$rs</span><span class="var-description">: Resultset</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$mode</span><span class="var-description">: 'assoc', 'num' or 'both'.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetTableMetaData" id="getTableMetaData"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTableMetaData</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a502">502</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns an array of structure detail for each column of a</p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getTableMetaData
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$table</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$table</span><span class="var-description">: The full name of the database table</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#methodgetTableMetaData">DBAPI::getTableMetaData()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodgetValue" id="getValue"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getValue</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a460">460</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns the value from the first column in the set.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getValue
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$rsq</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$rsq</span><span class="var-description">: Resultset or query string</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetVersion" id="getVersion"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getVersion</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a510">510</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns a string containing the database server version</p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getVersion
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#methodgetVersion">DBAPI::getVersion()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodgetXML" id="getXML"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getXML</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a478">478</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns an XML representation of the dataset $rsq</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getXML
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$rsq</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$rsq</span><span class="var-description">: Resultset or query string</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodinitDataTypes" id="initDataTypes"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">initDataTypes</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a40">40</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Called in the constructor to set up arrays containing the types  of database fields that can be used with specific PHP types.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			initDataTypes
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#methodinitDataTypes">DBAPI::initDataTypes()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodinsert" id="insert"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">insert</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a297">297</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">INSERT</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Either last id inserted (if supported) or the result from the query</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			insert
+		</span>
+					(<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fields</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$intotable</span>, [<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fromfields</span> = <span class="var-default">&quot;*&quot;</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$fromtable</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string|array</span>
+				<span class="var-name">$fields</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$intotable</span>			</li>
+					<li>
+				<span class="var-type">string|array</span>
+				<span class="var-name">$fromfields</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$fromtable</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$where</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$limit</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodinsert_ignore" id="insert_ignore"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">insert_ignore</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a312">312</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">INSERT IGNORE</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Either last id inserted (if supported) or the result from the query</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			insert_ignore
+		</span>
+					(<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fields</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$intotable</span>, [<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fromfields</span> = <span class="var-default">&quot;*&quot;</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$fromtable</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string|array</span>
+				<span class="var-name">$fields</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$intotable</span>			</li>
+					<li>
+				<span class="var-type">string|array</span>
+				<span class="var-name">$fromfields</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$fromtable</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$where</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$limit</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodis_handle" id="is_handle"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">is_handle</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a655">655</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Is a variable a resultset handle?</p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			is_handle
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$var</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$var</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#methodis_handle">DBAPI::is_handle()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodmakeArray" id="makeArray"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">makeArray</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a619">619</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Turns a recordset into a multidimensional array</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> An array of row arrays from recordset, or empty array if                the recordset was empty, returns false if no recordset                was passed</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			makeArray
+		</span>
+					(<span class="var-type">resource</span>&nbsp;<span class="var-name">$rs</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">resource</span>
+				<span class="var-name">$rs</span><span class="var-description">: Resultset</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodmake_connection" id="make_connection"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">make_connection</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a148">148</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Connect to the RDBMS.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			make_connection
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$host</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$uid</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$pwd</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$host</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$uid</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$pwd</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#methodmake_connection">DBAPI::make_connection()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodmake_persistent_connection" id="make_persistent_connection"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">make_persistent_connection</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a155">155</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Connect to the RDBMS persistently.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			make_persistent_connection
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$host</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$uid</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$pwd</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$host</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$uid</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$pwd</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#methodmake_persistent_connection">DBAPI::make_persistent_connection()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodprepareDate" id="prepareDate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">prepareDate</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a520">520</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Prepares a date in the proper format for specific database types given a UNIX timestamp</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			prepareDate
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$timestamp</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$fieldType</span> = <span class="var-default">'DATETIME'</span>], <span class="var-type">int</span>&nbsp;<span class="var-name">$timestamp:</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$fieldType:</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$timestamp:</span><span class="var-description">: a UNIX timestamp</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$fieldType:</span><span class="var-description">: the type of field to format the date for             (in MySQL, you have DATE, TIME, YEAR, and DATETIME)</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$timestamp</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$fieldType</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodp_connect" id="p_connect"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">p_connect</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a130">130</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Make a persistent connection to the database.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			p_connect
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodquery" id="query"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">query</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a199">199</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Query the database.</p>
+<p class="description"><p>Developers should use select, update, insert (etc), delete where possible</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">resource</span>
+		<span class="method-name">
+			query
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$sql</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$suppress_errors</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$sql</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$suppress_errors</span><span class="var-description">: If true, return false on error, otherwise quit via MessageQuit().</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodreplace" id="replace"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">replace</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a327">327</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">REPLACE</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Either last id inserted (if supported) or the result from the query</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			replace
+		</span>
+					(<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fields</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$intotable</span>, [<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fromfields</span> = <span class="var-default">&quot;*&quot;</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$fromtable</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string|array</span>
+				<span class="var-name">$fields</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$intotable</span>			</li>
+					<li>
+				<span class="var-type">string|array</span>
+				<span class="var-name">$fromfields</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$fromtable</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$where</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$limit</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodselect" id="select"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">select</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a248">248</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">SELECT</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">resource</span>
+		<span class="method-name">
+			select
+		</span>
+					([<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fields</span> = <span class="var-default">&quot;*&quot;</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$from</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$orderby</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string|array</span>
+				<span class="var-name">$fields</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$from</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$where</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$orderby</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$limit</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodselect_db" id="select_db"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">select_db</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a162">162</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Select a database.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			select_db
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$dbname</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$dbname</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#methodselect_db">DBAPI::select_db()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodtables_present" id="tables_present"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">tables_present</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a663">663</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Test for presence of Clipper db tables</p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool;</span>
+		<span class="method-name">
+			tables_present
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$prefix</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$prefix</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#methodtables_present">DBAPI::tables_present()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodtable_engine" id="table_engine"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">table_engine</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a670">670</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get table engine</p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			table_engine
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$table</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$table</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#methodtable_engine">DBAPI::table_engine()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodtest_connect" id="test_connect"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">test_connect</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a103">103</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Test database connection or selection</p>
+<p class="description"><p>Intended for installer use only.  Does not set character set of connection.</p><p>Will return false on failure and will not log errors or display any errors via DocumentParser::MessageQuit().</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			test_connect
+		</span>
+					([<span class="var-type">$host</span>&nbsp;<span class="var-name">$host</span> = <span class="var-default">''</span>], [<span class="var-type">$dbase</span>&nbsp;<span class="var-name">$dbase</span> = <span class="var-default">''</span>], [<span class="var-type">$uid</span>&nbsp;<span class="var-name">$uid</span> = <span class="var-default">''</span>], [<span class="var-type">$pwd</span>&nbsp;<span class="var-name">$pwd</span> = <span class="var-default">''</span>], [<span class="var-type">$query</span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">$host</span>
+				<span class="var-name">$host</span><span class="var-description">: db hostname</span>			</li>
+					<li>
+				<span class="var-type">$dbase</span>
+				<span class="var-name">$dbase</span><span class="var-description">: Optional db schema name</span>			</li>
+					<li>
+				<span class="var-type">$uid</span>
+				<span class="var-name">$uid</span><span class="var-description">: db username</span>			</li>
+					<li>
+				<span class="var-type">$pwd</span>
+				<span class="var-name">$pwd</span><span class="var-description">: db password</span>			</li>
+					<li>
+				<span class="var-type">$query</span>
+				<span class="var-name">$query</span><span class="var-description">: Optional query to run</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodupdate" id="update"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">update</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a268">268</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">UPDATE</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">resource</span>
+		<span class="method-name">
+			update
+		</span>
+					(<span class="var-type">string|array</span>&nbsp;<span class="var-name">$fields</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$table</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string|array</span>
+				<span class="var-name">$fields</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$table</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$where</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_escape" id="_escape"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_escape</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a681">681</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Escape a string,</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_escape
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$s</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$s</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#method_escape">DBAPI::_escape()</a>
+							</li>
+				</ul>
+	</div>
+<a name="method_getColumnNames" id="_getColumnNames"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getColumnNames</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a712">712</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the column names in a resultset</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			_getColumnNames
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$rs</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$rs</span><span class="var-description">: resultset</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#method_getColumnNames">DBAPI::_getColumnNames()</a>
+							</li>
+				</ul>
+	</div>
+<a name="method_getInsertId" id="_getInsertId"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getInsertId</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a695">695</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the last insert ID.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_getInsertId
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#method_getInsertId">DBAPI::_getInsertId()</a>
+							</li>
+				</ul>
+	</div>
+<a name="method_getRowAssoc" id="_getRowAssoc"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getRowAssoc</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a719">719</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a row into an associative array.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_getRowAssoc
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$rs</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$rs</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#method_getRowAssoc">DBAPI::_getRowAssoc()</a>
+							</li>
+				</ul>
+	</div>
+<a name="method_getRowBoth" id="_getRowBoth"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getRowBoth</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a733">733</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a row into both an associative and numeric array.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_getRowBoth
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$rs</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$rs</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#method_getRowBoth">DBAPI::_getRowBoth()</a>
+							</li>
+				</ul>
+	</div>
+<a name="method_getRowNumeric" id="_getRowNumeric"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getRowNumeric</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a726">726</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a row into a numeric array.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_getRowNumeric
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$rs</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$rs</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#method_getRowNumeric">DBAPI::_getRowNumeric()</a>
+							</li>
+				</ul>
+	</div>
+<a name="method_query" id="_query"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_query</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a688">688</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Make a query.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_query
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$sql</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$sql</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#method_query">DBAPI::_query()</a>
+							</li>
+				</ul>
+	</div>
+<a name="method_recordcount" id="_recordcount"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_recordcount</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesextendersdbapi.abstract.class.inc.php.html#a702">702</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the number of records in the resultset.</p>
+<p class="description"><p>RDBMS specific.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_recordcount
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$rs</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$rs</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../phpDocumentor/DBAPI.html#method_recordcount">DBAPI::_recordcount()</a>
+							</li>
+				</ul>
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 01 Mar 2013 20:44:36 +0000 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

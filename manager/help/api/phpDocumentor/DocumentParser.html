@@ -25,11 +25,13 @@
 <p class="short-description">ClipperCMS Document Parser</p>
 <p class="description"><p>This class contains the main document parsing functions.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_document.parser.class.inc.php.html">/document.parser.class.inc.php</a> (line <span class="field"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a8">8</a></span>)
+			Located in <a class="field" href="_manager---includes---document.parser.class.inc.php.html">/manager/includes/document.parser.class.inc.php</a> (line <span class="field"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a10">10</a></span>)
 		</p>
 		
 				
-		<pre></pre>
+		<pre><a href="../phpDocumentor/Core.html">Core</a>
+   |
+   --DocumentParser</pre>
 	
 			</div>
 </div>
@@ -48,7 +50,7 @@
 								</div>
 		<div class="info-box-body">
 			<div class="var-summary">
-																																																																																																																																																																																																																																																																																																																																																																								<div class="var-title">
+																																																																																																																																																																																																																																																																																																																																								<div class="var-title">
 					<span class="var-type">mixed</span>
 					<a href="#$aliases" title="details" class="var-name">$aliases</a>
 				</div>
@@ -67,10 +69,6 @@
 																<div class="var-title">
 					<span class="var-type">mixed</span>
 					<a href="#$currentSnippet" title="details" class="var-name">$currentSnippet</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$db" title="details" class="var-name">$db</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">mixed</span>
@@ -114,10 +112,6 @@
 				</div>
 																<div class="var-title">
 					<span class="var-type">mixed</span>
-					<a href="#$dumpSQL" title="details" class="var-name">$dumpSQL</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
 					<a href="#$entrypage" title="details" class="var-name">$entrypage</a>
 				</div>
 																<div class="var-title">
@@ -130,11 +124,11 @@
 				</div>
 																<div class="var-title">
 					<span class="var-type">mixed</span>
-					<a href="#$executedQueries" title="details" class="var-name">$executedQueries</a>
+					<a href="#$forwards" title="details" class="var-name">$forwards</a>
 				</div>
 																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$forwards" title="details" class="var-name">$forwards</a>
+					<span class="var-type">is</span>
+					<a href="#$is_rss" title="details" class="var-name">$is_rss</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">mixed</span>
@@ -159,14 +153,6 @@
 																<div class="var-title">
 					<span class="var-type">mixed</span>
 					<a href="#$pluginEvent" title="details" class="var-name">$pluginEvent</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$queryCode" title="details" class="var-name">$queryCode</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$queryTime" title="details" class="var-name">$queryTime</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">mixed</span>
@@ -271,7 +257,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$aliases</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a33">33</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a32">32</a></span>)
 		</span>
 	</div>
 
@@ -289,7 +275,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$chunkCache</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a38">38</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a37">37</a></span>)
 		</span>
 	</div>
 
@@ -307,13 +293,18 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$config</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a12">12</a></span>)
+			 = <span class="var-default"> null</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a13">13</a></span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
 	
 	
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../phpDocumentor/Core.html#var$config">Core::$config</a></dt>
+					</dl>
 		
 		
 
@@ -325,7 +316,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$contentTypes</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a40">40</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a39">39</a></span>)
 		</span>
 	</div>
 
@@ -343,25 +334,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$currentSnippet</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a31">31</a></span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	
-		
-		
-
-</div>
-<a name="var$db" id="$db"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$db</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a9">9</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a30">30</a></span>)
 		</span>
 	</div>
 
@@ -373,13 +346,13 @@
 
 </div>
 <a name="var$debug" id="$debug"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$debug</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a17">17</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a18">18</a></span>)
 		</span>
 	</div>
 
@@ -391,13 +364,13 @@
 
 </div>
 <a name="var$documentContent" id="$documentContent"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$documentContent</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a21">21</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a22">22</a></span>)
 		</span>
 	</div>
 
@@ -409,13 +382,13 @@
 
 </div>
 <a name="var$documentGenerated" id="$documentGenerated"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$documentGenerated</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a20">20</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a21">21</a></span>)
 		</span>
 	</div>
 
@@ -427,13 +400,13 @@
 
 </div>
 <a name="var$documentIdentifier" id="$documentIdentifier"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$documentIdentifier</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a18">18</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a19">19</a></span>)
 		</span>
 	</div>
 
@@ -445,13 +418,13 @@
 
 </div>
 <a name="var$documentListing" id="$documentListing"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$documentListing</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a36">36</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a35">35</a></span>)
 		</span>
 	</div>
 
@@ -463,13 +436,13 @@
 
 </div>
 <a name="var$documentMap" id="$documentMap"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$documentMap</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a48">48</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a45">45</a></span>)
 		</span>
 	</div>
 
@@ -481,13 +454,13 @@
 
 </div>
 <a name="var$documentMethod" id="$documentMethod"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$documentMethod</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a19">19</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a20">20</a></span>)
 		</span>
 	</div>
 
@@ -499,13 +472,13 @@
 
 </div>
 <a name="var$documentName" id="$documentName"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$documentName</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a32">32</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a31">31</a></span>)
 		</span>
 	</div>
 
@@ -517,13 +490,13 @@
 
 </div>
 <a name="var$documentObject" id="$documentObject"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$documentObject</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a25">25</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a26">26</a></span>)
 		</span>
 	</div>
 
@@ -535,31 +508,13 @@
 
 </div>
 <a name="var$dumpSnippets" id="$dumpSnippets"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$dumpSnippets</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a37">37</a></span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	
-		
-		
-
-</div>
-<a name="var$dumpSQL" id="$dumpSQL"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
-			<span class="var-name">$dumpSQL</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a41">41</a></span>)
+			<span class="var-name">$dumpSnippets</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a36">36</a></span>)
 		</span>
 	</div>
 
@@ -577,7 +532,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$entrypage</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a35">35</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a34">34</a></span>)
 		</span>
 	</div>
 
@@ -595,7 +550,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$Event</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a10">10</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a11">11</a></span>)
 		</span>
 	</div>
 
@@ -613,25 +568,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$event</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a10">10</a></span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	
-		
-		
-
-</div>
-<a name="var$executedQueries" id="$executedQueries"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$executedQueries</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a29">29</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a11">11</a></span>)
 		</span>
 	</div>
 
@@ -643,17 +580,38 @@
 
 </div>
 <a name="var$forwards" id="$forwards"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$forwards</span>
-			 = <span class="var-default"> 3</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a49">49</a></span>)
+			 = <span class="var-default"> 3</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a46">46</a></span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$is_rss" id="$is_rss"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">is</span>
+			<span class="var-name">$is_rss</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a51">51</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> this an RSS feed request?</li>
+			</ul>
 	
 	
 		
@@ -667,7 +625,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$jscripts</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a46">46</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a43">43</a></span>)
 		</span>
 	</div>
 
@@ -685,7 +643,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$loadedjscripts</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a47">47</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a44">44</a></span>)
 		</span>
 	</div>
 
@@ -703,7 +661,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$maxParserPasses</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a24">24</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a25">25</a></span>)
 		</span>
 	</div>
 
@@ -721,7 +679,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$minParserPasses</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a23">23</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a24">24</a></span>)
 		</span>
 	</div>
 
@@ -739,7 +697,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$placeholders</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a44">44</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a41">41</a></span>)
 		</span>
 	</div>
 
@@ -757,43 +715,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$pluginEvent</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a11">11</a></span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	
-		
-		
-
-</div>
-<a name="var$queryCode" id="$queryCode"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$queryCode</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a42">42</a></span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	
-		
-		
-
-</div>
-<a name="var$queryTime" id="$queryTime"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$queryTime</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a30">30</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a12">12</a></span>)
 		</span>
 	</div>
 
@@ -811,7 +733,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$result</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a14">14</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a15">15</a></span>)
 		</span>
 	</div>
 
@@ -829,7 +751,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$rs</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a13">13</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a14">14</a></span>)
 		</span>
 	</div>
 
@@ -847,7 +769,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$sjscripts</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a45">45</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a42">42</a></span>)
 		</span>
 	</div>
 
@@ -865,7 +787,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$snippetCache</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a39">39</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a38">38</a></span>)
 		</span>
 	</div>
 
@@ -883,7 +805,7 @@
 		<span class="var-title">
 			<span class="var-type">array</span>
 			<span class="var-name">$snippetMap</span>
-			 = <span class="var-default">array('ditto'=&gt;'List', 'webloginpe'=&gt;'WebUsers')</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a57">57</a></span>)
+			 = <span class="var-default">array('ditto'=&gt;'List', 'webloginpe'=&gt;'WebUsers')</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a59">59</a></span>)
 		</span>
 	</div>
 
@@ -905,7 +827,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$snippetObjects</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a27">27</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a28">28</a></span>)
 		</span>
 	</div>
 
@@ -923,7 +845,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$sql</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a15">15</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a16">16</a></span>)
 		</span>
 	</div>
 
@@ -941,7 +863,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$stopOnNotice</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a28">28</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a29">29</a></span>)
 		</span>
 	</div>
 
@@ -959,7 +881,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$table_prefix</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a16">16</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a17">17</a></span>)
 		</span>
 	</div>
 
@@ -977,7 +899,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$templateObject</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a26">26</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a27">27</a></span>)
 		</span>
 	</div>
 
@@ -995,7 +917,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$tstart</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a22">22</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a23">23</a></span>)
 		</span>
 	</div>
 
@@ -1013,7 +935,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$virtualDir</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a43">43</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a40">40</a></span>)
 		</span>
 	</div>
 
@@ -1031,7 +953,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$visitor</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a34">34</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a33">33</a></span>)
 		</span>
 	</div>
 
@@ -1042,7 +964,27 @@
 		
 
 </div>
-						
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../phpDocumentor/Core.html">Core</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../phpDocumentor/Core.html#var$db">Core::$db</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../phpDocumentor/Core.html#var$dumpSQL">Core::$dumpSQL</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../phpDocumentor/Core.html#var$executedQueries">Core::$executedQueries</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../phpDocumentor/Core.html#var$queryCode">Core::$queryCode</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../phpDocumentor/Core.html#var$queryTime">Core::$queryTime</a></span><br>
+							</span>
+											</blockquote> 
+										
 		</div>
 	</div>
 	
@@ -1062,7 +1004,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a64">64</a></span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a66">66</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1083,7 +1025,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">loadExtension</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__document.parser.class.inc.php.html#a86">86</a></span>)
+		<span class="method-title">loadExtension</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a88">88</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1104,13 +1046,23 @@
 		
 			
 	</div>
-						
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../phpDocumentor/Core.html">Core</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../phpDocumentor/Core.html#methodgetFullTableName">Core::getFullTableName()</a></span><br>
+													<span class="method-name"><a href="../phpDocumentor/Core.html#methodgetMicroTime">Core::getMicroTime()</a></span><br>
+													<span class="method-name"><a href="../phpDocumentor/Core.html#methodgetSettings">Core::getSettings()</a></span><br>
+													<span class="method-name"><a href="../phpDocumentor/Core.html#methodmessageQuit">Core::messageQuit()</a></span><br>
+											</blockquote>
+										
 		</div>
 	</div>
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 25 Dec 2012 15:33:10 +0000 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+		Documentation generated on Fri, 01 Mar 2013 20:44:44 +0000 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
 	</p>
 	</div></body>
 </html>
