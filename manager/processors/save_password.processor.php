@@ -25,12 +25,18 @@ $HashHandler = new HashHandler(CLIPPER_HASH_PREFERRED, $modx);
 $Hash = $HashHandler->generate($pass1);
 
 $sql = "UPDATE " . $modx->getFullTableName('manager_users') 
-. " SET hashtype=" . CLIPPER_HASH_PREFERRED . ", salt='" . $modx->db->escape($Hash->salt) . "', password='" . $modx->db->escape($Hash->hash) . "' WHERE id=" . $modx->getLoginUserID();
+. " SET hashtype=" . CLIPPER_HASH_PREFERRED . ", salt='" . $modx->db->escape($Hash->salt) . "', password='" . $modx->db->escape($Hash->hash) . "' WHERE id=" . ($userid = $modx->getLoginUserID());
 
 $modx->db->query($sql);
 
 $_SESSION['mgrHashtype'] = CLIPPER_HASH_PREFERRED;
 
+$modx->invokeEvent('OnManagerChangePassword', array (
+	'userid' => $userid,
+	'username' => $modx->getLoginUserName(),
+	'userpassword' => $pass1
+	));
+
 $header="Location: index.php?a=7";
 header($header);
-?>
+
