@@ -674,12 +674,12 @@ select[name="sortby"] {
 	color: #aaa;
 	cursor: default;
 }
+.protectedNode {
+	color: #212121;
+}
 .notInMenuNode {
 	color: #777;
 	text-decoration: none;
-}
-.protectedNode {
-	color: #aaa;
 }
 
 #treeSplitter {
