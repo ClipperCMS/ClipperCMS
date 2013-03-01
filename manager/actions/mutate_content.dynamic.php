@@ -926,8 +926,8 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
 			    if ($documentId > 0) {
 			        // Load up, the permissions from the parent (if new document) or existing document
 			        $sql = 'SELECT id, document_group FROM '.$tbl_document_groups.' WHERE document=\''.$documentId.'\'';
-			        $rs = mysql_query($sql);
-			        while ($currentgroup = mysql_fetch_assoc($rs))
+			        $rs = $modx->db->query($sql);
+			        while ($currentgroup = $modx->db->getRow($rs))
 			            $groupsarray[] = $currentgroup['document_group'].','.$currentgroup['id'];
 			
 			        // Load up the current permissions and names
@@ -946,8 +946,8 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
 			        $groupsarray = array_merge($groupsarray, $_POST['docgroups']);
 			
 			    // Query the permissions and names from above
-			    $rs = mysql_query($sql);
-			    $limit = mysql_num_rows($rs);
+			    $rs = $modx->db->query($sql);
+			    $limit = $modx->db->getRecordCount($rs);
 			
 			    $isManager = $modx->hasPermission('access_permissions');
 			    $isWeb     = $modx->hasPermission('web_access_permissions');
@@ -965,7 +965,7 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
 			
 			    // Loop through the permissions list
 			    for ($i = 0; $i < $limit; $i++) {
-			        $row = mysql_fetch_assoc($rs);
+			        $row = $modx->db->getRow($rs);
 			
 			        // Create an inputValue pair (group ID and group link (if it exists))
 			        $inputValue = $row['id'].','.($row['link_id'] ? $row['link_id'] : 'new');

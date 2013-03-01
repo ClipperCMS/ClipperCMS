@@ -417,10 +417,10 @@ if(is_array($evtOut)) echo implode("",$evtOut);
 										WHERE pluginid='$id'
 									";
 									$evts = array();
-									$rs = mysql_query($sql);
-									$limit = mysql_num_rows($rs);
+									$rs = $modx->db->query($sql);
+									$limit = $modx->db->getRecordCount($rs);
 									for ($i=0; $i<$limit; $i++) {
-									   $row = mysql_fetch_assoc($rs);
+									   $row = $modx->db->getRow($rs);
 									   $evts[] = $row['evtid'];
 									}
 								} else {
@@ -442,11 +442,11 @@ if(is_array($evtOut)) echo implode("",$evtOut);
 									"User Defined Events"
 								);
 										$sql = "SELECT * FROM $dbase.`".$table_prefix."system_eventnames` ORDER BY service DESC, groupname, name";
-								$rs = mysql_query($sql);
-								$limit = mysql_num_rows($rs);
+								$rs = $modx->db->query($sql);
+								$limit = $modx->db->getRecordCount($rs);
 								if($limit==0) echo "<tr><td>&nbsp;</td></tr>";
 								else for ($i=0; $i<$limit; $i++) {
-									$row = mysql_fetch_assoc($rs);
+									$row = $modx->db->getRow($rs);
 									// display records
 									if($srv!=$row['service']){
 										$srv=$row['service'];

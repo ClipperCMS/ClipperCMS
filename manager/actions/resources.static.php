@@ -198,10 +198,10 @@ function createResourceList($resourceTable,$action,$tablePre,$nameField = 'name'
 	                $pluginsql = $v['table'] == 'site_plugins' ? $tablePre.$v['table'].'`.disabled, ' : '';
 	                $sql = 'SELECT '.$pluginsql.$nameField.' as name, '.$tablePre.$v['table'].'`.id, description, locked, '.$tablePre.'categories`.category, '.$tablePre.'categories`.id as catid FROM '.$tablePre.$v['table'].'` left join '.$tablePre.'categories` on '.$tablePre.$v['table'].'`.category = '.$tablePre.'categories`.id ORDER BY 5,1';
 	                $rs = $modx->db->query($sql);
-	        		$limit = mysql_num_rows($rs);
+	        		$limit = $modx->db->getRecordCount($rs);
 	        		if($limit>0){
 	        			for($i=0; $i<$limit; $i++) {
-	                        $row = mysql_fetch_assoc($rs);
+	                        $row = $modx->db->getRow($rs);
 	                        $row['type'] = $v['name'];
 	                        $row['action'] = $v['action'];
 	                        if (empty($row['category'])) {$row['category'] = $_lang['no_category'];}
