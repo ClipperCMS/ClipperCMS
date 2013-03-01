@@ -949,6 +949,7 @@ class DocumentParser extends Core {
             case 'ucfirst':
             case 'strip_tags':
             case 'urlencode':
+            case 'rawurlencode':
                 $string = $modifier($string);
                 break;
                 
