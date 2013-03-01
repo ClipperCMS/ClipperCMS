@@ -89,12 +89,12 @@ echo "<h2>" . $_lang['optional_items'] . "</h2><p>" . $_lang['optional_items_not
 $locales = trim(@shell_exec('locale -a'));
 if ($locales) {
 	$locales = explode("\n", $locales);
-	$lc_numeric = setlocale(LC_NUMERIC, 0);
+	$lc_numeric = isset($locale_lc_numeric) ? $locale_lc_numeric : setlocale(LC_NUMERIC, 0);
 	echo
 	'<h3>Locales</h3>
 	<p><label>LC_ALL: <select name="locale_lc_all"><option></option>';
 	foreach($locales as $locale) {
-		echo '<option>'.$locale.'</option>';
+		echo '<option'.((isset($locale_lc_all) && $locale_lc_all == $locale) ? ' selected="selected"' : '').'>'.$locale.'</option>';
 	}
 	echo '</select></label></p>
 	<p>'.$_lang['locales_note'].'</p>
