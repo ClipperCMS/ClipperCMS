@@ -873,7 +873,9 @@ class DocumentParser extends Core {
                             $other_docid = $this->getUltimateParentId($this->documentIdentifier);
                             break;
                         default:
-                            $other_docid = trim($this->mergeSettingsContent($other_docid));
+                        	if (array_key_exists($other_docid, $this->config)) {
+                        		$other_docid = $this->config[$other_docid];
+                        	}
                             if (ctype_digit($other_docid)) {
                                 $other_docid = (int)$other_docid;
                             } else {
