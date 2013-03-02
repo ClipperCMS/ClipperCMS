@@ -6,6 +6,7 @@
 
 # and any files in the cache directory
 assets/cache/*
+assets/cache/siteCache.idx.php
 
 # plus these asset directories
 assets/images/*
