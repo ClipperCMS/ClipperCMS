@@ -6,10 +6,6 @@ if(!$modx->hasPermission('bk_manager')) {
 	$e->dumpError();
 }
 
-if ($manager_theme)
-        $manager_theme .= '/';
-else    $manager_theme  = '';
-
 // Get table names (alphabetical)
 $tbl_event_log    = $modx->getFullTableName('event_log');
 
@@ -98,7 +94,7 @@ if ($mode=='backup') {
 	<input type="hidden" name="mode" value="" />
 	<p><?php echo $_lang['table_hoverinfo']?></p>
 
-	<p style="width:100%;"><a href="#" onclick="submitForm();return false;"><img src="media/style/<?php echo $manager_theme?>images/misc/ed_save.gif" border="0" /><?php echo $_lang['database_table_clickhere']?></a> <?php echo $_lang['database_table_clickbackup']?></p>
+	<p style="width:100%;"><a href="#" onclick="submitForm();return false;"><img src="media/style/<?php echo $manager_theme?>/images/misc/ed_save.gif" border="0" /><?php echo $_lang['database_table_clickhere']?></a> <?php echo $_lang['database_table_clickbackup']?></p>
 	<p><input type="checkbox" name="droptables"><?php echo $_lang['database_table_droptablestatements']?></p>
 	<table border="0" cellpadding="1" cellspacing="1" width="100%" bgcolor="#ccc">
 		<thead><tr>
