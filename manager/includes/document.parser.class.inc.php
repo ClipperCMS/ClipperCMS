@@ -3639,7 +3639,7 @@ class DocumentParser extends Core {
         ob_end_flush();
 
         // Log error if a connection to the db exists
-        if ($this->db->dbase) {
+        if ($this->db->conn) {
              $this->logEvent(0, 3, $parsedMessageString, $source= 'Parser');
         }
 
