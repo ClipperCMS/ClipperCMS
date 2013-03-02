@@ -21,10 +21,6 @@ switch((int) $_REQUEST['a']) {
 
 $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
 
-if ($manager_theme)
-        $manager_theme .= '/';
-else    $manager_theme  = '';
-
 // Get table Names (alphabetical)
 $tbl_active_users       = $modx->getFullTableName('active_users');
 $tbl_site_module_depobj = $modx->getFullTableName('site_module_depobj');

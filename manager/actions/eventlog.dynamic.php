@@ -6,10 +6,6 @@ if(!$modx->hasPermission('view_eventlog')) {
 	$e->dumpError();
 }
 
-if ($manager_theme)
-        $manager_theme .= '/';
-else    $manager_theme  = '';
-
 // Get table Names (alphabetical)
 $tbl_event_log     = $modx->getFullTableName('event_log');
 $tbl_manager_users = $modx->getFullTableName('manager_users');
@@ -73,8 +69,8 @@ $_PAGE['vs']['lm'] = $listmode;
 				    <tr>
 				        <td><?php echo $_lang['search']?> </td><td><input class="searchtext" name="search" type="text" size="15" value="<?php echo $query?>" /></td>
 				        <td><a href="#" class="searchbutton" title="<?php echo $_lang['search']?>" onclick="searchResource();return false;"><?php echo $_lang['go']?></a></td>
-				        <td><a href="#" class="searchbutton" title="<?php echo $_lang['reset']?>" onclick="resetSearch();return false;"><img src="media/style/<?php echo $manager_theme?>images/icons/refresh.gif" width="16" height="16"/></a></td>
-				        <td><a href="#" class="searchbutton" title="<?php echo $_lang['list_mode']?>" onclick="changeListMode();return false;"><img src="media/style/<?php echo $manager_theme?>images/icons/table.gif" width="16" height="16"/></a></td>
+				        <td><a href="#" class="searchbutton" title="<?php echo $_lang['reset']?>" onclick="resetSearch();return false;"><img src="media/style/<?php echo $manager_theme?>/images/icons/refresh.gif" width="16" height="16"/></a></td>
+				        <td><a href="#" class="searchbutton" title="<?php echo $_lang['list_mode']?>" onclick="changeListMode();return false;"><img src="media/style/<?php echo $manager_theme?>/images/icons/table.gif" width="16" height="16"/></a></td>
 				    </tr>
 				</table>
 			</td>
@@ -111,7 +107,7 @@ $_PAGE['vs']['lm'] = $listmode;
 	$grd->columns=$_lang['type']." ,".$_lang['source']." ,".$_lang['date']." ,".$_lang['event_id']." ,".$_lang['sysinfo_userid'] .','. $_lang['actions'];
 	$grd->colWidths="34,,250,61,62,100";
 	$grd->colAligns="center,,left,left,left";
-	$grd->colTypes = "template:<img src='media/style/" . $manager_theme ."images/icons/event[+type+].png' width='16' height='16' />||template:<a href='index.php?a=115&id=[+id+]' title='".$_lang['click_to_view_details']."'>[+source+]</a>||date: " . $modx->toDateFormat(null, 'formatOnly') . ' %I:%M %p' . "||template:[+eventid+] ||template: [+username+] ||template: " . $actionCol;
+	$grd->colTypes = "template:<img src='media/style/" . $manager_theme ."/images/icons/event[+type+].png' width='16' height='16' />||template:<a href='index.php?a=115&id=[+id+]' title='".$_lang['click_to_view_details']."'>[+source+]</a>||date: " . $modx->toDateFormat(null, 'formatOnly') . ' %I:%M %p' . "||template:[+eventid+] ||template: [+username+] ||template: " . $actionCol;
 	
 	if($listmode=='1') $grd->pageSize=0;
 	if($_REQUEST['op']=='reset') $grd->pageNumber = 1;

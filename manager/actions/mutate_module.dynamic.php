@@ -23,10 +23,6 @@ if (isset($_REQUEST['id']))
 		$id = (int)$_REQUEST['id'];
 else	$id = 0;
 
-if ($manager_theme)
-		$manager_theme .= '/';
-else	$manager_theme  = '';
-
 // Get table names (alphabetical)
 $tbl_active_users		= $modx->getFullTableName('active_users');
 $tbl_membergroup_names  = $modx->getFullTableName('membergroup_names');
@@ -359,7 +355,7 @@ function SetUrl(url, width, height, alt) {
 
 <div class="sectionHeader"><?php echo $_lang['module_title']?></div>
 <div class="sectionBody">
-	<p><img class="icon" src="media/style/<?php echo $manager_theme?>images/icons/modules.gif" alt="." width="32" height="32" style="vertical-align:middle;text-align:left;" /> <?php echo $_lang['module_msg']?></p>
+	<p><img class="icon" src="media/style/<?php echo $manager_theme?>/images/icons/modules.gif" alt="." width="32" height="32" style="vertical-align:middle;text-align:left;" /> <?php echo $_lang['module_msg']?></p>
 
 	<div id="mutate-module-tabs" class="js-tabs">
 		<ul>

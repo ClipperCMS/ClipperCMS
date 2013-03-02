@@ -1,7 +1,6 @@
 <?php
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
-if ($manager_theme) $manager_theme .= '/';
 $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 ?>
 <!DOCTYPE html>
@@ -9,7 +8,7 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 <head>
 	<meta content="charset=<?php echo $modx_manager_charset?>" />
 	<title>nav</title>
-	<link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme?>style.css" />
+	<link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme?>/style.css" />
 
 	<script type="text/javascript">
     	

@@ -6,9 +6,6 @@ if(!$modx->hasPermission('change_password')) {
 	$e->dumpError();
 }
 
-if ($manager_theme)
-        $manager_theme .= '/';
-else    $manager_theme  = '';
 ?>
 
 <h1><?php echo $_lang['change_password']?></h1>

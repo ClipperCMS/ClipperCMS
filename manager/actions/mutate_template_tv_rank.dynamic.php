@@ -11,12 +11,6 @@ if (!is_numeric($_REQUEST['id'])) {
     exit;
 }
 
-if ($manager_theme) {
-    $manager_theme .= '/';
-} else  {
-    $manager_theme  = '';
-}
-
 $tbl_site_templates         = $modx->getFullTableName('site_templates');
 $tbl_site_tmplvar_templates = $modx->getFullTableName('site_tmplvar_templates');
 $tbl_site_tmplvars          = $modx->getFullTableName('site_tmplvars');
