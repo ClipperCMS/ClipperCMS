@@ -21,12 +21,25 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
     <title>Document Tree</title>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset; ?>" />
     <link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
-    <script src="media/script/mootools/mootools.js" type="text/javascript"></script>
+    <?php 
+    	echo $modx->getJqueryTag();
+    ?>
+    
+    <script>
+	    
+	     $.noConflict();
+	     
+    </script>
+    
+    
     <script type="text/javascript">
-    window.addEvent('load', function(){
-        resizeTree();
-        restoreTree();
-        window.addEvent('resize', resizeTree);
+    jQuery(window).on('load', function () {
+		resizeTree();
+		restoreTree();
+	});
+    
+    jQuery(window).resize(function(){
+    	resizeTree();
     });
 
     // preload images
@@ -84,20 +97,23 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
         return {'width':width,'height':height};
     }
-
+    
     function resizeTree() {
-
-        // get window width/height
-        var win = getWindowDimension();
+        var winW = jQuery(window).width();
+        var winH = jQuery(window).height();
 
         // set tree height
-        var tree = $('treeHolder');
-        var tmnu = $('treeMenu');
-        tree.style.width = (win['width']-20)+'px';
-        tree.style.height = (win['height']-tree.offsetTop-6)+'px';
-        tree.style.overflow = 'auto';
-    }
+        var tree = jQuery('#treeHolder');
+        var tmnu = jQuery('#treeMenu');
+        
+        var treeOffset = tree.offset();
+        
+        tree.width(winW - 20);
+        tree.height(winH - treeOffset.top - 6);
+        tree.css({'overflow': 'auto'});
 
+    }
+    
     function getScrollY() {
       var scrOfY = 0;
       if( typeof( window.pageYOffset ) == 'number' ) {
@@ -116,14 +132,14 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
     function showPopup(id,title,e){
         var x,y
-        var mnu = $('mx_contextmenu');
-        var bodyHeight = parseInt(document.body.offsetHeight);
+        var mnu = jQuery('#mx_contextmenu');
+        var bodyHeight = parseInt(jQuery('body').height());
         x = e.clientX>0 ? e.clientX:e.pageX;
         y = e.clientY>0 ? e.clientY:e.pageY;
         y = getScrollY()+(y/2);
-        if (y+mnu.offsetHeight > bodyHeight) {
+        if (y+mnu.height() > bodyHeight) {
             // make sure context menu is within frame
-            y = y - ((y+mnu.offsetHeight)-bodyHeight+5);
+            y = y - ((y+mnu.height())-bodyHeight+5);
         }
         itemToChange=id;
         selectedObjectName= title;
@@ -136,116 +152,143 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
         if(selectedObjectName.length>20) {
             selectedObjectName = selectedObjectName.substr(0, 20) + "...";
         }
-        var h,context = $('mx_contextmenu');
-        context.style.left= x<?php echo $modx_textdir ? '-190' : '';?>+"px"; //offset menu to the left if rtl is selected
-        context.style.top = y+"px";
-        var elm = $("nameHolder");
-        elm.innerHTML = selectedObjectName;
+        
+        var h,context = jQuery('#mx_contextmenu');
+               
+        context.css({'left': x + (<?php echo $modx_textdir ? '-190' : 0;?>)});
+        context.css({'top': y});
+        
+        var elm = jQuery("#nameHolder");
+        
+        elm.html(selectedObjectName);
 
-        context.style.visibility = 'visible';
+        context.css({'visibility':'visible'});
+        
         _rc = 1;
         setTimeout("_rc = 0;",100);
     }
 
     function hideMenu() {
         if (_rc) return false;
-        $('mx_contextmenu').style.visibility = 'hidden';
+        jQuery('#mx_contextmenu').hide();
     }
 
     function toggleNode(node,indent,parent,expandAll,privatenode) {
-        privatenode = (!privatenode || privatenode == '0') ? privatenode = '0' : privatenode = '1';
-        rpcNode = $(node.parentNode.lastChild);
-
+		
+		privatenode = (!privatenode || privatenode == '0') ? privatenode = '0' : privatenode = '1';
+        
+        rpcNode = jQuery(node).parent().children().last();
+        
         var rpcNodeText;
         var loadText = "<?php echo $_lang['loading_doc_tree'];?>";
 
-        var signImg = document.getElementById("s"+parent);
-        var folderImg = document.getElementById("f"+parent);
-
-        if (rpcNode.style.display != 'block') {
+        var signImg = jQuery("#s"+parent);
+        var folderImg = jQuery("#f"+parent);
+        
+        if (rpcNode.css('display') != 'block') {
             // expand
-            if(signImg && signImg.src.indexOf('media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>images/tree/plusnode.gif')>-1) {
-                signImg.src = '<?php echo $_style["tree_minusnode"]; ?>';
-                folderImg.src = (privatenode == '0') ? '<?php echo $_style["tree_folderopen"]; ?>' :'<?php echo $_style["tree_folderopen_secure"]; ?>';
+            if(signImg && signImg.attr('src').indexOf('media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>images/tree/plusnode.gif')>-1) {
+                signImg.attr('src', '<?php echo $_style["tree_minusnode"]; ?>');
+                folderImg.attr('src', (privatenode == '0') ? '<?php echo $_style["tree_folderopen"]; ?>' :'<?php echo $_style["tree_folderopen_secure"]; ?>');
             }
 
-            rpcNodeText = rpcNode.innerHTML;
+            rpcNodeText = rpcNode.html();
 
             if (rpcNodeText=="" || rpcNodeText.indexOf(loadText)>0) {
+                
                 var i, spacer='';
                 for(i=0;i<=indent+1;i++) spacer+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-                rpcNode.style.display = 'block';
+                rpcNode.css({'display':'block'});
                 //Jeroen set opened
                 openedArray[parent] = 1 ;
                 //Raymond:added getFolderState()
                 var folderState = getFolderState();
                 rpcNode.innerHTML = "<span class='emptyNode' style='white-space:nowrap;'>"+spacer+"&nbsp;&nbsp;&nbsp;"+loadText+"...<\/span>";
-                new Ajax('index.php?a=1&f=nodes&indent='+indent+'&parent='+parent+'&expandAll='+expandAll+folderState, {method: 'get',onComplete:rpcLoadData}).request();
+                
+                jQuery.get('index.php?a=1&f=nodes&indent='+indent+'&parent='+parent+'&expandAll='+expandAll+folderState, function(data) {
+					rpcLoadData(data);
+				});
+                
             } else {
-                rpcNode.style.display = 'block';
+                
+                rpcNode.css({'display':'block'});
                 //Jeroen set opened
                 openedArray[parent] = 1 ;
             }
         }
         else {
             // collapse
-            if(signImg && signImg.src.indexOf('media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>images/tree/minusnode.gif')>-1) {
-                signImg.src = '<?php echo $_style["tree_plusnode"]; ?>';
-                folderImg.src = (privatenode == '0') ? '<?php echo $_style["tree_folder"]; ?>' : '<?php echo $_style["tree_folder_secure"]; ?>';
+            if(signImg && signImg.attr('src').indexOf('media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>images/tree/minusnode.gif')>-1) {
+                signImg.attr('src','<?php echo $_style["tree_plusnode"]; ?>');
+                folderImg.attr('src', (privatenode == '0') ? '<?php echo $_style["tree_folder"]; ?>' : '<?php echo $_style["tree_folder_secure"]; ?>');
             }
-            //rpcNode.innerHTML = '';
-            rpcNode.style.display = 'none';
+            rpcNode.css({'display':'none'});
             openedArray[parent] = 0 ;
         }
     }
 
     function rpcLoadData(response) {
-        if(rpcNode != null){
-            rpcNode.innerHTML = typeof response=='object' ? response.responseText : response ;
-            rpcNode.style.display = 'block';
+        
+        
+        if(rpcNode != null && response !='savestateonly'){
+            if( typeof response=='object' ){
+	            jQuery(rpcNode).html(response.responseText);//TODO: could not get to this
+            }else{
+	            jQuery(rpcNode).html(response);
+            }
+            jQuery(rpcNode).css({'display':'block'});
             rpcNode.loaded = true;
-            var elm = top.mainMenu.document.getElementById("buildText");
-            if (elm) {
-                elm.innerHTML = "";
-                elm.style.display = 'none';
+            if(top.mainMenu !== undefined){
+	            var elm = jQuery('#buildText', top.mainMenu.document);
+	            
+	            if (elm.length) {
+	                elm.empty();
+	                elm.css({'display':'none'})
+	            }
             }
             // check if bin is full
-            if(rpcNode.id=='treeRoot') {
-                var e = $('binFull');
-                if(e) showBinFull();
-                else showBinEmpty();
+            if(rpcNode.attr('id') == 'treeRoot') {
+                var e = jQuery('#binFull');
+                if(e.length) 
+                	showBinFull();
+                else 
+                	showBinEmpty();
             }
-
             // check if our payload contains the login form :)
-            e = $('mx_loginbox');
-            if(e) {
+            e = jQuery('mx_loginbox');
+            if(e.length) {
                 // yep! the seession has timed out
-                rpcNode.innerHTML = '';
+                rpcNode.empty();
                 top.location = 'index.php';
             }
         }
     }
 
     function expandTree() {
-        rpcNode = $('treeRoot');
-        new Ajax('index.php?a=1&f=nodes&indent=1&parent=0&expandAll=1', {method: 'get',onComplete:rpcLoadData}).request();
+        rpcNode = jQuery('#treeRoot');
+        jQuery.get('index.php?a=1&f=nodes&indent=1&parent=0&expandAll=1', function(data) {
+			rpcLoadData(data);
+		});
     }
 
     function collapseTree() {
-        rpcNode = $('treeRoot');
-        new Ajax('index.php?a=1&f=nodes&indent=1&parent=0&expandAll=0', {method: 'get',onComplete:rpcLoadData}).request();
+        rpcNode = jQuery('#treeRoot');
+        jQuery.get('index.php?a=1&f=nodes&indent=1&parent=0&expandAll=0', function(data) {
+			rpcLoadData(data);
+		});
     }
 
     // new function used in body onload
     function restoreTree() {
-        rpcNode = $('treeRoot');
-        new Ajax('index.php?a=1&f=nodes&indent=1&parent=0&expandAll=2', {method: 'get',onComplete:rpcLoadData}).request();
+        rpcNode = jQuery('#treeRoot');
+		jQuery.get('index.php?a=1&f=nodes&indent=1&parent=0&expandAll=2', function(data) {
+			rpcLoadData(data);
+		});
     }
 
     function setSelected(elSel) {
         var all = document.getElementsByTagName( "SPAN" );
         var l = all.length;
-
         for ( var i = 0; i < l; i++ ) {
             el = all[i]
             cn = el.className;
@@ -257,28 +300,36 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
     };
 
     function setHoverClass(el, dir) {
-        if(el.className!="treeNodeSelected") {
-            if(dir==1) {
-                el.className="treeNodeHover";
-            } else {
-                el.className="treeNode";
-            }
-        }
+    	el = jQuery(el);
+    	if(!el.hasClass('treeNodeSelected')){
+	    	if(dir == 1){
+		    	el.attr('class', 'treeNodeHover')
+	    	}else{
+		    	el.attr('class', 'treeNode')
+	    	}
+    	}else{
+	    	//ntd
+    	}
     };
 
     // set Context Node State
     function setCNS(n, b) {
+    	n = jQuery(n);
         if(b==1) {
-            n.style.backgroundColor="beige";
+            n.css('background-color', 'beige');
         } else {
-            n.style.backgroundColor="";
+            n.css('background-color', 'transparent');
         }
     };
 
     function updateTree() {
-        rpcNode = $('treeRoot');
+        rpcNode = jQuery('#treeRoot');
+        
         treeParams = 'a=1&f=nodes&indent=1&parent=0&expandAll=2&dt=' + document.sortFrm.dt.value + '&tree_sortby=' + document.sortFrm.sortby.value + '&tree_sortdir=' + document.sortFrm.sortdir.value;
-        new Ajax('index.php?'+treeParams, {method: 'get',onComplete:rpcLoadData}).request();
+        
+        jQuery.get('index.php?'+treeParams, function(data) {
+			rpcLoadData(data);
+		});
     }
 
     function emptyTrash() {
@@ -299,6 +350,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
     }
 
     function treeAction(id, name) {
+    	
         if(ca=="move") {
             try {
                 parent.main.setMoveValue(id, name);
@@ -345,34 +397,39 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
         }
         return oarray;
     }
+    
     function saveFolderState() {
         var folderState = getFolderState();
-        new Ajax('index.php?a=1&f=nodes&savestateonly=1'+folderState, {method: 'get'}).request();
+        jQuery.get('index.php?a=1&f=nodes&savestateonly=1'+folderState, function(data) {
+			rpcLoadData(data);
+		});
     }
-
+    
     // show state of recycle bin
     function showBinFull() {
-        var a = $('Button10');
+        var a = jQuery('#Button10');
         var title = '<?php echo $_lang['empty_recycle_bin']; ?>';
-        if (a) {
-            if(!a.setAttribute) a.title = title;
-        else a.setAttribute('title',title);
-        a.innerHTML = '<?php echo $_style['empty_recycle_bin']; ?>';
-        a.className = 'treeButton';
-        a.onclick = emptyTrash;
-    }
+        if (a.length) {
+	        a.attr('title', title);
+	        a.html('<?php echo $_style['empty_recycle_bin']; ?>');
+	        a.removeClass('treeButtonDisabled').addClass('treeButton');
+	        a.click(function(){
+		        emptyTrash();
+	        })
+        }
     }
 
-    function showBinEmpty() {
-        var a = $('Button10');
+	function showBinEmpty() {
+        var a = jQuery('#Button10');
         var title = '<?php echo addslashes($_lang['empty_recycle_bin_empty']); ?>';
-        if (a) {
-            if(!a.setAttribute) a.title = title;
-        else a.setAttribute('title',title);
-        a.innerHTML = '<?php echo $_style['empty_recycle_bin_empty']; ?>';
-        a.className = 'treeButtonDisabled';
-        a.onclick = '';
-    }
+	    if (a.length) {
+	        a.attr('title', title);
+	        a.html('<?php echo $_style['empty_recycle_bin_empty']; ?>');
+	        a.removeClass('treeButton').addClass('treeButtonDisabled');
+	        a.click(function(e){
+		        e.preventDefault();
+	        })
+	    }
     }
 
 </script>
