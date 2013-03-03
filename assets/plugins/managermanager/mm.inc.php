@@ -20,10 +20,6 @@ $mm_version = '0.3.11';
 
 // Bring in some preferences which have been set on the configuration tab of the plugin, and normalise them
 
-// Should we remove deprecated Template variable types from the TV creation list?
-$remove_deprecated_tv_types = ($remove_deprecated_tv_types_pref == 'yes') ? true : false;
-
-
 // When loading widgets / functions, ignore folders / files beginning with these chars
 $ignore_first_chars = array('.', '_', '!'); 
 
@@ -106,7 +102,6 @@ foreach ($all_tvs as $thisTv) {
 	
 	switch ($thisTv['type']) { // What fieldtype is this TV type?
 		case 'textarea':
-		case 'rawtextarea': 
 		case 'textareamini':
 		case 'richtext':
 		case 'custom_tv':
@@ -384,7 +379,7 @@ $j(document).ready(function() {
 		alert("ManagerManager: An error has occurred: " + e.name + " - " + e.message);	
 		
 	} finally {	
-		
+
 		// Whatever happens, hide the loading mask
 		$j("#loadingmask").hide();
 	}
@@ -393,36 +388,6 @@ $j(document).ready(function() {
 <!-- ManagerManager Plugin :: End -->
 		');
 break;
-
-
-
-
-
-case 'OnTVFormRender':
-
-	if ($remove_deprecated_tv_types) {
-
-		// Load the jquery library
-		echo '<!-- Begin ManagerManager output -->';
-		echo $modx->getJqueryTag();
-	
-		// Create a mask to cover the page while the fields are being rearranged
-		echo '		
-			<script type="text/javascript">
-			var $j = jQuery.noConflict();
-			$j("select[name=type] option").each( function() {
-												var $this = $j(this);
-												if( !($this.text().match("deprecated")==null )) {
-													$this.remove();	
-												}
-														  });
-			</script>	
-		';
-		echo '<!-- End ManagerManager output -->';
-	}
-
-break;
-
 
 case 'OnBeforeDocFormSave':
 	global $template;
