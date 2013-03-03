@@ -48,7 +48,7 @@
     </ul>
     <ol>
   <li value="4">On the configuration tab, paste the following code into the &quot;Plugin configuration&quot; box, and click &quot;Update parameter display&quot;:<br />
-  	<code>&amp;config_chunk=Configuration Chunk;text; &amp;remove_deprecated_tv_types_pref=Remove deprecated TV types;list;yes,no;yes &amp;which_jquery=jQuery source;list;local (assets/js),remote (google code),manual url (specify below);remote (google code) &amp;js_src_type=jQuery URL override;text; </code> </li>
+  	<code>&amp;config_chunk=Configuration Chunk;text; &amp;which_jquery=jQuery source;list;local (assets/js),remote (google code),manual url (specify below);remote (google code) &amp;js_src_type=jQuery URL override;text; </code> </li>
   <li>Copy all the files from the zip file  into <strong>/assets/plugins/managermanager </strong>and upload.<br />
   	</li>
   <li>If you would like to edit your rules through the <strong>Manager</strong> interface, create a chunk called 'mm_rules' (if you want to call it something different, you can edit this in the code pasted from plugin.txt). You can then put your rules in there.<br />
@@ -76,8 +76,6 @@
     <p>All configuration options are set through the &quot;Configuration tab&quot; of the plugin.</p>
     <h3>Configuration chunk</h3>
     <p>The name of the chunk which contains MM rules (optional, if you put your rules in the external file mm_rules.inc.php)</p>
-    <h3>Remove deprecated TV types</h3>
-    <p>If selected YES, deprecated TV types will not be shown on the TV creation / editing screen.</p>
     <h3>jQuery source    </h3>
     <p>ManagerManager uses jQuery (currently version 1.3.2) to carry out the modifications to the Manager pages. You can choose where the jQuery library is located:</p>
     <p><strong>local</strong> - use the version of jQuery which is included with the ModX 1.0.0 distribution<br />
