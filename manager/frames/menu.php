@@ -30,8 +30,8 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 		var defaultFrameWidth = '<?php echo !$modx_textdir ? '260,*' : '*,260'?>';
 		var userDefinedFrameWidth = '<?php echo !$modx_textdir ? '260,*' : '*,260'?>';
 	
-		var workText; //TODO: could be removed
-		var buildText; //TODO: could be removed
+		var workText;
+		var buildText;
 
 		var modx_textdir = '<?php echo $modx_textdir ?>';
 		var manager_layout = '<?php echo $manager_layout?>';
@@ -52,7 +52,12 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 <div id="tocText"<?php echo $modx_textdir ? ' class="tocTextRTL"' : '' ?>></div>
 <div id="topbar">
 	<div id="topbar-container">
-
+		
+		<div id="statusbar">
+			<span id="buildText"></span>
+			<span id="workText"></span>
+		</div>
+		
 	<div id="supplementalNav">
 	<?php
 	echo $modx->getLoginUserName(). ($modx->hasPermission('change_password') ? ': <a onclick="this.blur();" href="index.php?a=28" target="main">'.$_lang['change_password'].'</a>'."\n" : "\n");

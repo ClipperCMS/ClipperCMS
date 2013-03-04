@@ -9,7 +9,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
     // save folderstate
     if (isset($_GET['opened'])) $_SESSION['openedArray'] = $_GET['opened'];
     if (isset($_GET['savestateonly'])) {
-        echo 'send some data'; //??
+        echo 'savestateonly'; //return savestateonly string. this will be detected and avoid the load of the tree
         exit;
     }
 
@@ -194,13 +194,13 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
             if ($expandAll == 1) {
                 echo '<script type="text/javascript"> ';
                 foreach ($opened2 as $item) {
-                         printf("parent.openedArray[%d] = 1; ", $item);
+                         printf("openedArray[%d] = 1; ", $item);
                 }
                 echo '</script> ';
             } elseif ($expandAll == 0) {
                 echo '<script type="text/javascript"> ';
                 foreach ($closed2 as $item) {
-                         printf("parent.openedArray[%d] = 0; ", $item);
+                         printf("openedArray[%d] = 0; ", $item);
                 }
                 echo '</script> ';
             }

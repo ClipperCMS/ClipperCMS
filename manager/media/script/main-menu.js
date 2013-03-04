@@ -61,7 +61,7 @@ $(window).load(function () {
 		// These functions are used for refreshing the tree or menu
 		function reloadtree() {
 			var elm = jQuery('#buildText');
-			if (elm) {
+			if (elm.length) {
 				elm.html("&nbsp;&nbsp;<img src='"+lang.icons_loading_doc_tree+"' width='16' height='16' />&nbsp;"+lang.loading_doc_tree);
 				elm.show();
 			}
@@ -73,7 +73,7 @@ $(window).load(function () {
 		function reloadmenu() {
 			if(manager_layout==0) {
 				var elm = jQuery('#buildText');
-				if (elm) {
+				if (elm.length) {
 					elm.html("&nbsp;&nbsp;<img src='"+style.icons_working+"' width='16' height='16' />&nbsp;" + lang.loading_menu);
 					elm.show();
 				}
@@ -102,7 +102,7 @@ $(window).load(function () {
 		// These functions are used for showing the user the system is working
 		function work() {
 			var elm = jQuery('#workText');
-			if (elm) {
+			if (elm.length) {
 				elm.html("&nbsp;<img src='"+style.icons_working+"' width='16' height='16' />&nbsp;" + lang.working);
 			}else{
 				window.setTimeout('work()', 50);
@@ -111,7 +111,7 @@ $(window).load(function () {
 	
 		function stopWork() {
 			var elm = jQuery('#workText');
-			if (elm) { 
+			if (elm.length) { 
 				elm.empty(); 
 			}else{
 				window.setTimeout('stopWork()', 50);
