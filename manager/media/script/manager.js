@@ -17,7 +17,7 @@ $(document).ready(function($) {
 		});
 	}
 	
-	$( '#pub_date, #unpub_date, input[id^="tv"].DatePicker').datetimepicker({
+	$( '#pub_date, #unpub_date, input[id^="tv"].DatePicker, #datefrom, #dateto').datetimepicker({
 		changeMonth: true,
 		changeYear: true,
 		yearRangeType: 'c-'+config.datepicker_year_range+':c+'+config.datepicker_year_range,
