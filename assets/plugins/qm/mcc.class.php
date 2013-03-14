@@ -43,7 +43,7 @@ if(!class_exists('Mcc')) {
         function Output() {
             $out = $this->head;
             $this->addLine('document.body.style.display="block";');
-            $out.= '<script type="text/javascript">var $j = jQuery.noConflict(); $j(document).ready(function($){'.$this->script.'});</script>';
+            $out.= '<script type="text/javascript">$(document).ready(function($){'.$this->script.'});</script>';
             return $out;
         }
         
