@@ -15,12 +15,13 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
     }
     $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html <?php echo ($modx_textdir ? 'dir="rtl" lang="' : 'lang="').$mxla.'" xml:lang="'.$mxla.'"'; ?>>
+<!doctype html>
+<html lang="<?php echo $mxla?>"<?php ($modx_textdir ? ' dir="rtl"' : '') ?>>
+
 <head>
-    <title>Document Tree</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset; ?>" />
-    <link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
+	<meta charset="<?php echo $modx_manager_charset; ?>">
+	<title>Document Tree</title>
+    <link rel="stylesheet" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
     <?php 
     	echo $modx->getJqueryTag();
     ?>
@@ -32,7 +33,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
     </script>
     
     
-    <script type="text/javascript">
+    <script>
     jQuery(window).on('load', function () {
 		resizeTree();
 		restoreTree();
@@ -510,7 +511,7 @@ if(isset($_REQUEST['tree_sortdir'])) {
     <div><?php echo $_style['tree_showtree']; ?>&nbsp;<span class="rootNode" onClick="treeAction(0, '<?php echo addslashes($site_name); ?>');"><b><?php echo $site_name; ?></b></span><div id="treeRoot"></div></div>
 </div>
 
-<script type="text/javascript">
+<script>
 // Set 'treeNodeSelected' class on document node when editing via Context Menu
 function setActiveFromContextMenu( doc_id ){
     $$('.treeNodeSelected').removeClass('treeNodeSelected');

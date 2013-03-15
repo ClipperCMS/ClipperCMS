@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $_lang['language_code']?>" lang="<?php echo $_lang['language_code']?>">
+<!doctype html>
+<html lang="<?php echo $_lang['language_code']?>">
 <head>
 	<title><?php echo $_lang['modx_install']?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_lang['encoding']?>" />
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+	<meta charset="<?php echo $_lang['encoding']?>">
+    <link rel="stylesheet" href="style.css" media="screen" />
 </head>
 
 <body<?php echo $modx_textdir ? ' id="rtl"':''?>>

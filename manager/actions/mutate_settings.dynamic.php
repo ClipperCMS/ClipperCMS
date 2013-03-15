@@ -56,7 +56,7 @@ $settings['rb_base_url'] =  $rb_base_url = trim($settings['rb_base_url']) == '' 
 
 ?>
 
-<script type="text/javascript">
+<script>
 function checkIM() {
     im_on = document.settings.im_plugin[0].checked; // check if im_plugin is on
     if(im_on==true) {

@@ -65,7 +65,7 @@ if(isset($_GET['id'])) {
     $_SESSION['itemname']="New snippet";
 }
 ?>
-<script type="text/javascript">
+<script>
 
 function duplicaterecord(){
     if(confirm("<?php echo $_lang['confirm_duplicate_record']?>")==true) {
@@ -399,6 +399,6 @@ if(is_array($evtOut)) echo implode("",$evtOut);
 ?>
 </form>
 
-<script type="text/javascript">
+<script>
 setTimeout('showParameters();',10);
 </script>

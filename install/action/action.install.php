@@ -27,8 +27,7 @@ if ($errors == 0) {
 	<br />
 </form>
 <br />
-<script type="text/javascript">
-/* <![CDATA[ */
+<script>
 function closepage(){
 	var chk = document.install.rminstaller;
 	if(chk && chk.checked) {
@@ -39,5 +38,4 @@ function closepage(){
 		window.location.href = "../manager/";
 	}
 }
-/* ]]> */
 </script>

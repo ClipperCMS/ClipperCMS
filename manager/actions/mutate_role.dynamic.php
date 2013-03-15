@@ -62,7 +62,7 @@ if($_REQUEST['a']=='35') {
 
 
 ?>
-<script type="text/javascript">
+<script>
 function changestate(element) {
 	documentDirty=true;
 	currval = eval(element).value;
@@ -93,7 +93,7 @@ function deletedocument() {
 			<li><a href="#" onclick="documentDirty=false;document.location.href='index.php?a=86';"><img src="<?php echo $_style["icons_cancel"] ?>" /> <?php echo $_lang['cancel'] ?></a></li>
 	</ul>
 	<?php if($_GET['a']=='38') { ?>
-	<script type="text/javascript">document.getElementById("btn_del").className='disabled';</script>
+	<script>document.getElementById("btn_del").className='disabled';</script>
 	<?php } ?>
 </div>
 

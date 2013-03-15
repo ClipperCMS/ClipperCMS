@@ -107,7 +107,7 @@ foreach ($sortables as $list) {
             
 echo '	</form>
 	</div>
-	<script type="text/javascript">
+	<script>
         //TODO: think about a more generic form of submitting
         function save() {
         	setTimeout("document.sortableListForm.submit()",1000);

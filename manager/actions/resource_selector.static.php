@@ -14,7 +14,7 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 <head>
 	<title><?php echo $content["name"]." ".$_lang['element_selector_title']; ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset; ?>" />
-	<link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
+	<link rel="stylesheet" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
 <?php
 if($_SESSION['browser']=='ie') {
 ?>   
@@ -93,7 +93,7 @@ if($_SESSION['browser']=='ie') {
 	}
 	
 ?>
-<script language="JavaScript" type="text/javascript">
+<script>
 	function saveSelection() {
 		var ids = [];
 		var ctrl = document.selector['id[]'];

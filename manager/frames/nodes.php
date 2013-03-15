@@ -192,13 +192,13 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
             }
             // store vars in Javascript
             if ($expandAll == 1) {
-                echo '<script type="text/javascript"> ';
+                echo '<script> ';
                 foreach ($opened2 as $item) {
                          printf("openedArray[%d] = 1; ", $item);
                 }
                 echo '</script> ';
             } elseif ($expandAll == 0) {
-                echo '<script type="text/javascript"> ';
+                echo '<script> ';
                 foreach ($closed2 as $item) {
                          printf("openedArray[%d] = 0; ", $item);
                 }

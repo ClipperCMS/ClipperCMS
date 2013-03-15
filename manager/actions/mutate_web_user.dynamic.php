@@ -112,7 +112,7 @@ if($manager_language!="english" && file_exists($modx->config['base_path']."manag
 
 ?>
 
-<script type="text/javascript">
+<script>
 
 function changestate(element) {
 	documentDirty=true;
@@ -231,7 +231,7 @@ function showHide(what, onoff){
 			</li>
 			<li id="btn_del"><a href="#" onclick="deleteuser();"><img src="<?php echo $_style["icons_delete"] ?>" /> <?php echo $_lang['delete']; ?></a></li>
 <?php if($_GET['a']!='88') { ?>
-			<script type="text/javascript">document.getElementById("btn_del").className='disabled';</script>
+			<script>document.getElementById("btn_del").className='disabled';</script>
 <?php } ?>
 			<li><a href="#" onclick="documentDirty=false;document.location.href='index.php?a=99';"><img src="<?php echo $_style["icons_cancel"] ?>" /> <?php echo $_lang['cancel']; ?></a></li>
 	</ul>
@@ -466,7 +466,7 @@ function showHide(what, onoff){
 		
 		<div id="tabPhoto">
 			
-			<script type="text/javascript">
+			<script>
 				function OpenServerBrowser(url, width, height ) {
 					var iLeft = (screen.width  - width) / 2 ;
 					var iTop  = (screen.height - height) / 2 ;

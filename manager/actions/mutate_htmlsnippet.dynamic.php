@@ -73,7 +73,7 @@ $content = array_merge($content, $_POST);
 
 // Print RTE Javascript function
 ?>
-<script language="javascript" type="text/javascript">
+<script>
 // Added for RTE selection
 function changeRTE(){
     var whichEditor = document.getElementById('which_editor');

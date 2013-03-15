@@ -30,7 +30,7 @@ if ($mode=='backup') {
 	$tables = isset($_POST['chk']) ? $_POST['chk'] : '';
 	if (!is_array($tables)) {
 		echo '<html><body>'.
-		     '<script type="text/javascript">alert(\'Please select a valid table from the list below\');</script>'.
+		     '<script>alert(\'Please select a valid table from the list below\');</script>'.
 		     '</body></html>';
 		exit;
 	}
@@ -69,7 +69,7 @@ if ($mode=='backup') {
 }
 
 ?>
-<script language="javascript">
+<script>
 	function selectAll() {
 		var f = document.forms['frmdb'];
 		var c = f.elements['chk[]'];

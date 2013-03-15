@@ -257,8 +257,8 @@ if ($locales) {
     </p>
 
 </form>
-<script type="text/javascript" src="../assets/js/jquery.min.js"></script>
-<script type="text/javascript">
+<script src="../assets/js/jquery.min.js"></script>
+<script>
     $(document).ready(function(){
 
         jQuery('#toggle_check_all').click(function(evt){

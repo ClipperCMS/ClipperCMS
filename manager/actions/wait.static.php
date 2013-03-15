@@ -7,7 +7,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 <div class="sectionBody">
 
 <p><?php echo $_lang['actioncomplete']; ?></p>
-<script type="text/javascript">
+<script>
 function goHome() {
 <?php if($_REQUEST['r']==10) {?>
 	top.mainMenu.startrefresh(10);

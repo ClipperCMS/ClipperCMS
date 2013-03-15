@@ -7,34 +7,34 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 $evtOut = $modx->invokeEvent('OnManagerMainFrameHeaderHTMLBlock');
 $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMainFrameHeaderHTMLBlock">' . implode('', $evtOut) . '</div>' : '';
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo  $mxla . '" lang="' .  $mxla . '"' . ($modx_textdir ? ' dir="rtl"' : ''); ?>>
+<!doctype html>
+<html lang="<?php echo $mxla?>"<?php ($modx_textdir ? ' dir="rtl"' : '') ?>>
+
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset; ?>" />
+	<meta charset="<?php echo $modx_manager_charset; ?>">
 	<title><?php echo CMS_NAME; ?></title>
-    <link rel="stylesheet" type="text/css" href="media/style/common/style.css" />
+    <link rel="stylesheet" href="media/style/common/style.css" />
     <?php
     if (is_file(MODX_MANAGER_PATH."media/style/$manager_theme/style.css")) {
-    	echo '<link rel="stylesheet" type="text/css" href="media/style/'.$manager_theme."/style.css\" />\n";
+    	echo '<link rel="stylesheet" href="media/style/'.$manager_theme."/style.css\" />\n";
     }
     if (is_file(MODX_MANAGER_PATH."media/style/$manager_theme/manager.css")) {
-    	echo '<link rel="stylesheet" type="text/css" href="media/style/'.$manager_theme."/manager.css\" />\n";
+    	echo '<link rel="stylesheet" href="media/style/'.$manager_theme."/manager.css\" />\n";
     }
 
 	echo $modx->getJqueryTag();
 	echo $modx->getJqueryPluginTag('jquery-ui-custom-clippermanager', 'jquery-ui-custom-clippermanager.min.js');
 	echo $modx->getJqueryPluginTag('jquery-ui-timepicker', 'jquery-ui-timepicker-addon.js');
 	?>
-	<script src="media/script/jquery.dataTables.min.js" type="text/javascript"></script>
-	<script src="media/script/manager.js" type="text/javascript"></script>
+	<script src="media/script/jquery.dataTables.min.js"></script>
+	<script src="media/script/manager.js"></script>
 
 	<?php
 	// Include after JQuery, so this block can output code using jQuery.
 	echo $onManagerMainFrameHeaderHTMLBlock;
 	?>
 
-	<script type="text/javascript">
+	<script>
 		var config = {
 			date_format: '<?php echo $modx->config['date_format']; ?>',
 			time_format: '<?php echo $modx->config['time_format']; ?>',
@@ -43,7 +43,7 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 		}
 	</script>
 
-	<script type="text/javascript">
+	<script>
 	
 		//TODO: organize these js function better, maybe in a separate file or manager.js
 	
@@ -57,7 +57,7 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 
 	</script>
 	
-	<script type="text/javascript">
+	<script>
 	
 		function document_onload() {
 			stopWorker();

@@ -4,7 +4,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 unset($_SESSION['itemname']); // clear this, because it's only set for logging purposes
 
 $script = <<<JS
-        <script type="text/javascript">
+        <script>
         function hideConfigCheckWarning(key){
             var myAjax = new Ajax('index.php?a=118', {
                 method: 'post',

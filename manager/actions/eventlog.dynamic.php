@@ -30,7 +30,7 @@ $listmode = isset($_REQUEST['listmode']) ? $_REQUEST['listmode']:$_PAGE['vs']['l
 $_PAGE['vs']['lm'] = $listmode;
 
 ?>
-<script type="text/javascript">
+<script>
   	function searchResource(){
 		document.resource.op.value="srch";
 		document.resource.submit();

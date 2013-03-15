@@ -36,7 +36,7 @@ if (!$_SESSION['test']) {
 <html>
 <head>
 	<title>Install Problem</title>
-	<style type=\"text/css\">
+	<style>
 		*{margin:0;padding:0}
 		body{margin:50px;background:#eee;}
 		.install{padding:10px;border:5px solid #f22;background:#f99;margin:0 auto;font:120%/1em serif;text-align:center;}

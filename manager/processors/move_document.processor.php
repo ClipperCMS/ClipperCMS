@@ -45,7 +45,7 @@ if ($use_udperms == 1) {
 
 		 if (!$udperms->checkPermissions()) {
 		 include ("header-jquery.inc.php");
-		 ?><script type="text/javascript">parent.tree.ca = '';</script>
+		 ?><script>parent.tree.ca = '';</script>
 		 <br /><br /><div class="sectionHeader"><?php echo $_lang['access_permissions']; ?></div><div class="sectionBody">
         <p><?php echo $_lang['access_permission_parent_denied']; ?></p>
         <?php

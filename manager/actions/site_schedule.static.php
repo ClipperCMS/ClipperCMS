@@ -7,7 +7,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 } */
 ?>
 
-<script type="text/javascript" src="media/script/jquery.dataTables.min.js"></script>
+<script src="media/script/jquery.dataTables.min.js"></script>
 <h1><?php echo $_lang["site_schedule"]?></h1>
 
 <div class="sectionHeader"><?php echo $_lang["publish_events"]?></div><div class="sectionBody" id="lyr1">

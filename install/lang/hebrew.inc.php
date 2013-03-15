@@ -99,7 +99,7 @@ $_lang["installation_upgrade_existing"] = 'שדרוג התקנה קיימת';
 $_lang["installation_upgrade_existing_note"] = 'שדרוג קבצים ומסד נתונים נוכחים.';
 $_lang["installed"] = 'הותקן';
 $_lang["installing_demo_site"] = 'התקנת אתר דוגמא: ';
-$_lang["language_code"] = 'he';	// for html element e.g. <html xml:lang="en" lang="en">
+$_lang["language_code"] = 'he';	// for html element e.g. <html lang="en">
 $_lang["loading"] = 'טוען...';
 $_lang["modules"] = 'מודולים';
 $_lang["modx_footer1"] = '&copy; 2012 the <a href="http://clippercms.com" target="_blank" >ClipperCMS</a> Content Mangement Framework (CMF) project. All rights reserved. ClipperCMS is licensed under the GNU GPL.';

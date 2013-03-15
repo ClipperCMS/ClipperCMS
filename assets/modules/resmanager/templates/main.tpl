@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!doctype html>
 <html>
 	<head>
 		<title>[+lang.RM_module_title+]</title>
 		
-		<link rel="stylesheet" type="text/css" href="media/style/common/style.css" />
+		<link rel="stylesheet" href="media/style/common/style.css" />
 		[+style.css+]
 		[+manager.css+]
 		
@@ -11,7 +11,7 @@
 		[+jquery.ui+]
 		[+jquery.timepicker+]
 		
-		<script type="text/javascript">
+		<script>
 	
 			$(document).ready(function($) {
 			

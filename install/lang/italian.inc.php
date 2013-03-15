@@ -102,7 +102,7 @@ $_lang["installation_upgrade_existing"] = 'Aggiornamento di una Installazione Es
 $_lang["installation_upgrade_existing_note"] = 'Aggiornamento dei files esistenti e del database.';
 $_lang["installed"] = 'Installato';
 $_lang["installing_demo_site"] = 'Installazione del sito demo: ';
-$_lang["language_code"] = 'en';	// for html element e.g. <html xml:lang="en" lang="en">
+$_lang["language_code"] = 'en';	// for html element e.g. <html lang="en">
 $_lang["loading"] = 'Sto caricando...';
 $_lang["modules"] = 'Moduli';
 $_lang["modx_footer1"] = '&copy; 2012 the <a href="http://clippercms.com" target="_blank" >ClipperCMS</a> Content Mangement Framework (CMF) project. All rights reserved. ClipperCMS is licensed under the GNU GPL.';

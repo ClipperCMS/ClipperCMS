@@ -157,7 +157,7 @@ if (isset ($_POST['which_editor'])) {
 }
 ?>
 
-<script type="text/javascript">
+<script>
 
 // save tree folder state
 if (parent.tree) parent.tree.saveFolderState();
@@ -1017,8 +1017,7 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
 			<!-- Access Permissions -->
 			<div id="tabAccess">
 
-			    <script type="text/javascript">
-			        /* <![CDATA[ */
+			    <script>
 			        function makePublic(b) {
 			            var notPublic = false;
 			            var f = document.forms['mutate'];
@@ -1037,7 +1036,6 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
 			                chkpub.checked = true;
 			            }
 			        }
-			        /* ]]> */
 			    </script>
 			    <p><?php echo $_lang['access_permissions_docs_message']?></p>
 			    <ul>
@@ -1080,7 +1078,7 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
 
 
 
-<script type="text/javascript">
+<script>
     storeCurTemplate();
 </script>
 <?php

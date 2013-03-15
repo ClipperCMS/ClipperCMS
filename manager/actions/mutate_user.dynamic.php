@@ -117,7 +117,7 @@ if($manager_language!="english" && file_exists($modx->config['base_path']."manag
 $displayStyle = (($_SESSION['browser'] == 'mz') || ($_SESSION['browser'] == 'op') || ($_SESSION['browser'] == 'sf')) ? "table-row" : "block";
 ?>
 
-<script type="text/javascript">
+<script>
 
 function changestate(element) {
 	documentDirty=true;
@@ -733,7 +733,7 @@ if (is_array($evtOut))
 		<div id="tabPhoto">
 			
 			
-			<script type="text/javascript">
+			<script>
 				function OpenServerBrowser(url, width, height ) {
 					var iLeft = (screen.width  - width) / 2 ;
 					var iTop  = (screen.height - height) / 2 ;

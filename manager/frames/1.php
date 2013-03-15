@@ -8,11 +8,11 @@ $version = $client->property('version');
 $_SESSION['browser_version'] = $version;
 $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
-<html <?php echo ($modx_textdir ? 'dir="rtl" lang="' : 'lang="').$mxla.'" xml:lang="'.$mxla.'"'; ?>>
+<!doctype html>
+<html lang="<?php echo $mxla?>"<?php ($modx_textdir ? ' dir="rtl"' : '') ?>>
 <head>
+	<meta charset="<?php echo $modx_manager_charset; ?>">
 	<title><?php echo $site_name.' - '.CMS_NAME; ?> manager</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset?>" />
 </head>
 <frameset rows="80,*" border="0">
 	<frame name="mainMenu" src="index.php?a=1&amp;f=menu" scrolling="no" frameborder="0" noresize="noresize">

@@ -8,7 +8,7 @@ if(!$modx->hasPermission('logs')) {
 ?>
 <h1><?php echo $_lang["view_sysinfo"]; ?></h1>
 
-<script type="text/javascript">
+<script>
 	function viewPHPInfo() {
 		dontShowWorker = true; // prevent worker from being displayed
 		window.location.href="index.php?a=200";

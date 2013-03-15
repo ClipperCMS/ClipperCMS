@@ -126,7 +126,7 @@ if($content['locked']==1 && $_SESSION['mgrRole']!=1) {
 }
 
 ?>
-<script type="text/javascript">
+<script>
 
 	function removeDependencies() {
 		if(confirm("<?php echo $_lang['confirm_delete_record']; ?>")==true) {

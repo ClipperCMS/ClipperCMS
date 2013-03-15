@@ -68,7 +68,7 @@ if(isset($_REQUEST['id']) && $_REQUEST['id']!='' && is_numeric($_REQUEST['id']))
 $content = array_merge($content, $_POST);
 
 ?>
-<script type="text/javascript">
+<script>
 function duplicaterecord(){
     if(confirm("<?php echo $_lang['confirm_duplicate_record'] ?>")==true) {
         documentDirty=false;

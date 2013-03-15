@@ -3148,7 +3148,7 @@ class DocumentParser extends Core {
         if (strpos(strtolower($src), "<style") !== false || strpos(strtolower($src), "<link") !== false) {
             $this->sjscripts[$nextpos]= $src;
         } else {
-            $this->sjscripts[$nextpos]= "\t" . '<link rel="stylesheet" type="text/css" href="'.$src.'" '.($media ? 'media="'.$media.'" ' : '').'/>';
+            $this->sjscripts[$nextpos]= "\t" . '<link rel="stylesheet" href="'.$src.'" '.($media ? 'media="'.$media.'" ' : '').'/>';
         }
     }
 
@@ -3220,7 +3220,7 @@ class DocumentParser extends Core {
         }
 
         if ($useThisVer && $plaintext!=true && (strpos(strtolower($src), "<script") === false))
-            $src= "\t" . '<script type="text/javascript" src="' . $src . '"></script>';
+            $src= "\t" . '<script src="' . $src . '"></script>';
         if ($startup) {
             $pos= isset($overwritepos) ? $overwritepos : max(array_merge(array(0),array_keys($this->sjscripts)))+1;
             $this->sjscripts[$pos]= $src;
@@ -3243,7 +3243,7 @@ class DocumentParser extends Core {
     	if (!$jquery_included) {	
  			$this->regClientStartupScript($this->config['jquery_url']);
  			if ($this->config['jquery_noconflict']) {
- 				$this->regClientStartupScript('<script type="text/javascript">jQuery.noConflict()</script>');
+ 				$this->regClientStartupScript('<script>jQuery.noConflict()</script>');
  			}
  			$jquery_included = true;
  		}
@@ -3284,7 +3284,7 @@ class DocumentParser extends Core {
    			} elseif (substr($jq_url, 0, 4) != 'http') {
    				$jq_url = $this->config['site_url'].$jq_url;
    			}
-   			$script_tag = '<script type="text/javascript" src="'.str_replace('&', '&amp;', $jq_url)."\"></script>\n";
+   			$script_tag = '<script src="'.str_replace('&', '&amp;', $jq_url)."\"></script>\n";
    		} else {
    			$script_tag = '';
    		}
@@ -3315,7 +3315,7 @@ class DocumentParser extends Core {
    			    $plugin_file = $this->config['site_url'].$this->config['jquery_plugin_dir'].$plugin_file; // Need [(site_url)] because <base> tags are not present in the backend.
             }
             $plugin_file = ($plugin_file[0] == '/') ? $this->config['site_url'].substr($plugin_file, 1) : $plugin_file;
-            $script_tag = '<script type="text/javascript" src="'.str_replace('&', '&amp;', $plugin_file)."\"></script>\n";
+            $script_tag = '<script src="'.str_replace('&', '&amp;', $plugin_file)."\"></script>\n";
    		} else {
    			$script_tag = '';
    		}

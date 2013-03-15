@@ -69,7 +69,7 @@ $evtOut = $modx->invokeEvent("OnRichTextEditorRegister",array('forfrontend' => 1
 if(is_array($evtOut)) $RTEditors = implode(",",$evtOut);
 
 ?>
-<script language="JavaScript">
+<script>
 
 function duplicaterecord(){
     if(confirm("<?php echo $_lang['confirm_duplicate_record'] ?>")==true) {
@@ -408,7 +408,7 @@ function decode(s){
 <!-- Access Permissions -->
 <?php if($modx->hasPermission('access_permissions')) { ?>
 <div class="sectionHeader"><?php echo $_lang['access_permissions']; ?></div><div class="sectionBody">
-		<script type="text/javascript">
+		<script>
 		    function makePublic(b){
 		        var notPublic=false;
 		        var f=document.forms['mutate'];
@@ -490,4 +490,4 @@ function decode(s){
     if(is_array($evtOut)) echo implode("",$evtOut);
 ?>
 </form>
-<script type="text/javascript">setTimeout('showParameters()',10);</script>
+<script>setTimeout('showParameters()',10);</script>

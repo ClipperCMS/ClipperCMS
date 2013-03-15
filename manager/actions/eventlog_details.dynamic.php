@@ -48,7 +48,7 @@ else{
 	</ul>
 </div>
 
-<script language="JavaScript" type="text/javascript">
+<script>
 	function deletelog() {
 		if(confirm("<?php echo $_lang['confirm_delete_eventlog']; ?>")==true) {
 			document.location.href="index.php?id=" + document.resource.id.value + "&a=116";

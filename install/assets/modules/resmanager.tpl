@@ -32,12 +32,12 @@ $rm->ph['time.format'] = $modx->config['time_format'];
 
 $rm->ph['style.css'] = '';
 if (is_file(MODX_MANAGER_PATH."media/style/$manager_theme/style.css")) {
-    $rm->ph['style.css'] = '<link rel="stylesheet" type="text/css" href="media/style/'.$manager_theme."/style.css\" />\n";
+    $rm->ph['style.css'] = '<link rel="stylesheet" href="media/style/'.$manager_theme."/style.css\" />\n";
 }
 
 $rm->ph['manager.css'] = '';
 if (is_file(MODX_MANAGER_PATH."media/style/$manager_theme/manager.css")) {
-    $rm->ph['manager.css'] =  '<link rel="stylesheet" type="text/css" href="media/style/'.$manager_theme."/manager.css\" />\n";
+    $rm->ph['manager.css'] =  '<link rel="stylesheet" href="media/style/'.$manager_theme."/manager.css\" />\n";
 }
 
 $rm->ph['jquery'] = $modx->getJqueryTag();

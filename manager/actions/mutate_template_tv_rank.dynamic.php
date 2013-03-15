@@ -88,7 +88,7 @@ echo '
             <input type="hidden" name="listSubmitted" value="true" />
             <input type="text" id="list" name="list" value="" />
 </form>
-	<script type="text/javascript">
+	<script>
         //TODO: think about a more generic form of submitting
         function save() {
         	setTimeout("document.sortableListForm.submit()",1000);

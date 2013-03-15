@@ -11,7 +11,7 @@ $allowedfiles = array('html','htm','shtml','xml');
 
 ?>
 
-<script type="text/javascript">
+<script>
     parent.tree.ca = "parent";
     function setParent(pId, pName) {
         document.importFrm.parent.value=pId;
@@ -90,7 +90,7 @@ if(!isset($_POST['import'])) {
 <ul class="actionButtons">
     <li><a href="#" onclick="reloadTree();"><img src="<?php echo $_style["icons_close"] ?>" /> <?php echo $_lang["close"]; ?></a></li>
 </ul>
-<script type="text/javascript">
+<script>
     parent.tree.ca = "";
 </script>
 <?php

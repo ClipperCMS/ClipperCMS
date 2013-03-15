@@ -216,15 +216,14 @@ if ($upgradeable && (!isset($database_connection_method) || empty($database_conn
     </p>
 </form>
 
-<script type="text/javascript" src="../assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="connection.js"></script>
-<script type="text/javascript">
+<script src="../assets/js/jquery.min.js"></script>
+<script src="connection.js"></script>
+<script>
 language ='<?php echo $install_language?>';
 installMode ='<?php echo $installMode ?>';
 </script>
 
-<script type="text/javascript">
-/* <![CDATA[ */
+<script>
   // validate
   function validate() {
     var f = document.install;
@@ -286,5 +285,4 @@ installMode ='<?php echo $installMode ?>';
     }
     return true;
   }
-  /* ]]> */
 </script>

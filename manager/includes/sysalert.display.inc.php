@@ -23,7 +23,7 @@
 	if($sysMsgs!="") {
 ?>
 
-<script type="text/javascript">
+<script>
 $(function() {
 	var sysAlert = $('<div id="sysAlert"><?php echo $modx->db->escape($sysMsgs);?></div>')
 		.appendTo('body')

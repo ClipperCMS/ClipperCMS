@@ -103,7 +103,7 @@ $_lang["installation_upgrade_existing"] = 'Päivitä asennus';
 $_lang["installation_upgrade_existing_note"] = 'Päivitä nykyiset tiedostosi, sekä tietokannan tiedot.';
 $_lang["installed"] = 'Asennettu';
 $_lang["installing_demo_site"] = 'Asennetaan demo sivustoa: ';
-$_lang["language_code"] = 'fi';	// for html element e.g. <html xml:lang="en" lang="en">
+$_lang["language_code"] = 'fi';	// for html element e.g. <html lang="en">
 $_lang["loading"] = 'Ladataan...';
 $_lang["modules"] = 'Moduulit';
 $_lang["modx_footer1"] = '&copy; 2012 <a href="http://clippercms.com" target="_blank" >ClipperCMS</a> Content Mangement Framework (CMF). Kaikki oikeudet pidätetään. ClipperCMS on lisensoitu GNU GPL lisenssillä.';

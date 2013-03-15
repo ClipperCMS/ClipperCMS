@@ -10,21 +10,21 @@
  * @internal 	@modx_category Demo Content
  * @internal    @installset sample
  */
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html>
 
 <head>
   <title>[(site_name)] | [*pagetitle*]</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=[(modx_charset)]" />
+  <meta charset="[(modx_charset)]">
   <base href="[(site_url)]"></base>
-  <link rel="stylesheet" href="assets/templates/modxhost/layout.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="assets/templates/modxhost/modxmenu.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="assets/templates/modxhost/form.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="assets/templates/modxhost/modx.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="assets/templates/modxhost/print.css" type="text/css" media="print" />
+  <link rel="stylesheet" href="assets/templates/modxhost/layout.css" media="screen" />
+  <link rel="stylesheet" href="assets/templates/modxhost/modxmenu.css" media="screen" />
+  <link rel="stylesheet" href="assets/templates/modxhost/form.css" media="screen" />
+  <link rel="stylesheet" href="assets/templates/modxhost/modx.css" media="screen" />
+  <link rel="stylesheet" href="assets/templates/modxhost/print.css" media="print" />
   <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="[(site_url)][~11~]" />
-  <script src="manager/media/script/mootools/mootools.js" type="text/javascript"></script>
-  <script src="assets/templates/modxhost/drop_down_menu.js" type="text/javascript"></script>
+  <script src="manager/media/script/mootools/mootools.js"></script>
+  <script src="assets/templates/modxhost/drop_down_menu.js"></script>
 </head>
 <body>
 <div id="wrapper">

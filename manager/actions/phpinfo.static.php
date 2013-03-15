@@ -2,7 +2,7 @@
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
 ?>
-<style type="text/css">
+<style>
     body {padding:20px;}
     pre {margin: 0px; font-family: monospace;}
     a:link {color: #000099; text-decoration: none; background-color: #f7f7f7;}

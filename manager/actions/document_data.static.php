@@ -141,7 +141,7 @@ if ($numRecords > 0) {
 }
 
 ?>
-<script type="text/javascript">
+<script>
 function duplicatedocument(){
 	if(confirm("<?php echo $_lang['confirm_resource_duplicate']?>")==true) {
 		document.location.href="index.php?id=<?php echo $_REQUEST['id']?>&a=94";

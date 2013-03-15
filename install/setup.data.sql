@@ -120,7 +120,7 @@ REPLACE INTO `{PREFIX}site_htmlsnippets` VALUES (17, 'ContactFormReport', '', 0,
 REPLACE INTO `{PREFIX}site_htmlsnippets` VALUES (18, 'reflect_month_tpl', 'For the yearly archive. Use with Ditto.', 0, 1, 0, '<a href="[+url+]" title="[+month+] [+year+]" class="reflect_month_link">[+month+] [+year+]</a>', 0);
 
 
-REPLACE INTO `{PREFIX}site_htmlsnippets` VALUES (19, 'ContactStyles', 'Styles for form validation', 0, 1, 0, '<style type="text/css">\r\ndiv.errors{ color:#F00; }\r\n#EmailForm .invalidValue{ background: #FFDFDF; border:1px solid #F00; }\r\n#EmailForm .requiredValue{ background: #FFFFDF; border:1px solid #F00; }\r\n</style>', 0);
+REPLACE INTO `{PREFIX}site_htmlsnippets` VALUES (19, 'ContactStyles', 'Styles for form validation', 0, 1, 0, '<style>\r\ndiv.errors{ color:#F00; }\r\n#EmailForm .invalidValue{ background: #FFDFDF; border:1px solid #F00; }\r\n#EmailForm .requiredValue{ background: #FFFFDF; border:1px solid #F00; }\r\n</style>', 0);
 
 
 #

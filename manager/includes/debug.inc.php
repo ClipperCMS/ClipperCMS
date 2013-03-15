@@ -4,7 +4,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 // show debug information
 if(isset($enable_debug) && $enable_debug==true) {
 	?>
-	<script language="javascript">
+	<script>
 	//document.onload = removeDebug();
 	
 	function removeDebug() {

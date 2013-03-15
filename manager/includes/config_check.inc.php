@@ -69,7 +69,7 @@ if(!isset($modx->config['_hide_configcheck_templateswitcher_present']) || $modx-
             $warnings[] = array($_lang['configcheck_templateswitcher_present']);
             $tplName = $row['name'];
             $script = <<<JS
-<script type="text/javascript">
+<script>
 function deleteTemplateSwitcher(){
     if(confirm('{$_lang["confirm_delete_plugin"]}')) {
         var myAjax = new Ajax('index.php?a=118', {

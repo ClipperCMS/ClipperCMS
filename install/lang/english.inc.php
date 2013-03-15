@@ -104,7 +104,7 @@ $_lang["installation_upgrade_existing"] = 'Upgrade Existing Install';
 $_lang["installation_upgrade_existing_note"] = 'Upgrade your current files and database.';
 $_lang["installed"] = 'Installed';
 $_lang["installing_demo_site"] = 'Installing demo site: ';
-$_lang["language_code"] = 'en';	// for html element e.g. <html xml:lang="en" lang="en">
+$_lang["language_code"] = 'en';	// for html element e.g. <html lang="en">
 $_lang["loading"] = 'Loading...';
 $_lang["locales_note"] = 'If you are not aware of how locales work, leave this option blank. If you select a locale, then when moving servers you may have to change this option manually in the config.inc.php file. You can define different locales for different categories by editing config.inc.php.';
 $_lang["locales_note_LC_NUMERIC"] = 'This is used if and only if you have selected a value for LC_ALL. It is offered as a special case to override locales where the decimal point is a comma, which may introduce errors into PHP code that generates SQL queries using floating point numbers.';

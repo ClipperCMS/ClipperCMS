@@ -26,7 +26,7 @@ $listmode = isset($_REQUEST['listmode']) ? $_REQUEST['listmode']:$_PAGE['vs']['l
 $_PAGE['vs']['lm'] = $listmode;
 
 ?>
-<script type="text/javascript">
+<script>
 	
 	var temp_lang = {
 		//setup temp generic values used in js e.g. confirm_delete_user -> confirm_delete so we can use only one js function

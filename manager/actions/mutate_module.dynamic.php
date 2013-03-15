@@ -91,7 +91,7 @@ if (isset($_GET['id'])) {
 }
 
 ?>
-<script type="text/javascript">
+<script>
 function loadDependencies() {
 	if (documentDirty) {
 		if (!confirm("<?php echo $_lang['confirm_load_depends']?>")) {
@@ -500,7 +500,7 @@ if ($use_udperms == 1) {
 <!-- User Group Access Permissions -->
 <div class="sectionHeader"><?php echo $_lang['group_access_permissions']?></div>
 <div class="sectionBody">
-	<script type="text/javascript">
+	<script>
 	function makePublic(b) {
 		var notPublic=false;
 		var f=document.forms['mutate'];
@@ -553,4 +553,4 @@ $evtOut = $modx->invokeEvent('OnModFormRender', array('id' => $id));
 if(is_array($evtOut)) echo implode('',$evtOut);
 ?>
 </form>
-<script type="text/javascript">setTimeout('showParameters();',10);</script>
+<script>setTimeout('showParameters();',10);</script>

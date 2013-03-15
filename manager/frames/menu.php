@@ -3,14 +3,15 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
 $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 ?>
-<!DOCTYPE html>
-<html <?php echo ($modx_textdir ? 'dir="rtl" lang="' : 'lang="').$mxla.'" xml:lang="'.$mxla.'"'; ?>>
-<head>
-	<meta content="charset=<?php echo $modx_manager_charset?>" />
-	<title>nav</title>
-	<link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme?>/style.css" />
 
-	<script type="text/javascript">
+<!doctype html>
+<html lang="<?php echo $mxla?>"<?php ($modx_textdir ? ' dir="rtl"' : '') ?>>
+<head>
+	<meta charset="<?php echo $modx_manager_charset; ?>">
+	<title>nav</title>
+	<link rel="stylesheet" href="media/style/<?php echo $manager_theme?>/style.css" />
+
+	<script>
     	
     	var lang = {
     		show_tree: '<?php echo $_lang['show_tree'] ?>',
@@ -43,8 +44,8 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 	echo $modx->getJqueryPluginTag('jquery-ui-custom-clippermanager', 'jquery-ui-custom-clippermanager.min.js');
 	echo $modx->getJqueryPluginTag('jquery-ui-timepicker', 'jquery-ui-timepicker-addon.js');
 	?>
-    <script src="media/script/keep-session-alive.js" type="text/javascript"></script>
-    <script src="media/script/main-menu.js" type="text/javascript"></script>
+    <script src="media/script/keep-session-alive.js"></script>
+    <script src="media/script/main-menu.js"></script>
 
 </head>
 <body id="topMenu" class="<?php echo $modx_textdir ? 'rtl':'ltr'?>">

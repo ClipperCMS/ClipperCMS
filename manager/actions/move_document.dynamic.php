@@ -29,7 +29,7 @@ if(!$udperms->checkPermissions()) {
 }
 ?>
 
-<script language="javascript">
+<script>
 parent.tree.ca = "move";
 
 function setMoveValue(pId, pName) {

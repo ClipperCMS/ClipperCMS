@@ -141,8 +141,8 @@ else $webstart_path = '../'.$webstart_path;
 <h1><?php echo $_lang['files_files']?></h1>
 
 <div class="sectionBody">
-<script type="text/javascript" src="media/script/multifile.js"></script>
-<script type="text/javascript">
+<script src="media/script/multifile.js"></script>
+<script>
 var current_path = '<?php echo $startpath;?>';
 
 function viewfile(url) {
@@ -540,7 +540,7 @@ if (((@ini_get("file_uploads") == true) || get_cfg_var("file_uploads") == 1) && 
 <input id="file_elem" type="file" name="bogus"  style="height: 19px;">
 
 <div id="files_list"></div>
-<script type="text/javascript">
+<script>
     var multi_selector = new MultiSelector( document.getElementById( 'files_list' ), 10 );
     multi_selector.addElement( document.getElementById( 'file_elem' ) );
 </script>

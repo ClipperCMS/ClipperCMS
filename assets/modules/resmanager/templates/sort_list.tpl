@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!doctype html>
 <html>
 <head>
     <title>[+lang.RM_module_title+]</title>
     
-    <link rel="stylesheet" type="text/css" href="media/style/common/style.css" />
+    <link rel="stylesheet" href="media/style/common/style.css" />
 	[+style.css+]
 	[+manager.css+]
     
@@ -11,8 +11,8 @@
 	[+jquery.ui+]
 	[+jquery.timepicker+]
     
-    <script type="text/javascript" src="../assets/modules/resmanager/js/resmanager.js"></script>
-    <script type="text/javascript">
+    <script src="../assets/modules/resmanager/js/resmanager.js"></script>
+    <script>
 	    function save() { 
 		    //populateHiddenVars(); 
 		    setTimeout("document.sortableListForm.submit()",1000); 
@@ -50,7 +50,7 @@
 	    parent.tree.updateTree();
 	    
     </script>
-    <style type="text/css">        
+    <style>        
         li {
             cursor: pointer;
             border: 1px solid #666;

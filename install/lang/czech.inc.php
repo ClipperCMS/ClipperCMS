@@ -104,7 +104,7 @@ $_lang["installation_upgrade_existing"] = 'Aktualizace existující instalace';
 $_lang["installation_upgrade_existing_note"] = 'Aktualizace Vašich současných souborů a databáze.';
 $_lang["installed"] = 'Nainstalováno';
 $_lang["installing_demo_site"] = 'Instalovat ukázkový portál: ';
-$_lang["language_code"] = 'cs';	// for html element e.g. <html xml:lang="en" lang="en">
+$_lang["language_code"] = 'cs';	// for html element e.g. <html lang="en">
 $_lang["loading"] = 'Načítám...';
 $_lang["modules"] = 'Moduly';
 $_lang["modx_footer1"] = '&copy; 2012 the <a href="http://clippercms.com" target="_blank" >ClipperCMS</a> Content Management Framework (CMF) projekt. Všechna práva vyhrazena. ClipperCMS je licencován pod GNU GPL.';
