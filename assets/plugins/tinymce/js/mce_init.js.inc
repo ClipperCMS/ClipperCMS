@@ -2,8 +2,6 @@
 <script language="javascript" type="text/javascript" src="[+mce_url+]js/xconfig.js"></script>
 <script language="javascript" type="text/javascript">
 tinyMCE.init({
-	skin                             : 'o2k7',
-	skin_variant                     : 'silver',
 	theme                            : 'advanced',
 	mode                             : 'exact',
 	elements                         : '[+elmList+]',
