@@ -238,11 +238,11 @@
     display: block;
     float: left;
     height: 26px !important;
-    width: 40px !important;
+    width: 108px !important;
     margin: 0;
     text-decoration: none !important;
     border: 0 !important;
-    background: transparent url(images/transparent.gif) repeat;
+    background: transparent;
 }
     
 #qmEditor:hover, #qmEditorClosed:hover 

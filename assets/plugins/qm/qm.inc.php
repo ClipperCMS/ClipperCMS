@@ -4,7 +4,7 @@
  *  
  * @author      Mikko Lammi, www.maagit.fi, the ClipperCMS team.
  * @license     GNU General Public License (GPL), http://www.gnu.org/copyleft/gpl.html
- * @version     clipper-1.5.6 updated 15/9/2012
+ * @version     clipper-1.5.7 updated 17/03/2013
  */
 
 if(!class_exists('Qm')) {
@@ -235,8 +235,6 @@ class Qm {
                         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
                         <title></title>
                         <link rel="stylesheet" type="text/css" href="'.$this->modx->config['site_url'].'assets/plugins/qm/css/style.css" />
-                        <!--[if IE]><link rel="stylesheet" type="text/css" href="'.$this->modx->config['site_url'].'assets/plugins/qm/css/ie.css" /><![endif]-->
-                        <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="'.$this->modx->config['site_url'].'assets/plugins/qm/css/ie7.css" /><![endif]-->
 			'.$this->modx->getJqueryTag(false).'
                         </head>
                         ';
