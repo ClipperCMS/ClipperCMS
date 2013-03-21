@@ -215,7 +215,7 @@ if ($timezones) {
 	}
 	echo
 	'</p>
-	<p><label>Timezone: <select name="tz"><option value="">Do not set timezone - use php.ini setting)</option>';
+	<p><label>Timezone: <select name="tz"><option value="">Do not set timezone - use php.ini setting</option>';
 	if (isset($tz_config)) {
 		echo '<option value="'.$tz_config.'" selected="selected">Use current config setting ('.$tz_config.')</option>';
 	}
