@@ -77,6 +77,8 @@ if($limit<1) {
 	exit;
 }
 
+$content = $modx->db->getRow($rs);
+
 if (empty($content['modulecode'])) {
     echo "<script type='text/javascript'>" .
 			"function jsalert(){ alert('Module with id $id contains no code.');" .
@@ -85,8 +87,6 @@ if (empty($content['modulecode'])) {
 			"</script>";
 	exit;
 }
-
-$content = $modx->db->getRow($rs);
 
 if($content['disabled']) {
 	echo "<script type='text/javascript'>" .
