@@ -116,7 +116,8 @@ function postForm() {
 function hideInteraction() {
 
     //get active tab
-	var tabActiveID = $("#resmanager-main-tabs").tabs('option', 'selected');
+    var tabActive = $('#resmanager-main-tabs .ui-tabs-active'),
+    	tabActiveID = tabActive.index();
     
     if (tabActiveID == '1') {
         $("#tvloading").hide();
@@ -145,21 +146,24 @@ function hideInteraction() {
 }
 
 $(document).ready(function($) {
-	
-	hideInteraction();
 
-	//show interaction on tab click
-	$("#resmanager-main-tabs").on("tabsbeforeactivate", function(event, ui){
-		
-		if (ui.newTab.index() == '3') {
-			//hide it if sort menu items
-			$('#interaction').hide();
-		}else{
-			$('#interaction').show();
+    hideInteraction();
+
+	$("#resmanager-main-tabs").tabs({
+		activate: function( event, ui ) {
+			
+			hideInteraction();
+			
+			if (ui.newTab.index() == '3') {
+				//hide it if sort menu items
+				$('#interaction').hide();
+			}else{
+				$('#interaction').show();
+			}
+			
 		}
-		
 	});
-	
+
 });
 
 
