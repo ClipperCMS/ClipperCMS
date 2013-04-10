@@ -3,6 +3,11 @@
  * ClipperCMS installation language file
  *
  * @author davaeron, German translation by Marc Hinse, Bogdan Günther and Michael Dreja
+ * @version 2.1
+ * @translation
+ * Filename:       /install/lang/german.inc.php
+ * Language:       German
+ * Encoding:       UTF-8
  */
 $_lang["agree_to_terms"] = 'Lizenzbedingungen akzeptieren und installieren';
 $_lang["alert_database_test_connection"] = 'Sie müssen eine Datenbank erstellen oder die Datenbank-Verbindung testen!';
@@ -31,8 +36,8 @@ $_lang["checking_if_cache_file_writable"] = 'Überprüfe ob die Datei <span clas
 $_lang["checking_if_cache_file2_writable"] = 'Überprüfe ob die Datei <span class="mono">assets/cache/sitePublishing.idx.php</span> beschreibbar ist: ';
 $_lang["checking_if_cache_writable"] = 'Überprüfe ob der Ordner <span class="mono">assets/cache</span> beschreibbar ist: ';
 $_lang["checking_if_config_exist_and_writable"] = 'Überprüfe ob die Datei <span class="mono">manager/includes/config.inc.php</span> existiert und beschreibbar ist: ';
-$_lang["checking_if_dirs_exist"] = 'Überprüfe ob der Ordner [+dirs+] existiert: ';
-$_lang["checking_if_dirs_writable"] = 'Überprüfe ob der Ordner [+dirs+]  beschreibbar ist: ';
+$_lang["checking_if_dirs_exist"] = 'Überprüfe ob die Verzeichnisse [+dirs+] existieren: ';
+$_lang["checking_if_dirs_writable"] = 'Überprüfe ob die Verzeichnisse [+dirs+] beschreibbar sind: ';
 $_lang["checking_mysql_strict_mode"] = 'Überprüfe MySQL Strict-Mode: ';
 $_lang["checking_mysql_version"] = 'Überprüfe MySQL-Version: ';
 $_lang["checking_php_version"] = 'Überprüfe PHP-Version: ';
@@ -99,8 +104,10 @@ $_lang["installation_upgrade_existing"] = 'Upgrade einer existierenden Installat
 $_lang["installation_upgrade_existing_note"] = 'Upgrade Ihrer Dateien und der Datenbank.';
 $_lang["installed"] = 'Installiert';
 $_lang["installing_demo_site"] = 'Installiere Beispielinhalte: ';
-$_lang["language_code"] = 'de';	// for html element e.g. <html lang="en">
+$_lang["language_code"] = 'de';	// for html element e.g. <html xml:lang="en" lang="en">
 $_lang["loading"] = 'Lade …';
+$_lang["locales_note"] = 'Wenn Sie nicht wissen, wie Gebietsschemen arbeiten, lassen Sie dieses Feld leer. Wenn Sie ein Gebietsschema auswählen, müssen Sie möglicherweise beim Verschieben des CMS auf einen anderen Servern diese Option manuell in der Datei config.inc.php eintragen.';
+$_lang["locales_note_LC_NUMERIC"] = 'Dieser Wert wird nur verwendet, wenn Sie einen Wert für LC_ALL ausgewählt haben. Er wird benutzt, um Gebietsschemen zu überschreiben, in denen der Dezimalpunkt aus einem Komma besteht, welcher mögliche Fehler in von PHP-Code erzeugten SQL-Abfragen mit Gleitkommazahlen erzeugen kann.';
 $_lang["modules"] = 'Module';
 $_lang["modx_footer1"] = '&copy; 2012 <a href="http://clippercms.com" target="_blank" >ClipperCMS</a> Content Mangement Framework (CMF) Projekt. Alle Rechte vorbehalten. ClipperCMS ist unter der GNU GPL lizenziert.';
 $_lang["modx_footer2"] = 'ClipperCMS is freie Software. Wir ermutigen Sie, kreativ zu sein und ClipperCMS so zu nutzen wie es Ihnen am besten passt. Stellen Sie nur sicher, dass Sie bei Veränderungen des Quellcodes und der Weiterverbreitung der modifizierten ClipperCMS-Version den Quelltext frei zugänglich belassen!';
@@ -166,6 +173,7 @@ $_lang["table_prefix_already_inuse_note"] = 'Die gewählte Datenbank konnte nich
 $_lang["table_prefix_not_exist"] = ' – Tabellen-Präfix existiert nicht in der gewählten Datenbank!';
 $_lang["table_prefix_not_exist_note"] = 'Die gewählte Datenbank konnte nicht beschrieben werden, da keine Tabellen mit dem gewählten Präfix existieren. Bitte wählen Sie einen existierenden Präfix und wiederholen Sie die Installation.';
 $_lang["templates"] = 'Templates';
+$_lang['timezone_note'] = 'Das Einstellen der Zeitzone in der config-Datei macht die Portierung von Websites auf zwischen Servern zuverlässiger, da es einen php.ini-Wert vom Server überschreibt. Es werden auch Probleme mit PHP 5.4 vermieden, wenn eine Zeitzone nicht in der php.ini gesetzt ist.';
 $_lang["to_log_into_content_manager"] = 'Um sich im Manager anzumelden, klicken Sie auf den Schließen-Button.';
 $_lang["toggle"] = 'Umschalten';
 $_lang['tvs'] = 'Template-Variablen';

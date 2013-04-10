@@ -9,8 +9,11 @@
  * 		Anpassungen für MODx 1.0.5 durch Anselm Hannemann
  * 		Anpassungen für ClipperCMS durch Michael Dreja
  * 		The ClipperCMS Project Team
- */
+ * Date:                  10.04.2013
+ * ClipperCMS version:     1.2
+*/
 $modx_lang_attribute = 'de'; // Manager HTML and XML Language Attribute
+$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' ist ein <a href="http://'.CMS_DOMAIN.'" target="_blank">PHP-Framework und Content Management System</a> und unter der <a href="../assets/docs/license.txt">GNU-GPL-Lizenz</a> veröffentlicht.';
 $_lang["about_title"] = 'Über '.CMS_NAME;
@@ -91,10 +94,10 @@ $_lang["change_password"] = 'Passwort ändern';
 $_lang["change_password_confirm"] = 'Passwort bestätigen';
 $_lang["change_password_message"] = 'Bitte geben Sie Ihr neues Passwort ein und bestätigen Sie dieses durch erneute Eingabe. Das Passwort muss zwischen 6 und 15 Zeichen lang sein.';
 $_lang["change_password_new"] = 'Neues Passwort';
-$_lang["charset_message"] = 'Wählen Sie die Zeichenkodierung für die [(modx_charset)]-Systemvariable.';
+$_lang["charset_message"] = 'Wählen Sie die Zeichenkodierung für die [(modx_charset)]-Systemvariable. Diese Einstellung beeinflusst nicht den Manager.';
 $_lang["charset_title"] = 'Zeichenkodierung:';
 $_lang["chunk"] = 'Chunk';
-$_lang["chunk_code"] = 'Chunk-Code';
+$_lang["chunk_code"] = 'Chunk-Code (HTML)';
 $_lang["chunk_multiple_id"] = 'Fehler: Mehrere Chunks benutzen die selbe ID.';
 $_lang["chunk_no_exist"] = 'Chunk existiert nicht.';
 $_lang["cleaningup"] = 'Aufräumen';
@@ -125,6 +128,10 @@ $_lang["configcheck_installer"] = 'Installationsverzeichnis ist noch vorhanden';
 $_lang["configcheck_installer_msg"] = 'Das Installationsverzeichnis enthält die Installationsroutinen von '.CMS_NAME.'. Um zu verhindern, dass eine nicht berechtigte Person die Installationsroutine möglicherweise nochmals starten kann, sollten Sie den Ordner /install jetzt vom Server löschen.';
 $_lang["configcheck_lang_difference"] = 'Die Sprachdatei enthält eine falsche Anzahl an Einträgen';
 $_lang["configcheck_lang_difference_msg"] = 'Die zur Zeit ausgewählte Sprache (Deutsch) enthält nicht die gleiche Anzahl an Einträgen wie die Standardsprache (Englisch). Dies stellt kein Problem für die Arbeit mit '.CMS_NAME.' dar, bedeutet jedoch, dass Sie die Sprachdatei aktualisieren sollten.';
+$_lang['configcheck_locale_LC_ALL_warning'] = 'Gebietsschema LC_ALL nicht richtig eingestellt';
+$_lang['configcheck_locale_LC_ALL_warning_msg'] = 'LC_ALL, wie es in der Datei config.inc.php definiert ist, wurde nicht als das aktuelle Gebietsschema erkannt.';
+$_lang['configcheck_locale_LC_NUMERIC_warning'] = 'Gebietsschema LC_NUMERIC nicht richtig eingestellt';
+$_lang['configcheck_locale_LC_NUMERIC_warning_msg'] = 'LC_NUMERIC, wie es in der Datei config.inc.php definiert ist, wurde nicht als das aktuelle Gebietsschema erkannt.';
 $_lang["configcheck_notok"] = 'Eine oder mehrere Optionen der Konfiguration sind nicht in Ordnung: ';
 $_lang["configcheck_ok"] = 'Überprüfung bestanden – keine Warnungen vorhanden.';
 $_lang["configcheck_php_gdzip"] = 'PHP-Erweiterungen GD und / oder ZIP wurden nicht gefunden';
@@ -201,10 +208,12 @@ $_lang["database_tables"] = 'Datenbank-Tabellen';
 $_lang["database_version"] = 'Datenbank-Version:';
 $_lang["date"] = 'Datum';
 $_lang["datechanged"] = 'Änderungsdatum';
-$_lang["datepicker_offset"] = 'Zeitspanne Datumswähler: ';
-$_lang["datepicker_offset_message"] = 'Die Anzahl der vergangenen Jahre die der Datumswähler anzeigen soll.';
-$_lang["datetime_format"] = 'Datumsformat:';
-$_lang["datetime_format_message"] = 'Das Format für Datumsangaben im Manager.';
+$_lang["datepicker_year_range"] = 'Zeitspanne Datumswähler: ';
+$_lang["datepicker_year_range_message"] = 'Die Anzahl der vergangenen Jahre die der Datumswähler anzeigen soll.';
+$_lang["date_format"] = 'Datumsformat:';
+$_lang["date_format_message"] = 'Das Format für Datumsangaben im Manager.';
+$_lang["time_format"] = 'Format der Zeitangaben';
+$_lang["time_format_message"] = 'Das Format für Zeitangaben im Manager.';
 $_lang["default"] = 'Voreinstellung:';
 $_lang["defaultcache_message"] = 'Wählen Sie „Ja“, um alle neuen Ressourcen voreingestellt als cachebar anzulegen.';
 $_lang["defaultcache_title"] = 'Voreinstellung Cache';
@@ -342,6 +351,8 @@ $_lang["friendlyurlsuffix_message"] = 'Hier können Sie ein Suffix angeben.';
 $_lang["friendlyurlsuffix_title"] = 'Suffix für benutzerfreundliche URLs:';
 $_lang["functionnotimpl"] = 'Sorry!';
 $_lang["functionnotimpl_message"] = 'Diese Funktion ist noch nicht implementiert';
+$_lang["function_no_longer_impl"] = 'Sorry! Die Funktion wurde entfernt.';
+$_lang["function_no_longer_impl_message"] = 'Diese Funktion ist nicht mehr implementiert.';
 $_lang["go"] = 'Los';
 $_lang["group_access_permissions"] = 'Benutzergruppenberechtigungen';
 $_lang["guid"] = 'Eindeutige Identifikationsnummer (GUID)';
@@ -632,7 +643,7 @@ $_lang["rb_base_url_title"] = 'Datei-URL:';
 $_lang["rb_message"] = 'Wählen Sie „Ja“, um den Datei-Browser zu aktivieren. Der Datei-Browser ermöglicht Benutzern, allgemeine Dateien wie Bilder, Animationen oder Mediendateien auf den Server zu laden und zu verwalten.';
 $_lang["rb_title"] = 'Datei-Browser aktivieren:';
 $_lang["rb_webuser_message"] = 'Soll ein Web-Benutzer den Datei-Browser verwenden dürfen? <b>Hinweis:</b> Wenn Web-Benutzer den Datei-Browser verwenden dürfen, können sie alle Dateien einsehen auf die Manager-Benutzer Zugriff haben. Diese Möglichkeit sollte daher nur vertrauenswürdigen Web-Benutzern eingeräumt werden.';
-$_lang["rb_webuser_title"] = 'Web-Benutzer?';
+$_lang["rb_webuser_title"] = 'Datei-Browser für Web-Benutzer:';
 $_lang["recent_docs"] = 'Kürzlich bearbeitete Ressourcen';
 $_lang["recommend_setting_change_title"] = 'Empfohlene Änderung der Konfiguration';
 $_lang["recommend_setting_change_description"] = 'Ihre Seite überprüft momentan nicht die HTTP_REFERER von eingehenden Requests. Wir empfehlen dringend, diese Einstellung vorzunehmen, um das Risiko von CSFR-Attacken (Cross Site Request Forgery) zu reduzieren.';
@@ -724,6 +735,7 @@ $_lang["role_delete_snippet"] = 'Snippets löschen';
 $_lang["role_delete_template"] = 'Templates löschen';
 $_lang["role_delete_user"] = 'Benutzer löschen';
 $_lang["role_delete_web_user"] = 'Web-Benutzer löschen';
+$_lang['role_duplicates_not_allowed'] = 'Eine Rolle mit diesem Namen exisitiert bereits.';
 $_lang["role_edit_chunk"] = 'Chunks bearbeiten';
 $_lang["role_edit_doc"] = 'Ressourcen bearbeiten';
 $_lang["role_edit_module"] = 'Module bearbeiten';
@@ -778,6 +790,8 @@ $_lang["role_view_logs"] = 'Systemlogs anzeigen';
 $_lang["role_view_unpublished"] = 'Zeige unveröffentlichte Ressourcen';
 $_lang["role_web_access_persmissions"] = 'Web-Benutzer-Zugriffskontrolle';
 $_lang["role_web_user_management"] = 'Web-Benutzerverwaltung';
+$_lang['rss_len_title'] = 'Grösse des RSS-Feeds';
+$_lang['rss_len_message'] = 'Wieviele Einträge sollen im RSS-Feed der Website angezeigt werden?';
 $_lang["rss_url_news_default"] = 'http://feeds.feedburner.com/modx-announce';
 $_lang["rss_url_news_message"] = 'URL des '.CMS_NAME.'-News-Feeds eintragen.';
 $_lang["rss_url_news_title"] = 'RSS-News-Feed';
@@ -883,7 +897,7 @@ $_lang["table_prefix"] = 'Tabellen-Präfix';
 $_lang["tag"] = 'Tag';
 $_lang["template"] = 'Template';
 $_lang["template_assignedtv_tab"] = 'Zugewiesene Template-Variablen';
-$_lang["template_code"] = 'Template-Code';
+$_lang["template_code"] = 'Template-Code (HTML)';
 $_lang["template_desc"] = 'Template-Beschreibung';
 $_lang["template_edit_tab"] = 'Template bearbeiten';
 $_lang["template_management_msg"] = 'Hier können Sie ein Template wählen, das Sie bearbeiten möchten.';
@@ -1049,4 +1063,12 @@ $_lang['error_handling_silent_1'] = 'Nichts anzeigen. Programm-Ausführung stopp
 $_lang['jquery_url_label'] = 'jQuery-Verzeichnis';
 $_lang['jquery_plugin_dir'] = 'jQuery-Plugin-Verzeichnis';
 $_lang['jquery_noconflict'] = 'Benutze jQuery.noConflict()';
+$_lang['file_browser_title'] = 'Datei-Browser';
+$_lang['actions'] = 'Aktionen';
+$_lang['docid_visibility'] = 'IDs im Ressourcen-Baum sind sichtbar für';
+$_lang['docid_visibility_message'] = 'Steuern Sie die Sichtbarkeit der Ressourcen-/Dokument-Kennungen in der Ressourcen-Baum-Ansicht.';
+$_lang['default_child_template'] = 'Standard-Template für Child-Dokumente';
+$_lang['restrict_children'] = 'Child-Templates begrenzen';
+$_lang['allowed_child_templates'] = 'Erlaubte Child-Templates';
+$_lang['template_rules_tv_label'] = 'TV für dokumentspezifische Template-Regeln';
 ?>
