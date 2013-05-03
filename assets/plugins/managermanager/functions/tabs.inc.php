@@ -130,7 +130,7 @@ function mm_createTab($name, $id, $roles='', $templates='', $intro='', $width='1
 				savedPanelId = sessionStorage.getItem(mmTabsId);
 			}
 			
-			if(savedPanelId && savedPanelId == "tab'.$id.'"){
+			if(savedPanelId !== undefined && savedPanelId == "tab'.$id.'"){
 				var index = $("#"+mmTabsId+"a[href=#"+savedPanelId+"]").parent().index();
 				mmTabs.tabs("option", "active", index);
 			}

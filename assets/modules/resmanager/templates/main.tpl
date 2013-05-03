@@ -55,7 +55,7 @@
 						var tabsId = $("#resmanager-main-tabs").attr('id');
 						//get session storage
 						var savedPanelId = sessionStorage.getItem(tabsId);
-						if(savedPanelId){
+						if(savedPanelId !== undefined){
 							var index = $('#'+tabsId+' a[href="#'+savedPanelId+'"]').parent().index(); 
 							$("#resmanager-main-tabs").tabs("option", "active", index);
 						}

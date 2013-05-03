@@ -56,8 +56,13 @@ if(!isset($_SESSION['mgrValidated'])){
 	include_once("browsercheck.inc.php");
 
     require_once('get_manager_language.inc.php');
-
-	$modx->setPlaceholder('modx_charset',$modx_manager_charset);
+    
+    $modx->setPlaceholder('jquery_tag', $modx->getJqueryTag());
+    
+    $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
+    $modx->setPlaceholder('modx_lang_attribute',$mxla);
+    
+    $modx->setPlaceholder('modx_charset',$modx_manager_charset);
 	$modx->setPlaceholder('theme',$manager_theme);
 
 	// invoke OnManagerLoginFormPrerender event

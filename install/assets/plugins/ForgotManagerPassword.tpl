@@ -23,7 +23,7 @@ if(!class_exists('ForgotManagerPassword')) {
             global $_lang;
   
             $link = <<<EOD
-<a id="ForgotManagerPassword-show_form" href="index.php?action=show_form">{$_lang['forgot_your_password']}</a>
+ <a id="ForgotManagerPassword-show_form" href="index.php?action=show_form">{$_lang['forgot_your_password']}</a>
 EOD;
 
             return $link;
