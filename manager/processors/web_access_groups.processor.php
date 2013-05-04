@@ -24,8 +24,8 @@ switch ($operation) {
 			echo "no group name specified";
 			exit;
 		} else {
-			$sql = "INSERT IGNORE INTO " . $tbl_webgroup_names . " (name) 
-			VALUES(' " . $modx->db->escape($newgroup). "')"; // Temporary solution pending DBAPI::replace
+			$sql = "INSERT IGNORE INTO " . $tbl_webgroup_names . " (name)
+			VALUES('" . $modx->db->escape($newgroup). "')"; // Temporary solution pending DBAPI::replace
 			$modx->db->query($sql);
 			
 			if(!$modx->db->getAffectedRows()) {
