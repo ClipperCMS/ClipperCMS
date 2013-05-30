@@ -182,7 +182,7 @@ if ($installMode == 0) {
 } elseif ($installMode == 2) {
     echo "<p>" . $_lang['checking_table_prefix'] . $table_prefix . "`: ";
 
-    if ($install->db->tables_present($table_prefix)) {
+    if (!$install->db->tables_present($table_prefix)) {
         echo "<span class=\"notok\">" . $_lang['failed'] . "</span></b>" . $_lang['table_prefix_not_exist'] . "</p>";
         $errors += 1;
         echo "<p>" . $_lang['table_prefix_not_exist_note'] . "</p>";
