@@ -177,7 +177,7 @@ if ($ds) {
 
     <div style="width:100%; position:relative;">
         <h2 class="editor-heading"><?php echo $_lang['chunk_code']?></h2>
-        <textarea dir="ltr" class="phptextarea" name="post" style="width:100%; height:370px;" onChange="documentDirty=true;"><?php echo isset($content['post']) ? htmlspecialchars($content['post']) : htmlspecialchars($content['snippet'])?></textarea>
+        <textarea dir="ltr" class="phptextarea" name="post" style="width:98%; height:370px;" onChange="documentDirty=true;"><?php echo isset($content['post']) ? htmlspecialchars($content['post']) : htmlspecialchars($content['snippet'])?></textarea>
     </div>
 
     <span class="warning"><?php echo $_lang['which_editor_title']?></span>

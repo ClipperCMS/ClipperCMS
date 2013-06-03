@@ -207,22 +207,24 @@ function deletedocument() {
 		    </table>
 		</div><!-- tabTemplate -->
 		
-		<div id="tabTemplateCode">
-		
-			<!-- HTML text editor start -->
-		    <div style="width:100%;position:relative">
-                <h2 class="editor-heading"><?php echo $_lang['template_code']; ?></h2>
-                <textarea dir="ltr" name="post" class="phptextarea" style="height: 370px; width: 90%;" onChange='documentDirty=true;'><?php echo isset($content['post']) ? htmlspecialchars($content['post']) : htmlspecialchars($content['content']); ?></textarea>
-		    </div>
-		    <!-- HTML text editor end -->
+		<?php if ($_REQUEST['a'] == '19') { ?><div class="sectionBody"><?php } ?>
+			<div id="tabTemplateCode">
 			
-			<input type="submit" name="save" style="display:none">
-			
-			<div class="help-box">
-                <?php include(dirname(__FILE__).'/../help/includes/tag_syntax.inc.php'); ?>
-	        </div>
-	        
-		</div><!-- tabTemplateCode -->
+				<!-- HTML text editor start -->
+			    <div style="width:100%;position:relative">
+	                <h2 class="editor-heading"><?php echo $_lang['template_code']; ?></h2>
+	                <textarea dir="ltr" name="post" class="phptextarea" style="height: 370px; width: 98%;" onChange='documentDirty=true;'><?php echo isset($content['post']) ? htmlspecialchars($content['post']) : htmlspecialchars($content['content']); ?></textarea>
+			    </div>
+			    <!-- HTML text editor end -->
+				
+				<input type="submit" name="save" style="display:none">
+				
+				<div class="help-box">
+	                <?php include(dirname(__FILE__).'/../help/includes/tag_syntax.inc.php'); ?>
+		        </div>
+		        
+			</div><!-- tabTemplateCode -->
+		<?php if ($_REQUEST['a'] == '19') { ?></div><?php } ?>
 		
 		<?php if ($_REQUEST['a'] == '16') { ?>
 

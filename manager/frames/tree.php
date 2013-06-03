@@ -515,7 +515,7 @@ if(isset($_REQUEST['tree_sortdir'])) {
 // Set 'treeNodeSelected' class on document node when editing via Context Menu
 function setActiveFromContextMenu( doc_id ){
     jQuery('.treeNodeSelected').removeClass('treeNodeSelected');
-    jQuery('#node'+doc_id+' span').addClass('treeNodeSelected');
+    jQuery('#node'+doc_id+'>span').addClass('treeNodeSelected');
 }
 
 // Context menu stuff
