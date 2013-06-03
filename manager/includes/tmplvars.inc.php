@@ -281,7 +281,7 @@
 		    return $v;
 		} elseif ($modx->db->is_handle($v)) {
             $a = array();
-			while ($cols = $modx->db->getRow($v)) {
+			while ($cols = $modx->db->getRow($v, 'num')) {
 			    $a[] = $cols;
 			}
 		} else {
