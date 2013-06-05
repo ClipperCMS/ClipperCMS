@@ -239,7 +239,7 @@ switch ($_POST['mode']) {
 			<div class="sectionBody">
 			<div id="disp">
 			<p>
-			<?php echo sprintf($_lang["password_msg"], $newusername, $newpassword); ?>
+			<?php echo sprintf($_lang["password_msg"], $newusername, htmlspecialchars($newpassword)); ?>
 			</p>
 			</div>
 			</div>
@@ -417,7 +417,7 @@ switch ($_POST['mode']) {
 			<div class="sectionBody">
 			<div id="disp">
 			<p>
-			<?php echo sprintf($_lang["password_msg"], $newusername, $newpassword).(($id == $modx->getLoginUserID()) ? ' '.$_lang['user_changeddata'] : ''); ?>
+			<?php echo sprintf($_lang["password_msg"], $newusername, htmlspecialchars($newpassword)).(($id == $modx->getLoginUserID()) ? ' '.$_lang['user_changeddata'] : ''); ?>
 			</p>
 			</div>
 			</div>
