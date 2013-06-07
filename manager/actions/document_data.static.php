@@ -266,7 +266,7 @@ function movedocument() {
 				</ul>
 			<?php }
 			if ($numRecords > 0)
-				echo '<h4><span class="publishedDoc">'.$numRecords.'</span> '.$_lang['resources_in_container'].' (<strong>'.$content['pagetitle'].'</strong>)</h4>'."\n";
+				echo '<br/><h4><span class="publishedDoc">'.$numRecords.'</span> '.$_lang['resources_in_container'].' (<strong>'.$content['pagetitle'].'</strong>)</h4>'."\n";
 			echo $children_output."\n";
 			?>
 			

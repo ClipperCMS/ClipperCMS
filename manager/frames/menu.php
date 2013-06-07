@@ -68,6 +68,7 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 		| <a href="index.php?a=8" target="_top"><?php echo $_lang['logout']?></a>
 		| <span title="<?php echo $site_name ?> &ndash; <?php echo CMS_FULL_APPNAME; ?>"><?php echo $modx_version ?></span>&nbsp;
 		<!-- close #supplementalNav --></div>
+	</div>
 </div>
 
 <form name="menuForm" action="l4mnu.php" class="clear">

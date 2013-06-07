@@ -13,7 +13,7 @@
 	    <input type="hidden" id="tabaction" name="tabAction" value ="" /> 
 	    
 	    <input id="pids" name="pids" type="text" style="width:90%;" />  
-	    <input type="submit" name="fsubmit" onclick="postForm('range');return false;" value="[+lang.RM_select_submit+]" /> 
+	    <input type="submit" name="fsubmit" onclick="postForm();return false;" value="[+lang.RM_select_submit+]" /> 
     </form>
     <br />
     [+lang.RM_select_range_text+]

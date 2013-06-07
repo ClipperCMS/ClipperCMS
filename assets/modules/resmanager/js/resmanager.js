@@ -32,8 +32,12 @@ function changeOtherLabels() {
 
 function postForm() {
 
+	console.log('entered');
+
 	//get active tab
-	var tabActiveID = $("#resmanager-main-tabs").tabs('option', 'selected');
+	var tabActiveID = $("#resmanager-main-tabs").tabs('option', 'active');
+
+	console.log(tabActiveID);
 
 	if (tabActiveID == '0' || tabActiveID == null) {
 		

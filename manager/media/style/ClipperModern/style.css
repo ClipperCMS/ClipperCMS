@@ -932,7 +932,7 @@ a.hometblink:hover {
 	top: 33px;
 	left: 0;
 	width: 100%;	
-	padding: 2px 0 4px;
+	padding: 4px 0 4px;
 	border-top: 1px solid #666;
 	background: url(images/misc/header-tabs-active.png) repeat-x center -31px;	
 }
