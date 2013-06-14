@@ -339,7 +339,7 @@ $_lang["go"] = 'Перейти';
 $_lang["group_access_permissions"] = 'Доступ групп пользователей';
 $_lang["guid"] = 'GUID';
 $_lang["help"] = 'Помощь';
-$_lang["help_msg"] = '<p>Вы можете получить бесплатную помощь сообщества '.CMS_NAME.' <a href="http://'.CMS_DOMAIN.'/forums" target="_blank">на форумах '.CMS_NAME.'</a>. Смотрите также <a href="http://'.CMS_DOMAIN.'/documentation" target="_blank">\'Документация и уроки по '.CMS_NAME.'\'</a>, где подробно описан каждый аспект системы.</p>';
+$_lang["help_msg"] = '<p>Вы можете получить бесплатную помощь сообщества '.CMS_NAME.' <a href="http://'.CMS_DOMAIN.'/forum" target="_blank">на форумах '.CMS_NAME.'</a>. Смотрите также <a href="http://'.CMS_DOMAIN.'/documentation" target="_blank">\'Документация и уроки по '.CMS_NAME.'\'</a>, где подробно описан каждый аспект системы.</p>';
 $_lang["help_title"] = 'Помощь';
 $_lang["hide_tree"] = 'Спрятать дерево';
 $_lang["home"] = 'Главная';

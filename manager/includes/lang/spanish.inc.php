@@ -316,7 +316,7 @@ $_lang["go"] = 'Ir';
 $_lang["group_access_permissions"] = 'Acceso de grupo de usuarios';
 $_lang["guid"] = 'GUID';
 $_lang["help"] = 'Ayuda';
-$_lang["help_msg"] = '<p>Puede obtener soporte gratuito de la comunidad <a href="http://'.CMS_DOMAIN.'/forums" target="_blank">visitando los foros de '.CMS_NAME.'</a>.  También hay un cumulo creciente de <a href="http://'.CMS_DOMAIN.'/documentation" target="_blank">Documentación y Guías '.CMS_NAME.'</a> que tocan virtualmente todos los aspectos de '.CMS_NAME.'.</p><p>Estamos planeando ofrecer servicios de soporte comercial para '.CMS_NAME.'. Por favor, <a href="mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry">envíenos un mensaje si está interesado</a>.';
+$_lang["help_msg"] = '<p>Puede obtener soporte gratuito de la comunidad <a href="http://'.CMS_DOMAIN.'/forum" target="_blank">visitando los foros de '.CMS_NAME.'</a>.  También hay un cumulo creciente de <a href="http://'.CMS_DOMAIN.'/documentation" target="_blank">Documentación y Guías '.CMS_NAME.'</a> que tocan virtualmente todos los aspectos de '.CMS_NAME.'.</p><p>Estamos planeando ofrecer servicios de soporte comercial para '.CMS_NAME.'. Por favor, <a href="mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry">envíenos un mensaje si está interesado</a>.';
 $_lang["help_title"] = 'Ayuda';
 $_lang["hide_tree"] = 'Ocultar árbol';
 $_lang["home"] = 'Inicio';

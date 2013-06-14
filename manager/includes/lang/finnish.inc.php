@@ -328,7 +328,7 @@ $_lang["go"] = 'OK';
 $_lang["group_access_permissions"] = 'Käyttäjäryhmän oikeudet';
 $_lang["guid"] = 'GUID';
 $_lang["help"] = 'Ohjeet';
-$_lang["help_msg"] = '<p>Ongelmatilanteissa tutustu <a href="http://'.CMS_DOMAIN.'/forums" target="_blank">'.CMS_NAME.':n keskustelufoorumeihin</a>. Lisäksi kannattaa tutustua <a href="http://'.CMS_DOMAIN.'/documentation" target="_blank">'.CMS_NAME.':n ohjeisiin ja oppaisiin</a> sekä <a href="http://wiki.'.CMS_DOMAIN.'/index.php/Main_Page" target="_blank">'.CMS_NAME.' Wikiin</a>.</p><p>Suunnitteilla on myös kaupallisen '.CMS_NAME.'-tuen tarjoaminen - ota <a href="mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry">yhteyttä</a>, jos olet kiinnostunut.</p>';
+$_lang["help_msg"] = '<p>Ongelmatilanteissa tutustu <a href="http://'.CMS_DOMAIN.'/forum" target="_blank">'.CMS_NAME.':n keskustelufoorumeihin</a>. Lisäksi kannattaa tutustua <a href="http://'.CMS_DOMAIN.'/documentation" target="_blank">'.CMS_NAME.':n ohjeisiin ja oppaisiin</a> sekä <a href="http://wiki.'.CMS_DOMAIN.'/index.php/Main_Page" target="_blank">'.CMS_NAME.' Wikiin</a>.</p><p>Suunnitteilla on myös kaupallisen '.CMS_NAME.'-tuen tarjoaminen - ota <a href="mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry">yhteyttä</a>, jos olet kiinnostunut.</p>';
 $_lang["help_title"] = 'Ohjeet';
 $_lang["hide_tree"] = 'Piilota sivukartta';
 $_lang["home"] = 'Alkuun';

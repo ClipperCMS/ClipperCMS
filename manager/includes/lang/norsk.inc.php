@@ -299,7 +299,7 @@ $_lang["functionnotimpl_message"] = 'Denne funksjonen er ikke implementert enda.
 $_lang["group_access_permissions"] = 'Brukergruppetilgang';
 $_lang["guid"] = 'GUID';
 $_lang["help"] = 'Hjelp';
-$_lang["help_msg"] = '<p>Besøk <a href="http://'.CMS_DOMAIN.'/forums/" target="_blank">'.CMS_NAME.' Forum</a> hvis du trenger hjelp med '.CMS_NAME.'. Der finnes også en voksende mengde <a href="http://'.CMS_DOMAIN.'/documentation" target="blank">dokumentasjon og guider</a> som berører stort sett alle aspekter av '.CMS_NAME.'.</p><p>Vi planlegger også å tilby kommersielle supporttjenester. Send oss en <a href=\'mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry\'>e-postmelding om du er intressert</a>.';
+$_lang["help_msg"] = '<p>Besøk <a href="http://'.CMS_DOMAIN.'/forum/" target="_blank">'.CMS_NAME.' Forum</a> hvis du trenger hjelp med '.CMS_NAME.'. Der finnes også en voksende mengde <a href="http://'.CMS_DOMAIN.'/documentation" target="blank">dokumentasjon og guider</a> som berører stort sett alle aspekter av '.CMS_NAME.'.</p><p>Vi planlegger også å tilby kommersielle supporttjenester. Send oss en <a href=\'mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry\'>e-postmelding om du er intressert</a>.';
 $_lang["help_title"] = 'Hjelp';
 $_lang["hide_tree"] = 'Gjem tre';
 $_lang["home"] = 'Hjem';

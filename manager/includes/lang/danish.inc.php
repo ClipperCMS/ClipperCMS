@@ -339,7 +339,7 @@ $_lang["go"] = 'Gennemfør';
 $_lang["group_access_permissions"] = 'Bruger gruppe adgang';
 $_lang["guid"] = 'GUID';
 $_lang["help"] = 'Hjælp';
-$_lang["help_msg"] = '<p>Du kan få fri og frivillig support <a href="http://'.CMS_DOMAIN.'/forums" target="_blank">hvis du besøger '.CMS_NAME.'\'s Fora</a>. Der er også en større samling af <a href="http://'.CMS_DOMAIN.'/documentation" target="_blank">dokumentation og guider til '.CMS_NAME.'</a> som beskriver stort set alle facetter af '.CMS_NAME.'.</p><p>Desuden planlægger vi at tilbyde kommerciel service og support til '.CMS_NAME.'. Kontakt os på <a href="mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry">e-mail, hvis dette har din interesse (Skriv venligst på engelsk)</a>.</p>';
+$_lang["help_msg"] = '<p>Du kan få fri og frivillig support <a href="http://'.CMS_DOMAIN.'/forum" target="_blank">hvis du besøger '.CMS_NAME.'\'s Fora</a>. Der er også en større samling af <a href="http://'.CMS_DOMAIN.'/documentation" target="_blank">dokumentation og guider til '.CMS_NAME.'</a> som beskriver stort set alle facetter af '.CMS_NAME.'.</p><p>Desuden planlægger vi at tilbyde kommerciel service og support til '.CMS_NAME.'. Kontakt os på <a href="mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry">e-mail, hvis dette har din interesse (Skriv venligst på engelsk)</a>.</p>';
 $_lang["help_title"] = 'Hjælp';
 $_lang["hide_tree"] = 'Skjul website træet';
 $_lang["home"] = 'Startside';

@@ -339,7 +339,7 @@ $_lang["go"] = 'Hledej';
 $_lang["group_access_permissions"] = 'Přístupová práva skupiny uživatelů';
 $_lang["guid"] = 'GUID';
 $_lang["help"] = 'Pomoc';
-$_lang["help_msg"] = 'Jestliže potřebujete pomoc při používaní systému '.CMS_NAME.', uděláte nejlépe, když navštívíte <a href="http://www.modxcms.cz/" target="_blank">české '.CMS_NAME.' fórum</a>. Najdete tam: návody, dokumentaci používání a nastavení '.CMS_NAME.'. Jestliže pošlete svoji otázku na fórum, budeme se snažit odpovědět, co nejdříve.';
+$_lang["help_msg"] = 'Jestliže potřebujete pomoc při používaní systému '.CMS_NAME.', uděláte nejlépe, když navštívíte <a href="http://'.CMS_DOMAIN.'/forum/" target="_blank">'.CMS_NAME.' fórum</a>. Najdete tam: návody, dokumentaci používání a nastavení '.CMS_NAME.'. Jestliže pošlete svoji otázku na fórum, budeme se snažit odpovědět, co nejdříve.';
 $_lang["help_title"] = 'Pomoc';
 $_lang["hide_tree"] = 'Skrýt';
 $_lang["home"] = 'Domů';

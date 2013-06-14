@@ -349,7 +349,7 @@ $_lang["go"] = 'Start';
 $_lang["group_access_permissions"] = 'Groepstoegang';
 $_lang["guid"] = 'GUID';
 $_lang["help"] = 'Help';
-$_lang["help_msg"] = '<p>Voor ondersteuning door de '.CMS_NAME.' gemeenschap kunt u terecht op de <a href="http://'.CMS_DOMAIN.'/forums" target="_blank">'.CMS_NAME.' Forums</a>. Op de '.CMS_NAME.' website kunt u ook <a href="http://'.CMS_DOMAIN.'/documentation" target="_blank">documentatie</a> vinden over '.CMS_NAME.'.</p><p>In de toekomst zal er commerci&#235;le ondersteuning mogelijk zijn voor '.CMS_NAME.'. Stuur een <a href=\'mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry\'>e-mail</a> als u interesse heeft.</p>';
+$_lang["help_msg"] = '<p>Voor ondersteuning door de '.CMS_NAME.' gemeenschap kunt u terecht op de <a href="http://'.CMS_DOMAIN.'/forum" target="_blank">'.CMS_NAME.' Forums</a>. Op de '.CMS_NAME.' website kunt u ook <a href="http://'.CMS_DOMAIN.'/documentation" target="_blank">documentatie</a> vinden over '.CMS_NAME.'.</p><p>In de toekomst zal er commerci&#235;le ondersteuning mogelijk zijn voor '.CMS_NAME.'. Stuur een <a href=\'mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry\'>e-mail</a> als u interesse heeft.</p>';
 $_lang["help_title"] = 'Help';
 $_lang["hide_tree"] = 'Website boomstructuur verbergen';
 $_lang["home"] = 'Start';

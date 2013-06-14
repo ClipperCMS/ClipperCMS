@@ -328,7 +328,7 @@ $_lang["go"] = 'Iniciar!';
 $_lang["group_access_permissions"] = 'Permissões de acesso do grupo';
 $_lang["guid"] = 'GUID';
 $_lang["help"] = 'Ajuda';
-$_lang["help_msg"] = '<p>Pode obter ajuda gratuitamente junto da <a href=\'http://'.CMS_DOMAIN.'/forums\' target=\'_blank\'>comunidade que suporta o '.CMS_NAME.'</a>. Existe igualmente um conjunto crescente de <a href=\'http://'.CMS_DOMAIN.'/documentation\' target=\'_blank\'>Documentação e Guias</a> que cobrem muitos aspectos do '.CMS_NAME.'.</p><p>Contamos igualmente oferecer suporte técnico especializado para o '.CMS_NAME.'. Por favor <a href=\'mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry\'>contacte-nos se estiver interessado</a>.</p><p><b>Atenção:</b> atualmente a maior parte da documentação encontra-se apenas disponível em Inglês. Pode contactar alguns falantes de Português que utilizam o '.CMS_NAME.' <a href=\'http://'.CMS_DOMAIN.'/forums/index.php/board,40.0.html\' target=\'_blank\'>na sessão sobre Internacionalização do forum '.CMS_NAME.'</a>.</p>';
+$_lang["help_msg"] = '<p>Pode obter ajuda gratuitamente junto da <a href=\'http://'.CMS_DOMAIN.'/forum\' target=\'_blank\'>comunidade que suporta o '.CMS_NAME.'</a>. Existe igualmente um conjunto crescente de <a href=\'http://'.CMS_DOMAIN.'/documentation\' target=\'_blank\'>Documentação e Guias</a> que cobrem muitos aspectos do '.CMS_NAME.'.</p><p>Contamos igualmente oferecer suporte técnico especializado para o '.CMS_NAME.'. Por favor <a href=\'mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry\'>contacte-nos se estiver interessado</a>.</p>';
 $_lang["help_title"] = 'Ajuda';
 $_lang["hide_tree"] = 'Ocultar árvore';
 $_lang["home"] = 'Início';

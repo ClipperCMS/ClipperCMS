@@ -343,7 +343,7 @@ $_lang["go"] = 'Vai';
 $_lang["group_access_permissions"] = 'Gruppi di accesso';
 $_lang["guid"] = 'GUID';
 $_lang["help"] = 'Aiuto';
-$_lang["help_msg"] = '<p>Se avete bisogno di aiuto nell\'utilizzo di '.CMS_NAME.', vi consigliamo di visitare i <a href=\'http://'.CMS_DOMAIN.'/forums\' target=\'_blank\'>Forum '.CMS_NAME.'</a>. Inoltre, il sito '.CMS_NAME.' contiene tutta la <a href=\"http://'.CMS_DOMAIN.'/documentation\" target=\"_blank\">documentazione</a> riguardo l\'uso di '.CMS_NAME.' o su come configurarlo, la risposta che state cercando potrebbe essere qui.</p><p>Prevediamo anche di offrire servizi di supporto di tipo commerciale per '.CMS_NAME.'. Se siete interessati, <a href=\"mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry\">inviateci un messaggio email</a>.';
+$_lang["help_msg"] = '<p>Se avete bisogno di aiuto nell\'utilizzo di '.CMS_NAME.', vi consigliamo di visitare i <a href=\'http://'.CMS_DOMAIN.'/forum\' target=\'_blank\'>Forum '.CMS_NAME.'</a>. Inoltre, il sito '.CMS_NAME.' contiene tutta la <a href=\"http://'.CMS_DOMAIN.'/documentation\" target=\"_blank\">documentazione</a> riguardo l\'uso di '.CMS_NAME.' o su come configurarlo, la risposta che state cercando potrebbe essere qui.</p><p>Prevediamo anche di offrire servizi di supporto di tipo commerciale per '.CMS_NAME.'. Se siete interessati, <a href=\"mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry\">inviateci un messaggio email</a>.';
 $_lang["help_title"] = 'Aiuto';
 $_lang["hide_tree"] = 'Nascondi struttura ad albero';
 $_lang["home"] = 'Inizio';

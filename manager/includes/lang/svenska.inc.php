@@ -340,7 +340,7 @@ $_lang["go"] = 'Utför';
 $_lang["group_access_permissions"] = 'Användargruppsåtkomst';
 $_lang["guid"] = 'GUID';
 $_lang["help"] = 'Hjälp';
-$_lang["help_msg"] = '<p>Besök <a href="http://'.CMS_DOMAIN.'/forums/" target="_blank">'.CMS_NAME.' Forum</a> om du behöver hjälp med '.CMS_NAME.'. Det finns också en växande mängd <a href="http://'.CMS_DOMAIN.'/documentation" target="blank">dokumentation och guider</a> som berör i stort sett alla aspekter av '.CMS_NAME.'.</p><p>Vi planerar också att erbjuda kommersiella supporttjänster. Sänd oss ett <a href="mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry">e-postmeddelande om du är intresserad</a>.</p>';
+$_lang["help_msg"] = '<p>Besök <a href="http://'.CMS_DOMAIN.'/forum/" target="_blank">'.CMS_NAME.' Forum</a> om du behöver hjälp med '.CMS_NAME.'. Det finns också en växande mängd <a href="http://'.CMS_DOMAIN.'/documentation" target="blank">dokumentation och guider</a> som berör i stort sett alla aspekter av '.CMS_NAME.'.</p><p>Vi planerar också att erbjuda kommersiella supporttjänster. Sänd oss ett <a href="mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry">e-postmeddelande om du är intresserad</a>.</p>';
 $_lang["help_title"] = 'Hjälp';
 $_lang["hide_tree"] = 'Dölj webbplatsträd';
 $_lang["home"] = 'Hem';

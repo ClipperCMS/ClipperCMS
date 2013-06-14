@@ -1,5 +1,5 @@
 <?php
-define('CMS_DOMAIN', 'clippercms.org');
+define('CMS_DOMAIN', 'clippercms.com');
 define('CMS_NAME', 'ClipperCMS');
 
 define('CMS_RELEASE_VERSION', '1.2');
