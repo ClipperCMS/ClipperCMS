@@ -344,7 +344,7 @@ select {
 
 .sectionBody select, #settingsPane select{
 	line-height: 37px;
-	height: 37px;
+	height: 38px;
 }
 
 input.checkbox,
@@ -1359,9 +1359,9 @@ ul.actionButtons {
 	-moz-border-radius: 0px;
 	border-radius: 0px;
 	margin: 0;
-	padding: 5px 8px;
-	line-height: 26px;
-	height:26px;
+	padding: 4px 8px  5px 8px;
+	line-height: 27px;
+	height:27px;
 }
 
 #ta_parent {

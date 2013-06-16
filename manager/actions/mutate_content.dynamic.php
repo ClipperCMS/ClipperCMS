@@ -492,6 +492,105 @@ function decode(s) {
 /* ]]> */
 </script>
 
+
+<?php 
+			
+/*******************************
+ * Document Access Permissions */
+if ($use_udperms == 1) {
+    $groupsarray = array();
+    $sql = '';
+
+    $documentId = $existing ? $docid : $pid;
+    if ($documentId > 0) {
+        // Load up, the permissions from the parent (if new document) or existing document
+        $sql = 'SELECT id, document_group FROM '.$tbl_document_groups.' WHERE document=\''.$documentId.'\'';
+        $rs = $modx->db->query($sql);
+        while ($currentgroup = $modx->db->getRow($rs))
+            $groupsarray[] = $currentgroup['document_group'].','.$currentgroup['id'];
+
+        // Load up the current permissions and names
+        $sql = 'SELECT dgn.*, groups.id AS link_id '.
+               'FROM '.$tbl_document_group_names.' AS dgn '.
+               'LEFT JOIN '.$tbl_document_groups.' AS groups ON groups.document_group = dgn.id '.
+               '  AND groups.document = '.$documentId.' '.
+               'ORDER BY name';
+    } else {
+        // Just load up the names, we're starting clean
+        $sql = 'SELECT *, NULL AS link_id FROM '.$tbl_document_group_names.' ORDER BY name';
+    }
+
+    // retain selected doc groups between post
+    if (isset($_POST['docgroups']))
+        $groupsarray = array_merge($groupsarray, $_POST['docgroups']);
+
+    // Query the permissions and names from above
+    $rs = $modx->db->query($sql);
+    $limit = $modx->db->getRecordCount($rs);
+
+    $isManager = $modx->hasPermission('access_permissions');
+    $isWeb     = $modx->hasPermission('web_access_permissions');
+
+    // Setup Basic attributes for each Input box
+    $inputAttributes = array(
+        'type' => 'checkbox',
+        'class' => 'checkbox',
+        'name' => 'docgroups[]',
+        'onclick' => 'makePublic(false);',
+    );
+    $permissions = array(); // New Permissions array list (this contains the HTML)
+    $permissions_yes = 0; // count permissions the current mgr user has
+    $permissions_no = 0; // count permissions the current mgr user doesn't have
+
+    // Loop through the permissions list
+    for ($i = 0; $i < $limit; $i++) {
+        $row = $modx->db->getRow($rs);
+
+        // Create an inputValue pair (group ID and group link (if it exists))
+        $inputValue = $row['id'].','.($row['link_id'] ? $row['link_id'] : 'new');
+        $inputId    = 'group-'.$row['id'];
+
+        $checked    = in_array($inputValue, $groupsarray);
+        if ($checked) $notPublic = true; // Mark as private access (either web or manager)
+
+        // Skip the access permission if the user doesn't have access...
+        if ((!$isManager && $row['private_memgroup'] == '1') || (!$isWeb && $row['private_webgroup'] == '1'))
+            continue;
+
+        // Setup attributes for this Input box
+        $inputAttributes['id']    = $inputId;
+        $inputAttributes['value'] = $inputValue;
+        if ($checked)
+                $inputAttributes['checked'] = 'checked';
+        else    unset($inputAttributes['checked']);
+
+        // Create attribute string list
+        $inputString = array();
+        foreach ($inputAttributes as $k => $v) $inputString[] = $k.'="'.$v.'"';
+
+        // Make the <input> HTML
+        $inputHTML = '<input '.implode(' ', $inputString).' />';
+
+        // does user have this permission?
+        $sql = "SELECT COUNT(mg.id) FROM {$tbl_membergroup_access} mga, {$tbl_member_groups} mg
+ WHERE mga.membergroup = mg.user_group
+ AND mga.documentgroup = {$row['id']}
+ AND mg.member = {$_SESSION['mgrInternalKey']};";
+        $rsp = $modx->db->query($sql);
+        $count = $modx->db->getValue($rsp);
+        if($count > 0) {
+            ++$permissions_yes;
+        } else {
+            ++$permissions_no;
+        }
+        $permissions[] = "\t\t".'<li>'.$inputHTML.'<label for="'.$inputId.'">'.$row['name'].'</label></li>';
+    }
+    // if mgr user doesn't have access to any of the displayable permissions, forget about them and make doc public
+    if($_SESSION['mgrRole'] != 1 && ($permissions_yes == 0 && $permissions_no > 0)) {
+        $permissions = array();
+    }
+    ?>
+			    
 <form name="mutate" id="mutate" class="content" method="post" enctype="multipart/form-data" action="index.php">
 
 	
@@ -540,13 +639,15 @@ function decode(s) {
 		</div>
 		
 		<!-- start main wrapper -->
+		
+		
 		<div class="sectionBody">
 		
 			<div id="mutate-content-tabs" class="js-tabs">
 				<ul>
 					<li><a href="#tabGeneral"><?php echo $_lang['settings_general']?></a></li>
 					<li><a href="#tabSettings"><?php echo $_lang['settings_page_settings']?></a></li>
-					<?php if ($use_udperms == 1) { //TODO: hide tab when permissions are empty either in php either in js. js looks simple in this case - detect empty tab content and remove tab?>
+					<?php if ($use_udperms == 1 && !empty($permissions)) { //TODO: hide tab when permissions are empty either in php either in js. js looks simple in this case - detect empty tab content and remove tab?>
 					<li><a href="#tabAccess"><?php echo $_lang['access_permissions']?></a></li>
 					<?php } ?>
 				</ul>
@@ -947,104 +1048,7 @@ if ($_SESSION['mgrRole'] == 1 || !$existing || $_SESSION['mgrInternalKey'] == $c
     
     </div> <!-- end tabSettings -->
 				
-			
-			<?php 
-			
-			/*******************************
-			 * Document Access Permissions */
-			if ($use_udperms == 1) {
-			    $groupsarray = array();
-			    $sql = '';
-			
-			    $documentId = $existing ? $docid : $pid;
-			    if ($documentId > 0) {
-			        // Load up, the permissions from the parent (if new document) or existing document
-			        $sql = 'SELECT id, document_group FROM '.$tbl_document_groups.' WHERE document=\''.$documentId.'\'';
-			        $rs = $modx->db->query($sql);
-			        while ($currentgroup = $modx->db->getRow($rs))
-			            $groupsarray[] = $currentgroup['document_group'].','.$currentgroup['id'];
-			
-			        // Load up the current permissions and names
-			        $sql = 'SELECT dgn.*, groups.id AS link_id '.
-			               'FROM '.$tbl_document_group_names.' AS dgn '.
-			               'LEFT JOIN '.$tbl_document_groups.' AS groups ON groups.document_group = dgn.id '.
-			               '  AND groups.document = '.$documentId.' '.
-			               'ORDER BY name';
-			    } else {
-			        // Just load up the names, we're starting clean
-			        $sql = 'SELECT *, NULL AS link_id FROM '.$tbl_document_group_names.' ORDER BY name';
-			    }
-			
-			    // retain selected doc groups between post
-			    if (isset($_POST['docgroups']))
-			        $groupsarray = array_merge($groupsarray, $_POST['docgroups']);
-			
-			    // Query the permissions and names from above
-			    $rs = $modx->db->query($sql);
-			    $limit = $modx->db->getRecordCount($rs);
-			
-			    $isManager = $modx->hasPermission('access_permissions');
-			    $isWeb     = $modx->hasPermission('web_access_permissions');
-			
-			    // Setup Basic attributes for each Input box
-			    $inputAttributes = array(
-			        'type' => 'checkbox',
-			        'class' => 'checkbox',
-			        'name' => 'docgroups[]',
-			        'onclick' => 'makePublic(false);',
-			    );
-			    $permissions = array(); // New Permissions array list (this contains the HTML)
-			    $permissions_yes = 0; // count permissions the current mgr user has
-			    $permissions_no = 0; // count permissions the current mgr user doesn't have
-			
-			    // Loop through the permissions list
-			    for ($i = 0; $i < $limit; $i++) {
-			        $row = $modx->db->getRow($rs);
-			
-			        // Create an inputValue pair (group ID and group link (if it exists))
-			        $inputValue = $row['id'].','.($row['link_id'] ? $row['link_id'] : 'new');
-			        $inputId    = 'group-'.$row['id'];
-			
-			        $checked    = in_array($inputValue, $groupsarray);
-			        if ($checked) $notPublic = true; // Mark as private access (either web or manager)
-			
-			        // Skip the access permission if the user doesn't have access...
-			        if ((!$isManager && $row['private_memgroup'] == '1') || (!$isWeb && $row['private_webgroup'] == '1'))
-			            continue;
-			
-			        // Setup attributes for this Input box
-			        $inputAttributes['id']    = $inputId;
-			        $inputAttributes['value'] = $inputValue;
-			        if ($checked)
-			                $inputAttributes['checked'] = 'checked';
-			        else    unset($inputAttributes['checked']);
-			
-			        // Create attribute string list
-			        $inputString = array();
-			        foreach ($inputAttributes as $k => $v) $inputString[] = $k.'="'.$v.'"';
-			
-			        // Make the <input> HTML
-			        $inputHTML = '<input '.implode(' ', $inputString).' />';
-			
-			        // does user have this permission?
-			        $sql = "SELECT COUNT(mg.id) FROM {$tbl_membergroup_access} mga, {$tbl_member_groups} mg
-			 WHERE mga.membergroup = mg.user_group
-			 AND mga.documentgroup = {$row['id']}
-			 AND mg.member = {$_SESSION['mgrInternalKey']};";
-			        $rsp = $modx->db->query($sql);
-			        $count = $modx->db->getValue($rsp);
-			        if($count > 0) {
-			            ++$permissions_yes;
-			        } else {
-			            ++$permissions_no;
-			        }
-			        $permissions[] = "\t\t".'<li>'.$inputHTML.'<label for="'.$inputId.'">'.$row['name'].'</label></li>';
-			    }
-			    // if mgr user doesn't have access to any of the displayable permissions, forget about them and make doc public
-			    if($_SESSION['mgrRole'] != 1 && ($permissions_yes == 0 && $permissions_no > 0)) {
-			        $permissions = array();
-			    }
-			
+				<?php
 			    // See if the Access Permissions section is worth displaying...
 			    if (!empty($permissions)) {
 			        // Add the "All Document Groups" item if we have rights in both contexts
