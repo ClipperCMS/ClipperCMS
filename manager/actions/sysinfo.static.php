@@ -127,7 +127,7 @@ if(!$modx->hasPermission('logs')) {
 <!-- recent documents -->
 <div class="sectionHeader"><?php echo $_lang["activity_title"]; ?></div><div class="sectionBody" id="lyr1">
 		<?php echo $_lang["sysinfo_activity_message"]; ?><p>
-		<table border="0" cellpadding="1" cellspacing="1" width="100%" bgcolor="#ccc">
+		<table border="0" cellpadding="1" cellspacing="1" width="100%" class="table">
 			<thead>
 			<tr>
 				<td><b><?php echo $_lang["id"]; ?></b></td>
@@ -154,8 +154,8 @@ if(!$modx->hasPermission('logs')) {
 					$r = $modx->db->getRow($rs2);
 					$user = $r['username'];
 				}
-				$bgcolor = ($i % 2) ? '#EEEEEE' : '#FFFFFF';
-				echo "<tr bgcolor='$bgcolor'><td>".$content['id']."</td><td><a href='index.php?a=3&id=".$content['id']."'>".$content['pagetitle']."</a></td><td>".$user."</td><td>".$modx->toDateFormat($content['editedon']+$server_offset_time)."</td></tr>";
+				$bgcolor = ($i % 2) ? 'odd' : 'even';
+				echo "<tr class='".$bgcolor."'><td>".$content['id']."</td><td><a href='index.php?a=3&id=".$content['id']."'>".$content['pagetitle']."</a></td><td>".$user."</td><td>".$modx->toDateFormat($content['editedon']+$server_offset_time)."</td></tr>";
 			}
 		}
 		?>
@@ -174,7 +174,7 @@ $db_info->output(53, false);
 
 		<?php
 		$html = $_lang["onlineusers_message"].'<b>'.strftime('%H:%M:%S', time()+$server_offset_time).'</b>):<br /><br />
-                <table border="0" cellpadding="1" cellspacing="1" width="100%" bgcolor="#ccc">
+                <table border="0" cellpadding="1" cellspacing="1" width="100%" class="table">
                   <thead>
                     <tr>
                       <td><b>'.$_lang["onlineusers_user"].'</b></td>
@@ -202,7 +202,8 @@ $db_info->output(53, false);
 				$activeusers = $modx->db->getRow($rs);
 				$currentaction = getAction($activeusers['action'], $activeusers['id']);
 				$webicon = ($activeusers['internalKey']<0)? "<img align='absmiddle' src='media/style/{$manager_theme}/images/tree/globe.gif' alt='Web user'>":"";
-				$html .= "<tr bgcolor='#FFFFFF'><td><b>".$activeusers['username']."</b></td><td>$webicon&nbsp;".abs($activeusers['internalKey'])."</td><td>".$activeusers['ip']."</td><td>".strftime('%H:%M:%S', $activeusers['lasthit']+$server_offset_time)."</td><td>$currentaction</td><td align='right'>".$activeusers['action']."</td></tr>";
+				$bgcolor = ($i % 2) ? 'odd' : 'even';
+				$html .= "<tr class='".$bgcolor."'><td><b>".$activeusers['username']."</b></td><td>$webicon&nbsp;".abs($activeusers['internalKey'])."</td><td>".$activeusers['ip']."</td><td>".strftime('%H:%M:%S', $activeusers['lasthit']+$server_offset_time)."</td><td>$currentaction</td><td align='right'>".$activeusers['action']."</td></tr>";
 			}
 		}
 		echo $html;

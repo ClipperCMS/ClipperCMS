@@ -150,14 +150,14 @@ if (is_array($evtOut))
 
 <div class="sectionBody">
     <p><?php echo $_lang['htmlsnippet_msg']?></p>
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <table width="100%" border="0">
         <tr><td align="left"><?php echo $_lang['htmlsnippet_name']?>:</td>
-            <td align="left"><span style="font-family:'Courier New', Courier, mono">{{</span><input name="name" type="text" maxlength="100" value="<?php echo htmlspecialchars($content['name'])?>" class="inputBox" style="width:140px;" onChange='documentDirty=true;'><span style="font-family:'Courier New', Courier, mono">}}</span><span class="warning" id="savingMessage">&nbsp;</span></td></tr>
+            <td align="left"><span class="chunk-tag"><input name="name" type="text" maxlength="100" value="<?php echo htmlspecialchars($content['name'])?>" class="inputBox"  onChange='documentDirty=true;'></span><span class="warning" id="savingMessage">&nbsp;</span></td></tr>
         <tr><td align="left"><?php echo $_lang['htmlsnippet_desc']?>:&nbsp;&nbsp;</td>
-            <td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="description" type="text" maxlength="255" value="<?php echo htmlspecialchars($content['description'])?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td></tr>
+            <td align="left"><input name="description" type="text" maxlength="255" value="<?php echo htmlspecialchars($content['description'])?>" class="inputBox" onChange='documentDirty=true;'></td></tr>
         <tr><td align="left"><?php echo $_lang['existing_category']?>:&nbsp;&nbsp;</td>
-            <td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span>
-            <select name="categoryid" style="width:300px;" onChange='documentDirty=true;'>
+            <td align="left">
+            <select name="categoryid" onChange='documentDirty=true;'>
                 <option>&nbsp;</option>
 <?php
 include_once(MODX_MANAGER_PATH.'includes/categories.inc.php');
@@ -169,8 +169,8 @@ if ($ds) {
 }
 ?>
             </select></td></tr>
-        <tr><td align="left" valign="top" style="padding-top:5px;"><?php echo $_lang['new_category']?>:</td>
-            <td align="left" valign="top" style="padding-top:5px;"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="newcategory" type="text" maxlength="45" value="<?php echo isset($content['newcategory']) ? $content['newcategory'] : ''?>" class="inputBox" style="width:300px;" onChange="documentDirty=true;"></td></tr>
+        <tr><td align="left"><?php echo $_lang['new_category']?>:</td>
+            <td align="left"><input name="newcategory" type="text" maxlength="45" value="<?php echo isset($content['newcategory']) ? $content['newcategory'] : ''?>" class="inputBox" onChange="documentDirty=true;"></td></tr>
         <tr><td align="left" colspan="2"><input name="locked" type="checkbox"<?php echo $content['locked'] == 1 || $content['locked'] == 'on' ? ' checked="checked"' : ''?> class="inputBox" value="on" /> <?php echo $_lang['lock_htmlsnippet']?>
             <span class="comment"><?php echo $_lang['lock_htmlsnippet_msg']?></span></td></tr>
     </table>

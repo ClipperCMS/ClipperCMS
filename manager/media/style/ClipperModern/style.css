@@ -165,7 +165,7 @@ hr {
 	float: left;
 	padding: 0 20px 20px;
 }
-	.rtl .right {
+	.rtl .right, .pull-right{
 		float: right;
 	}
 #loadingmask {
@@ -339,7 +339,12 @@ select {
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	
+	margin: 1px 0;
+}
+
+.sectionBody select, #settingsPane select{
+	line-height: 37px;
+	height: 37px;
 }
 
 input.checkbox,
@@ -1348,18 +1353,17 @@ ul.actionButtons {
 #Button1 select,
 .actionButtons select {
 	position: relative;
-	top: -6px;
-	padding: 5px 2px 4px;
-	background: #DDD url(images/misc/button-gradient.jpg) repeat-x top left;
-    border: 1px solid #B5B5B5 !important;
+	top: -4px;
+	border: 1px solid #B5B5B5 !important;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
-	
+	margin: 0;
+	padding: 5px 8px;
+	line-height: 26px;
+	height:26px;
 }
-#which_editor {
-	padding: 2px;
-}
+
 #ta_parent {
 	display: block;
 	margin: 0 0 10px;
@@ -1483,10 +1487,7 @@ form#mutate textarea {
 .inputBox[name="caption"] {
 	width: 400px !important;
 }
-.inputBox[name="newcategory"] {
-	width: 386px !important;
-	margin-top: -4px;
-}
+
 .inputBox.textarea {
 	width: 300px;
 }
@@ -1494,18 +1495,6 @@ form#mutate textarea {
 .searchtext[name="search"] {
 	padding: 4px 8px;
 }
-
-select[name="categoryid"] {
-	width: 404px !important;
-}
-select[name="type"] {
-	width: 318px !important;
-}
-select[name="display"] {
-	width: 318px !important;
-	margin-left: -3px
-}
-
 form#mutate input.inputBox,
 form#mutate textarea,
 div.tmplvars input {
@@ -1618,7 +1607,6 @@ input.DatePicker, #mutate input.DatePicker, #userPane input.DatePicker, #webUser
 	opacity: 0.98;		
 }
 input:focus.DatePicker, #mutate input:focus.DatePicker, #userPane input:focus.DatePicker, #webUserPane input:focus.DatePicker, input#datefrom:focus.DatePicker, input#dateto:focus.DatePicker {
-	background: #fffce9 url(images/icons/datefocus.gif) no-repeat top left;
 	cursor:text;
 }
 .dp_container {
@@ -1716,3 +1704,62 @@ input:focus.DatePicker, #mutate input:focus.DatePicker, #userPane input:focus.Da
 
 .sectionBody .phptextarea, .phptextarea {font-family: 'Courier New','Courier', monospace;}
 
+
+
+/*Tags*/
+.tv-tag{
+	position: relative;	
+}
+.tv-tag:before{
+	position: absolute;
+	content: "[* ";
+	top:0px;
+	left:-10px;
+}
+.tv-tag:after{
+	position: absolute;
+	content: " *]";
+	top:0px;
+	right:-10px;
+}
+
+
+.chunk-tag{
+	position: relative;	
+}
+.chunk-tag:before{
+	position: absolute;
+	content: "{{ ";
+	top:0px;
+	left:-10px;
+}
+.chunk-tag:after{
+	position: absolute;
+	content: " }}";
+	top:0px;
+	right:-10px;
+}
+
+.snippet-tag{
+	position: relative;	
+}
+.snippet-tag:before{
+	position: absolute;
+	content: "[[ ";
+	top:0px;
+	left:-10px;
+}
+.snippet-tag:after{
+	position: absolute;
+	content: " ]]";
+	top:0px;
+	right:-10px;
+}
+
+
+
+
+/*Fix jquery ui datepicker*/
+.ui-datepicker-title select{
+	padding: 0;
+}

@@ -133,7 +133,7 @@ function showParameters(ctrl) {
     dp = (widgetParams[df]) ? widgetParams[df].split("&"):"";
     if(!dp) tr.style.display='none';
     else {
-        t='<table width="300" style="margin-bottom:3px;margin-left:14px;background-color:#EEEEEE" cellpadding="2" cellspacing="1"><thead><tr><td width="50%"><?php echo $_lang['parameter']; ?></td><td width="50%"><?php echo $_lang['value']; ?></td></tr></thead>';
+        t='<table width="300" style="margin-bottom:3px;background-color:#EEEEEE" cellpadding="2" cellspacing="1"><thead><tr><td width="50%"><?php echo $_lang['parameter']; ?></td><td width="50%"><?php echo $_lang['value']; ?></td></tr></thead>';
         for(p = 0; p < dp.length; p++) {
             dp[p]=(dp[p]+'').replace(/^\s|\s$/,""); // trim
             ar = dp[p].split("=");
@@ -278,24 +278,24 @@ function decode(s){
 
 <div class="sectionBody">
 <p><?php echo $_lang['tmplvars_msg']; ?></p>
-<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<table width="100%" cellspacing="0">
   <tr>
     <td align="left"><?php echo $_lang['tmplvars_name']; ?>:</td>
-    <td align="left"><span style="font-family:'Courier New', Courier, mono">[*</span><input name="name" type="text" maxlength="50" value="<?php echo htmlspecialchars($content['name']);?>" class="inputBox" style="width:150px;" onChange='documentDirty=true;'><span style="font-family:'Courier New', Courier, mono">*]</span> <span class="warning" id='savingMessage'>&nbsp;</span></td>
+    <td align="left"><span class="tv-tag"><input name="name" type="text" maxlength="50" value="<?php echo htmlspecialchars($content['name']);?>" class="inputBox" onChange='documentDirty=true;'></span></td>
   </tr>
   <tr>
     <td align="left"><?php echo $_lang['tmplvars_caption']; ?>:&nbsp;&nbsp;</td>
-    <td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="caption" type="text" maxlength="80" value="<?php echo htmlspecialchars($content['caption']);?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+    <td align="left"><input name="caption" type="text" maxlength="80" value="<?php echo htmlspecialchars($content['caption']);?>" class="inputBox" onChange='documentDirty=true;'></td>
   </tr>
 
   <tr>
     <td align="left"><?php echo $_lang['tmplvars_description']; ?>:&nbsp;&nbsp;</td>
-    <td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="description" type="text" maxlength="255" value="<?php echo htmlspecialchars($content['description']);?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+    <td align="left"><input name="description" type="text" maxlength="255" value="<?php echo htmlspecialchars($content['description']);?>" class="inputBox" onChange='documentDirty=true;'></td>
   </tr>
 
   <tr>
     <td align="left"><?php echo $_lang['tmplvars_type']; ?>:&nbsp;&nbsp;</td>
-    <td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><select name="type" size="1" class="inputBox" style="width:300px;" onChange='documentDirty=true;'>
+    <td align="left"><select name="type" size="1" onChange='documentDirty=true;'>
 	            <option value="text" <?php      echo ($content['type']==''||$content['type']=='text')? "selected='selected'":""; ?>>Text</option>
 	            <option value="textarea" <?php  echo ($content['type']=='textarea')? "selected='selected'":""; ?>>Textarea</option>
 	            <option value="textareamini" <?php  echo ($content['type']=='textareamini')? "selected='selected'":""; ?>>Textarea (Mini)</option>
@@ -317,16 +317,16 @@ function decode(s){
   </tr>
   <tr>
 	<td align="left" valign="top"><?php echo $_lang['tmplvars_elements']; ?>:  </td>
-	<td align="left" nowrap="nowrap"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><textarea name="elements" maxlength="65535" class="inputBox textarea" onchange='documentDirty=true;'><?php echo htmlspecialchars($content['elements']);?></textarea><img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['tmplvars_binding_msg']; ?>" class="tooltip" /></td>
+	<td align="left" nowrap="nowrap"><textarea name="elements" maxlength="65535" class="inputBox textarea" onchange='documentDirty=true;'><?php echo htmlspecialchars($content['elements']);?></textarea><img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['tmplvars_binding_msg']; ?>" class="tooltip" /></td>
   </tr>
   <tr>
     <td align="left" valign="top"><?php echo $_lang['tmplvars_default']; ?>:&nbsp;&nbsp;</td>
-    <td align="left" nowrap="nowrap"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><textarea name="default_text" type="text" class="inputBox" rows="5" style="width:300px;" onChange='documentDirty=true;'><?php echo htmlspecialchars($content['default_text']);?></textarea><img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['tmplvars_binding_msg']; ?>" class="tooltip" /></td>
+    <td align="left" nowrap="nowrap"><textarea name="default_text" type="text" class="inputBox textarea"  onChange='documentDirty=true;'><?php echo htmlspecialchars($content['default_text']);?></textarea><img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['tmplvars_binding_msg']; ?>" class="tooltip" /></td>
   </tr>
   <tr>
     <td align="left"><?php echo $_lang['tmplvars_widget']; ?>:&nbsp;&nbsp;</td>
-    <td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span>
-        <select name="display" size="1" class="inputBox" style="width:300px;" onChange='documentDirty=true;showParameters(this);'>
+    <td align="left">
+        <select name="display" size="1" onChange='documentDirty=true;showParameters(this);'>
 	            <option value="" <?php echo ($content['display']=='')? "selected='selected'":""; ?>>&nbsp;</option>
 			<optgroup label="Widgets">
 	            <option value="datagrid" <?php echo ($content['display']=='datagrid')? "selected='selected'":""; ?>>Data Grid</option>
@@ -353,7 +353,7 @@ function decode(s){
   </tr>
   <tr>
     <td align="left"><?php echo $_lang['tmplvars_rank']; ?>:&nbsp;&nbsp;</td>
-    <td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="rank" type="text" maxlength="4" value="<?php echo (isset($content['rank'])) ? $content['rank'] : 0;?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+    <td align="left"><input name="rank" type="text" maxlength="4" value="<?php echo (isset($content['rank'])) ? $content['rank'] : 0;?>" class="inputBox" onChange='documentDirty=true;'></td>
   </tr>
   <tr>
     <td align="left" colspan="2"><input name="locked" value="on" type="checkbox" <?php echo $content['locked']==1 ? "checked='checked'" : "" ;?> class="inputBox" /> <?php echo $_lang['lock_tmplvars']; ?> <span class="comment"><?php echo $_lang['lock_tmplvars_msg']; ?></span></td>
@@ -460,10 +460,10 @@ function decode(s){
 <?php }?>
 
 <div class="sectionHeader"><?php echo $_lang['category_heading']; ?></div><div class="sectionBody">
-        <table width="90%" border="0" cellspacing="0" cellpadding="0">
+        <table width="90%" border="0">
           <tr>
             <td align="left"><?php echo $_lang['existing_category']; ?>:&nbsp;&nbsp;</td>
-            <td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><select name="categoryid" style="width:300px;" onChange='documentDirty=true;'>
+            <td align="left"><select name="categoryid" onChange='documentDirty=true;'>
 	            	<option>&nbsp;</option>
 	            <?php
 	                include_once "categories.inc.php";
@@ -476,8 +476,8 @@ function decode(s){
             </td>
           </tr>
           <tr>
-            <td align="left" valign="top" style="padding-top:5px;"><?php echo $_lang['new_category']; ?>:</td>
-            <td align="left" valign="top" style="padding-top:5px;"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="newcategory" type="text" maxlength="45" value="" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+            <td align="left"><?php echo $_lang['new_category']; ?>:</td>
+            <td align="left"><input name="newcategory" type="text" maxlength="45" value="" class="inputBox" onChange='documentDirty=true;'></td>
           </tr>
         </table>
             </div>

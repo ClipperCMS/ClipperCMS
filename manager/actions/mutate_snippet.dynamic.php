@@ -107,7 +107,7 @@ function showParameters(ctrl) {
     dp = (f.properties.value) ? f.properties.value.split("&"):"";
     if(!dp) tr.style.display='none';
     else {
-        t='<table width="300" style="margin-bottom:3px;margin-left:14px;background-color:#EEEEEE" cellpadding="2" cellspacing="1"><thead><tr><td width="50%"><?php echo $_lang['parameter']?></td><td width="50%"><?php echo $_lang['value']?></td></tr></thead>';
+        t='<table width="300" style="margin-bottom:3px;background-color:#EEEEEE" cellpadding="2" cellspacing="1"><thead><tr><td width="50%"><?php echo $_lang['parameter']?></td><td width="50%"><?php echo $_lang['value']?></td></tr></thead>';
         for(p = 0; p < dp.length; p++) {
             dp[p]=(dp[p]+'').replace(/^\s|\s$/,""); // trim
             ar = dp[p].split("=");
@@ -301,25 +301,26 @@ function decode(s){
 		<div id="tabSnippet">
 		
 			<h2 class="tab"><?php echo $_lang['settings_general']?></h2>
-	        <table border="0" cellspacing="0" cellpadding="0">
+			
+	        <table border="0" width="100%">
 	          <tr>
 	            <td align="left"><?php echo $_lang['snippet_name']?>:</td>
-	            <td align="left"><span style="font-family:'Courier New', Courier, mono">[[</span><input name="name" type="text" maxlength="100" value="<?php echo htmlspecialchars($content['name'])?>" class="inputBox" style="width:150px;" onChange="documentDirty=true;"><span style="font-family:'Courier New', Courier, mono">]]</span><span class="warning" id="savingMessage">&nbsp;</span></td>
+	            <td align="left"><span class="snippet-tag"><input name="name" type="text" maxlength="100" value="<?php echo htmlspecialchars($content['name'])?>" class="inputBox" onChange="documentDirty=true;"></span></td>
 	          </tr>
 	          <tr>
-	            <td align="left" style="padding-top:10px"><?php echo $_lang['snippet_desc']?>:&nbsp;&nbsp;</td>
-	            <td align="left" style="padding-top:10px"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="description" type="text" maxlength="255" value="<?php echo $content['description']?>" class="inputBox" style="width:300px;" onChange="documentDirty=true;"></td>
+	            <td align="left"><?php echo $_lang['snippet_desc']?>:&nbsp;&nbsp;</td>
+	            <td align="left"><input name="description" type="text" maxlength="255" value="<?php echo $content['description']?>" class="inputBox" onChange="documentDirty=true;"></td>
 	          </tr>
 	          <tr>
-	            <td style="padding-top:10px" align="left" valign="top" colspan="2"><input style="padding:0;margin:0;" name="locked" type="checkbox" <?php echo $content['locked']==1 ? "checked='checked'" : ""?> class="inputBox"> <?php echo $_lang['lock_snippet']?> <span class="comment"><?php echo $_lang['lock_snippet_msg']?></span></td>
+	            <td align="left" valign="top" colspan="2"><input name="locked" type="checkbox" <?php echo $content['locked']==1 ? "checked='checked'" : ""?> class="inputBox"> <?php echo $_lang['lock_snippet']?> <span class="comment"><?php echo $_lang['lock_snippet_msg']?></span></td>
 	          </tr>
 	        </table>
 	        <!-- PHP text editor start -->
-	        <div style="width:100%;position:relative">
-	            <div style="padding:1px 1px 5px 1px; width:100%; height:16px;background-color:#eeeeee; border-top:1px solid #e0e0e0;margin-top:5px">
-	                <span style="float:left;color:#707070;font-weight:bold; padding:3px">&nbsp;<?php echo $_lang['snippet_code']?></span>
-	                <span style="float:right;color:#707070;"><?php echo $_lang['wrap_lines']?><input name="wrap" type="checkbox" <?php echo $content['wrap']== 1 ? "checked='checked'" : ""?> class="inputBox" onclick="setTextWrap(document.mutate.post,this.checked)" /></span>
-	            </div>
+	        <div>
+	            <h2 class="editor-heading"><?php echo $_lang['snippet_code']?>
+	            <span class="pull-right"><?php echo $_lang['wrap_lines']?><input name="wrap" type="checkbox" <?php echo $content['wrap']== 1 ? "checked='checked'" : ""?> class="inputBox" onclick="setTextWrap(document.mutate.post,this.checked)" /></span>
+	            </h2>
+	            
 	            <textarea dir="ltr" name="post" class="phptextarea" style="width:98%; height:370px;" wrap="<?php echo $content['wrap']== 1 ? "soft" : "off"?>" onchange="documentDirty=true;"><?php echo "<?php"."\n".trim(htmlspecialchars($content['snippet']))."\n"."?>"?></textarea>
 	        </div>
 	        <!-- PHP text editor end -->
@@ -329,10 +330,10 @@ function decode(s){
 		<div id="tabProps">
 			
 			<h2 class="tab"><?php echo $_lang['settings_properties']?></h2>
-	        <table width="90%" border="0" cellspacing="0" cellpadding="0">
+	        <table width="100%" border="0">
 	          <tr>
 	            <td align="left"><?php echo $_lang['existing_category']?>:&nbsp;&nbsp;</td>
-	            <td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><select name="categoryid" style="width:300px;" onChange="documentDirty=true;">
+	            <td align="left"><select name="categoryid" onChange="documentDirty=true;">
 	                    <option>&nbsp;</option>
 	                <?php
 	                    include_once "categories.inc.php";
@@ -345,12 +346,12 @@ function decode(s){
 	            </td>
 	          </tr>
 	          <tr>
-	            <td align="left" valign="top" style="padding-top:10px;"><?php echo $_lang['new_category']?>:</td>
-	            <td align="left" valign="top" style="padding-top:10px;"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="newcategory" type="text" maxlength="45" value="" class="inputBox" style="width:300px;" onChange="documentDirty=true;"></td>
+	            <td align="left"><?php echo $_lang['new_category']?>:</td>
+	            <td align="left"><input name="newcategory" type="text" maxlength="45" value="" class="inputBox" onChange="documentDirty=true;"></td>
 	          </tr>
 	          <tr>
-	            <td align="left" style="padding-top:10px;"><?php echo $_lang['import_params']?>:&nbsp;&nbsp;</td>
-	            <td align="left" valign="top" style="padding-top:10px;"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><select name="moduleguid" style="width:300px;" onChange="documentDirty=true;">
+	            <td align="left"><?php echo $_lang['import_params']?>:&nbsp;&nbsp;</td>
+	            <td align="left"><select name="moduleguid" onChange="documentDirty=true;">
 	                    <option>&nbsp;</option>
 	                <?php
 	                    $sql = 'SELECT sm.id,sm.name,sm.guid '.
@@ -369,11 +370,11 @@ function decode(s){
 	          </tr>
 	          <tr>
 	            <td>&nbsp;</td>
-	            <td align="left" valign="top" style="padding-left:1.3em;"><span class="comment" ><?php echo $_lang['import_params_msg']?></div><br /><br /></td>
+	            <td align="left" valign="top"><span class="comment" ><?php echo $_lang['import_params_msg']?></div><br /><br /></td>
 	          </tr>
 	          <tr>
 	            <td align="left" valign="top"><?php echo $_lang['snippet_properties']?>:</td>
-	            <td align="left" valign="top"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="properties" type="text" maxlength="65535" value="<?php echo $content['properties']?>" class="inputBox phptextarea" style="width:300px;" onChange="showParameters(this);documentDirty=true;"></td>
+	            <td align="left" valign="top"><input name="properties" type="text" maxlength="65535" value="<?php echo $content['properties']?>" class="inputBox phptextarea" onChange="showParameters(this);documentDirty=true;"></td>
 	          </tr>
 	          <tr id="displayparamrow">
 	            <td valign="top" align="left">&nbsp;</td>

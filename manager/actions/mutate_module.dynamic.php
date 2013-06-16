@@ -141,7 +141,7 @@ function showParameters(ctrl) {
 	dp = (f.properties.value) ? f.properties.value.split("&"):"";
 	if(!dp) tr.style.display='none';
 	else {
-		t='<table style="margin-bottom:3px;margin-left:14px;background-color:#EEEEEE" cellpadding="2" cellspacing="1"><thead><tr><td><?php echo $_lang['parameter']?></td><td><?php echo $_lang['value']?></td></tr></thead>';
+		t='<table style="margin-bottom:3px;background-color:#EEEEEE" cellpadding="2" cellspacing="1"><thead><tr><td><?php echo $_lang['parameter']?></td><td><?php echo $_lang['value']?></td></tr></thead>';
 		for(p = 0; p < dp.length; p++) {
 			dp[p]=(dp[p]+'').replace(/^\s|\s$/,""); // trim
 			ar = dp[p].split("=");
@@ -369,15 +369,15 @@ function SetUrl(url, width, height, alt) {
 		<!-- General -->
 		<div id="tabModule">
 		
-			<table border="0" cellspacing="0" cellpadding="1">
+			<table border="0" width="100%">
 				<tr><td align="left"><?php echo $_lang['module_name']?>:</td>
-					<td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="name" type="text" maxlength="100" value="<?php echo htmlspecialchars($content['name'])?>" class="inputBox" style="width:150px;" onchange="documentDirty=true;"><span style="font-family:'Courier New', Courier, mono">&nbsp;</span><span class="warning" id="savingMessage">&nbsp;</span></td></tr>
+					<td align="left"><input name="name" type="text" maxlength="100" value="<?php echo htmlspecialchars($content['name'])?>" class="inputBox" style="width:150px;" onchange="documentDirty=true;"><span style="font-family:'Courier New', Courier, mono">&nbsp;</span><span class="warning" id="savingMessage">&nbsp;</span></td></tr>
 				<tr><td align="left"><?php echo $_lang['module_desc']?>:&nbsp;&nbsp;</td>
-					<td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="description" type="text" maxlength="255" value="<?php echo $content['description']?>" class="inputBox" onchange="documentDirty=true;"></td></tr>
+					<td align="left"><input name="description" type="text" maxlength="255" value="<?php echo $content['description']?>" class="inputBox" onchange="documentDirty=true;"></td></tr>
 				<tr><td align="left"><?php echo $_lang['icon']?> <span class="comment">(32x32)</span>:&nbsp;&nbsp;</td>
-					<td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input onchange="documentDirty=true;" type="text" maxlength="255" style="width: 235px;" name="icon" value="<?php echo $content['icon']?>" /> <input type="button" value="<?php echo $_lang['insert']?>" onclick="BrowseServer();" /></td></tr>
+					<td align="left"><input onchange="documentDirty=true;" type="text" maxlength="255" style="width: 235px;" name="icon" value="<?php echo $content['icon']?>" /> <input type="button" value="<?php echo $_lang['insert']?>" onclick="BrowseServer();" /></td></tr>
 				<tr><td align="left"><?php echo $_lang['existing_category']?>:&nbsp;&nbsp;</td>
-					<td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span>
+					<td align="left">
 					<select name="categoryid" onchange="documentDirty=true;">
 						<option>&nbsp;</option>
 		<?php
@@ -390,24 +390,22 @@ function SetUrl(url, width, height, alt) {
 						}
 		?>
 					</select></td></tr>
-				<tr><td align="left" valign="top" style="padding-top:5px;"><?php echo $_lang['new_category']?>:</td>
-					<td align="left" valign="top" style="padding-top:5px;"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="newcategory" type="text" maxlength="45" value="" class="inputBox" onchange="documentDirty=true;"></td></tr>
+				<tr><td align="left"><?php echo $_lang['new_category']?>:</td>
+					<td align="left"><input name="newcategory" type="text" maxlength="45" value="" class="inputBox" onchange="documentDirty=true;"></td></tr>
 				<tr><td align="left"><input name="enable_resource" title="<?php echo $_lang['enable_resource']?>" type="checkbox"<?php echo $content['enable_resource']==1 ? ' checked="checked"' : ''?> class="inputBox" onclick="documentDirty=true;" /> <span style="cursor:pointer" onclick="document.mutate.enable_resource.click();" title="<?php echo $_lang['enable_resource']?>"><?php echo $_lang["element"]?></span>:</td>
-					<td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="sourcefile" type="text" maxlength="255" value="<?php echo $content['sourcefile']?>" class="inputBox" onchange="documentDirty=true;" /></td></tr>
-				<tr><td align="left" valign="top" colspan="2"><input name="disabled" type="checkbox" <?php echo $content['disabled'] == 1 ? 'checked="checked"' : ''?> value="on" class="inputBox" />
+					<td align="left"><input name="sourcefile" type="text" maxlength="255" value="<?php echo $content['sourcefile']?>" class="inputBox" onchange="documentDirty=true;" /></td></tr>
+				<tr><td align="left" colspan="2"><input name="disabled" type="checkbox" <?php echo $content['disabled'] == 1 ? 'checked="checked"' : ''?> value="on" class="inputBox" />
 					<span style="cursor:pointer" onclick="document.mutate.disabled.click();"><?php echo  $content['disabled'] == 1 ? '<span class="warning">'.$_lang['module_disabled'].'</span>' : $_lang['module_disabled']?></span></td></tr>
-				<tr><td align="left" valign="top" colspan="2"><input name="locked" type="checkbox"<?php echo $content['locked'] == 1 ? ' checked="checked"' : ''?> class="inputBox" />
+				<tr><td align="left" colspan="2"><input name="locked" type="checkbox"<?php echo $content['locked'] == 1 ? ' checked="checked"' : ''?> class="inputBox" />
 					<span style="cursor:pointer" onclick="document.mutate.locked.click();"><?php echo $_lang['lock_module']?></span> <span class="comment"><?php echo $_lang['lock_module_msg']?></span></td></tr>
 			</table>
 		
 			<!-- PHP text editor start -->
-			<div style="width:100%; position:relative">
-				<div style="padding:1px; width:100%; height:16px; background-color:#eeeeee; border-top:1px solid #e0e0e0; margin-top:5px">
-					<span style="float:left; color:#707070; font-weight:bold; padding:3px">&nbsp;<?php echo $_lang['module_code']?></span>
-					<span style="float:right; color:#707070"><?php echo $_lang['wrap_lines']?><input name="wrap" type="checkbox"<?php echo $content['wrap']== 1 ? ' checked="checked"' : ''?> class="inputBox" onclick="setTextWrap(document.mutate.post,this.checked)" /></span>
-				</div>
-				<textarea dir="ltr" class="phptextarea" name="post" style="width:98%; height:370px;" wrap="<?php echo $content['wrap']== 1 ? 'soft' : 'off'?>" onchange="documentDirty=true;"><?php echo htmlspecialchars($content['modulecode'])?></textarea>
+			<div>
+				<h2 class="editor-heading"><?php echo $_lang['module_code']?>
+				<span class="pull-right"><?php echo $_lang['wrap_lines']?><input name="wrap" type="checkbox"<?php echo $content['wrap']== 1 ? ' checked="checked"' : ''?> class="inputBox" onclick="setTextWrap(document.mutate.post,this.checked)" /></span>
 			</div>
+			<textarea dir="ltr" class="phptextarea" name="post" style="width:98%; height:370px;" wrap="<?php echo $content['wrap']== 1 ? 'soft' : 'off'?>" onchange="documentDirty=true;"><?php echo htmlspecialchars($content['modulecode'])?></textarea>
 			<!-- PHP text editor end -->
 	
 		</div> <!-- General -->
@@ -416,14 +414,20 @@ function SetUrl(url, width, height, alt) {
 		<!-- Configuration -->
 		<div id="tabConfig">
 			
-			<table width="90%" border="0" cellspacing="0" cellpadding="0">
-				<tr><td align="left" valign="top"><?php echo $_lang['guid']?>:</td>
-					<td align="left" valign="top"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="guid" type="text" maxlength="32" value="<?php echo (int) $_REQUEST['a'] == 107 ? createGUID() : $content['guid']?>" class="inputBox" onchange="documentDirty=true;" /><br /><br /></td></tr>
-				<tr><td align="left" valign="top"><input name="enable_sharedparams" type="checkbox"<?php echo $content['enable_sharedparams']==1 ? ' checked="checked"' : ''?> class="inputBox" onclick="documentDirty=true;" /> <span style="cursor:pointer" onclick="document.mutate.enable_sharedparams.click();"><?php echo $_lang['enable_sharedparams']?>:</span></td>
-					<td align="left" valign="top"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><span ><span class="comment"><?php echo $_lang['enable_sharedparams_msg']?></span></span><br /><br /></td></tr>
-				<tr><td align="left" valign="top"><?php echo $_lang['module_config']?>:</td>
-					<td align="left" valign="top"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="properties" type="text" maxlength="65535" value="<?php echo $content['properties']?>" class="inputBox phptextarea" style="width:280px;" onchange="showParameters(this);documentDirty=true;" /><input type="button" value="<?php echo $_lang['update_params'] ?>" style="width:16px; margin-left:2px;" title="<?php echo $_lang['update_params']?>" /></td></tr>
-				<tr id="displayparamrow"><td valign="top" align="left">&nbsp;</td>
+			<table width="100%" border="0">
+				<tr><td align="left"><?php echo $_lang['guid']?>:</td>
+					<td align="left"><input name="guid" type="text" maxlength="32" value="<?php echo (int) $_REQUEST['a'] == 107 ? createGUID() : $content['guid']?>" class="inputBox" onchange="documentDirty=true;" />
+				</td></tr>
+				<tr>
+					<td colspan="2"><div class="comment"><?php echo $_lang['enable_sharedparams_msg']?></div></td>
+				</tr>
+				<tr><td colspan="2"><div class="split"></div></td></tr>
+				<tr><td align="left" colspan="2"><input name="enable_sharedparams" type="checkbox"<?php echo $content['enable_sharedparams']==1 ? ' checked="checked"' : ''?> class="inputBox" onclick="documentDirty=true;" /> <span style="cursor:pointer" onclick="document.mutate.enable_sharedparams.click();"><?php echo $_lang['enable_sharedparams']?>:</span>
+				</td>
+				</tr>
+				<tr><td align="left"><?php echo $_lang['module_config']?>:</td>
+					<td align="left"><input name="properties" type="text" maxlength="65535" value="<?php echo $content['properties']?>" class="inputBox phptextarea" style="width:280px;" onchange="showParameters(this);documentDirty=true;" /><input type="button" value="<?php echo $_lang['update_params'] ?>" style="width:16px; margin-left:2px;" title="<?php echo $_lang['update_params']?>" /></td></tr>
+				<tr id="displayparamrow"><td align="left">&nbsp;</td>
 					<td align="left" id="displayparams">&nbsp;</td></tr>
 			</table>
 			
@@ -436,9 +440,9 @@ function SetUrl(url, width, height, alt) {
 			
 			<table width="95%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td align="left" valign="top"><p><?php echo $_lang['module_viewdepend_msg']?><br /><br />
+					<td align="left"><p><?php echo $_lang['module_viewdepend_msg']?><br /><br />
 					<a class="searchtoolbarbtn" href="#" style="float:left" onclick="loadDependencies();return false;"><img src="<?php echo $_style["icons_save"]?>" align="absmiddle" /> <?php echo $_lang['manage_depends']?></a><br /><br /></p></td></tr>
-				<tr><td valign="top" align="left">
+				<tr><td align="left">
 			<?php
 				$sql = 'SELECT smd.id, COALESCE(ss.name,st.templatename,sv.name,sc.name,sp.name,sd.pagetitle) AS `name`, '.
 						'CASE smd.type'.

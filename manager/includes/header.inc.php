@@ -114,7 +114,7 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 		}
 
 		function saveWait(fName) {
-			document.getElementById("savingMessage").innerHTML = "<?php echo $_lang['saving']; ?>";
+			$('#savingMessage').html("<?php echo $_lang['saving']; ?>");
 			for(i = 0; i < document.forms[fName].elements.length; i++) {
 				document.forms[fName].elements[i].disabled='disabled';
 			}

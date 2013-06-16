@@ -144,7 +144,7 @@ thead tr {
     }
 
 tbody tr {
-    background: #fff;
+    background: transparent;
     }
 
 tr.odd {

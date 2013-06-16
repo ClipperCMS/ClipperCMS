@@ -146,22 +146,22 @@ function deletedocument() {
 	<?php } ?>
 			
 			<?php echo "\t" . $_lang['template_msg']; ?>
-		    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		    <table width="100%" border="0" >
 		      <tr>
 		        <td align="left"><img src="<?php echo $_style['tx']; ?>" width="100" height="1" /></td>
 		        <td align="left">&nbsp;</td>
 		      </tr>
 		      <tr>
 		        <td align="left"><?php echo $_lang['template_name']; ?>:&nbsp;&nbsp;</td>
-		        <td align="left"><input name="templatename" type="text" maxlength="100" value="<?php echo htmlspecialchars($content['templatename']);?>" class="inputBox" style="width:150px;" onChange='documentDirty=true;'><span class="warning" id='savingMessage'></span></td>
+		        <td align="left"><input name="templatename" type="text" maxlength="100" value="<?php echo htmlspecialchars($content['templatename']);?>" class="inputBox" onChange='documentDirty=true;'><span class="warning" id='savingMessage'></span></td>
 		      </tr>
 		        <tr>
 		        <td align="left"><?php echo $_lang['template_desc']; ?>:&nbsp;&nbsp;</td>
-		        <td align="left"><input name="description" type="text" maxlength="255" value="<?php echo htmlspecialchars($content['description']);?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+		        <td align="left"><input name="description" type="text" maxlength="255" value="<?php echo htmlspecialchars($content['description']);?>" class="inputBox" onChange='documentDirty=true;'></td>
 		      </tr>
 		      <tr>
 		        <td align="left"><?php echo $_lang['existing_category']; ?>:&nbsp;&nbsp;</td>
-		        <td align="left"><select name="categoryid" style="width:300px;" onChange='documentDirty=true;'>
+		        <td align="left"><select name="categoryid" onChange='documentDirty=true;'>
 		                <option>&nbsp;</option>
 		                <?php
 		                    include_once "categories.inc.php";
@@ -175,7 +175,7 @@ function deletedocument() {
 		      </tr>
 		      <tr>
 		        <td align="left"><?php echo $_lang['new_category']; ?>:</td>
-		        <td align="left"><input name="newcategory" type="text" maxlength="45" value="<?php echo isset($content['newcategory']) ? $content['newcategory'] : '' ?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+		        <td align="left"><input name="newcategory" type="text" maxlength="45" value="<?php echo isset($content['newcategory']) ? $content['newcategory'] : '' ?>" class="inputBox" onChange='documentDirty=true;'></td>
 		      </tr>
 		      <tr>
 		        <td align="left"><?php echo $_lang['default_child_template']; ?>:</td>

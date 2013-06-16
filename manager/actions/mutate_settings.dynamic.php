@@ -205,7 +205,7 @@ function confirmLangChange(el, lkey, elupd){
                     </tr>
                   <tr>
                     <th><?php echo $_lang["charset_title"]?></th>
-                    <td> <select name="modx_charset" size="1" class="inputBox" style="width:250px;" onchange="documentDirty=true;">
+                    <td> <select name="modx_charset" size="1" class="inputBox" onchange="documentDirty=true;">
                         <?php include "charsets.php"; ?>
                       </select> </td>
                   </tr>
