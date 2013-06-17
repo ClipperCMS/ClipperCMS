@@ -8,7 +8,7 @@
 assets/cache/*
 
 # plus these asset directories
-assets/images/*
+#assets/images/*
 assets/files/*
 assets/media/*
 assets/export/*
