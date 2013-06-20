@@ -517,8 +517,10 @@ class Qm {
                         	
                             	// Bindings
                             	'.$jvar.'(document).bind("cbox_open", function(){
-                                    '.$jvar.'("body").css({"overflow":"hidden"});
-                                    '.$jvar.'("html").css({"overflow":"hidden"});
+                            		if('.$jvar.'(window).height() < '.$jvar.'("body").height()){
+                            			'.$jvar.'("body").css({"overflow":"hidden"});
+										'.$jvar.'("html").css({"overflow":"hidden"});
+                                    }
                                     '.$jvar.'("#qmEditor").css({"display":"none"});
                                 });
                                 
@@ -554,8 +556,10 @@ class Qm {
                                 });  
                                 
                             	'.$jvar.'(document).bind("cbox_closed", function(){      
-                                    '.$jvar.'("body").css({"overflow":"auto"});
-                                    '.$jvar.'("html").css({"overflow":"auto"});
+                                    if('.$jvar.'(window).height() < '.$jvar.'("body").height()){
+                            			'.$jvar.'("body").css({"overflow":"auto"});
+										'.$jvar.'("html").css({"overflow":"auto"});
+                                    }
                                     '.$jvar.'("#qmEditor").css({"display":"block"});
                                     // Remove manager lock by going to home page
                                     '.$jvar.'.ajax({ type: "GET", url: "'.$this->modx->config['site_url'].'manager/index.php?a=2" });
