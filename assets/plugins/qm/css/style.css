@@ -210,7 +210,7 @@
 #qmEditor .qmEdit span, .qm-edit span, .qm-save span, .qm-tv span
 {
     background: transparent url(images/save.png) no-repeat left center;
-    padding-left: 20px;
+    padding: 2px 0 2px 20px;
 }
 
 #qmEditor .qmButton span
@@ -220,6 +220,10 @@
 
 #qmEditorClosed
 {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+               
     height: 26px;
     display: none;
     width: 108px !important;

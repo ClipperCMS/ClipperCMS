@@ -342,7 +342,7 @@ select {
 	margin: 1px 0;
 }
 
-.sectionBody select, #settingsPane select{
+.sectionBody select:not([multiple]):not([size]), #settingsPane select:not([multiple]):not([size]){
 	line-height: 37px;
 	height: 38px;
 }
