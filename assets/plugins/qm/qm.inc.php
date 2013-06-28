@@ -115,12 +115,14 @@ class Qm {
             // Display page in front-end
 
             case 'OnWebPageInit':
-                 // Insert jQuery and ColorBox in head if needed
-                 $this->modx->regClientJquery();
-                 if ($this->loadtb) {
-                     $this->modx->regClientCSS($this->modx->config['site_url'].'assets/plugins/qm/css/colorbox.css', 'screen');
-                     $this->modx->regClientJqueryPlugin('colorbox', 'jquery.colorbox-min.js');
+                 if (!$this->noconflictjq) {
+                     // Insert jQuery and ColorBox in head if needed
+                     $this->modx->regClientJquery();
+                     if ($this->loadtb == 'true') {
+                         $this->modx->regClientJqueryPlugin('colorbox', 'jquery.colorbox-min.js');
+                     }
                  }
+                 $this->modx->regClientCSS($this->modx->config['site_url'].'assets/plugins/qm/css/colorbox.css', 'screen');
                  break;
 
             case 'OnWebPagePrerender':
@@ -290,7 +292,7 @@ class Qm {
                                 <input id="save" type="hidden" name="save" value="1" />
                                     
                                 <div id="qm-tv-actions">
-                                <div class="qm-cancel"><a href="#" onclick="parent.'.($this->noconflictjq ? 'jQuery' : '$').'.fn.colorbox.close(); return false;"><span>'.$_lang['cancel'].'</span></a></div>
+                                <div class="qm-cancel"><a href="#" onclick="parent.'.($this->noconflictjq ? '$j' : '$').'.fn.colorbox.close(); return false;"><span>'.$_lang['cancel'].'</span></a></div>
                                 <div class="qm-save"><a href="#" onclick="document.forms[\'mutate\'].submit(); return false;"><span>'.$_lang['save'].'</span></a></div>
                                 </div>
                                 
@@ -488,7 +490,25 @@ class Qm {
                             </style>
                             ';
                         }
-            
+                        
+                        if ($this->noconflictjq) {
+                            // Bypass jquery API - we want our own instance.
+                            $head_jq =
+                            '<script src="'.$this->modx->config['jquery_url'].'" type="text/javascript"></script>
+                            <script type="text/javascript" src="assets/js/jquery.colorbox-min.js"></script>
+                            <script type="text/javascript">var $j = jQuery.noConflict();</script>'."\n";
+                            // It must come first to avoid messing with other jquery objects
+                            $head_end = strpos($output, '</head>');
+                            $first_script = strpos($output, '<script');
+                            if ($head_end !== false) {
+                                if ($first_script !== false && $first_script < $head_end) {
+                                    $output = substr($output, 0, $first_script).$head_jq.substr($output, $first_script);
+                                } else {
+                                    $output = substr($output, 0, $head_end).$head_jq.substr($output, $head_end);
+                                }
+                            }
+                        }
+
                         // Insert ColorBox jQuery definitions for QuickManager+
                         $head .= '
                         <script type="text/javascript">
@@ -498,10 +518,10 @@ class Qm {
                         if ($this->noconflictjq)
                         {
                             $head .= '
-                        	jQuery(document).ready(function($)
+                        	$j(document).ready(function($)
                         	';
                         	
-                        	$jvar = 'jQuery';
+                        	$jvar = '$j';
                         }
                         	
                         // jQuery in normal mode 
@@ -662,7 +682,7 @@ class Qm {
 					$doc_id = intval($_REQUEST['id']);
 					
                     // Add action buttons --- (Uxello) fix for doc dirty nav away messages
-                    $mc->addLine('var controls = "<div style=\"padding:4px 0;position:fixed;top:10px;right:-10px;z-index:1000\" id=\"qmcontrols\" class=\"actionButtons\"><ul><li><a href=\"#\" onclick=\"documentDirty=false;document.mutate.save.click();return false;\"><img src=\"media/style/'.$qm_theme.'/images/icons/save.png\" /> '.$_lang['save'].'</a></li><li><a href=\"#\"  onclick=\" if (confirmifdirty()) {parent.'.($this->noconflictjq ? 'jQuery' : '$').'.fn.colorbox.close();}  return false;\"><img src=\"media/style/'.$qm_theme.'/images/icons/stop.png\"/> '.$_lang['cancel'].'</a></li></ul></div>";');
+                    $mc->addLine('var controls = "<div style=\"padding:4px 0;position:fixed;top:10px;right:-10px;z-index:1000\" id=\"qmcontrols\" class=\"actionButtons\"><ul><li><a href=\"#\" onclick=\"documentDirty=false;document.mutate.save.click();return false;\"><img src=\"media/style/'.$qm_theme.'/images/icons/save.png\" /> '.$_lang['save'].'</a></li><li><a href=\"#\"  onclick=\" if (confirmifdirty()) {parent.'.($this->noconflictjq ? '$j' : '$').'.fn.colorbox.close();}  return false;\"><img src=\"media/style/'.$qm_theme.'/images/icons/stop.png\"/> '.$_lang['cancel'].'</a></li></ul></div>";');
                     
                     // Modify head
                     $mc->head = '<script type="text/javascript">document.body.style.display="none";</script>';

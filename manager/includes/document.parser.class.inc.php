@@ -3184,7 +3184,7 @@ class DocumentParser extends Core {
         $version= isset($options['version']) ? $options['version'] : '0';
         $plaintext= isset($options['plaintext']) ? $options['plaintext'] : false;
         $key= !empty($name) ? $name : $src;
-        $jquery_core = preg_match('/jquery(-\d+\.\d+(\.\d+)?)?(\.min)?\.js$/i', $src) ? true : false;
+        $jquery_core = preg_match('/(^|\/)jquery(-\d+\.\d+(\.\d+)?)?(\.min)?\.js$/i', $src) ? true : false;
         $jquery = (isset($options['jquery']) && $options['jquery']) || $jquery_core ? true : false;
         unset($overwritepos); // probably unnecessary--just making sure
 
