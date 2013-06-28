@@ -404,7 +404,9 @@ switch ($action) {
     break;
     case 21:
         // get the delete processor
+        require_once('header.inc.php');
         include_once "processors/delete_template.processor.php";
+        include_once "footer.inc.php";
     break;
     case 96:
         // get the duplicate template processor
