@@ -900,12 +900,12 @@ class DocumentParser extends Core {
                 $modifiers = null;
             }
 
-            if (($sep_pos = strpos($key, ':')) !== false) {
-                // Handle [*<docid>:<fieldname/TVname>*]
+            if (($sep_pos = strpos($key, '@')) !== false) {
+                // Handle [*<fieldname/TVname>@<docid>*]
                 // Identify the docid first.
                 // <docid> can be any id, 'parent', 'ultimateparent', or contain site settings placeholders e.g. [(site_start)]
                 $other_docid = null;
-                if (ctype_digit($other_docid = substr($key, 0, $sep_pos))) {
+                if (ctype_digit($other_docid = substr($key, $sep_pos + 1))) {
                     $other_docid = (int)$other_docid;
                 } else {
                     switch ($other_docid) {
@@ -935,14 +935,14 @@ class DocumentParser extends Core {
                         if (!isset($documentObjects[$other_docid])) {
                             $documentObjects[$other_docid] = $this->getDocumentObject('id', $other_docid);
                         }
-                        $value = $documentObjects[$other_docid][substr($key, $sep_pos+1)];
+                        $value = $documentObjects[$other_docid][substr($key, 0, $sep_pos)];
                     } else {
                         // Using the current document.
-                        $value= $this->documentObject[substr($key, $sep_pos+1)];
+                        $value= $this->documentObject[substr($key, 0, $sep_pos)];
                     }
                 } else {
-                    // Invalid $other_docid
-                    $value = '';
+                    // Invalid $other_docid - don't change the content of the placeholder as it may be used by an Extra
+                    $value = $matches[1][$i];
                 }
             } else {
                 // Using the current document.

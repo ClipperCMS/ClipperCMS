@@ -19,7 +19,12 @@ abstract class DBAPI_abstract {
       * @param $charset client character set
       * @param $connection SQL to set connection character set 
       */
-     final public function __construct($parent, $host = '', $dbase = '', $uid = '',$pwd = '', $pre = null, $charset = '', $connection_method = 'SET CHARACTER SET') {
+     final public function __construct($parent = null, $host = '', $dbase = '', $uid = '',$pwd = '', $pre = null, $charset = '', $connection_method = 'SET CHARACTER SET') {
+
+          // DEPRECATED functionality - pass $modx, $install or such as $core in all new and updated Extras. All core code should do this as of 1.2
+          global $modx;
+          if (is_null($parent)) $parent = $modx;
+
           $this->parent = $parent;
           $this->config['host'] = $host ? $host : $GLOBALS['database_server'];
           $this->config['dbase'] = $dbase ? $dbase : $GLOBALS['dbase'];
