@@ -94,8 +94,6 @@
 	
 	$wlpe->ActiveUsers();
 	$wlpe->PlaceHolders($inputHandler, $messageTpl);
-	
-	$modx->regClientStartupScript('assets/snippets/webusers/js/ieButtonFix.js');
 
 	$service = $_REQUEST['service'];
 	if (empty($service) || $service == '')
