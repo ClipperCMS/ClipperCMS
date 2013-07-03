@@ -1144,6 +1144,7 @@ class DocumentParser extends Core {
             if ($___plug === false) {
                 $this->messageQuitFromElement("Plugin {$this->event->activePlugin}", "PHP Parse error in plugin {$this->event->activePlugin}");
             }
+            echo $___msg;
             unset ($this->event->params);
         } else {
             $this->logEvent(0, 3, "Plugin {$___name} missing or empty");

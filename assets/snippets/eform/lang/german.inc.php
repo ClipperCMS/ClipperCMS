@@ -42,4 +42,3 @@ $_lang["ef_upload_exceeded"] = " hat die Upload-Grenze überschritten";
 $_lang["ef_validation_message"] = "<div class=\"errors\"><strong>Es wurden Fehler im Formular gefunden:</strong><br />[+ef_wrapper+]</div>"; //changed
 $_lang['ef_version_error'] = "<strong>WARNUNG!</strong> Die Version des eForm Snippets (version:&nbsp;$version) unterscheidet sich von der eingefügten eForm Datei (version:&nbsp;$fileVersion). Bitte stellen Sie sicher, dass Sie für beide die selbe Version verwenden.";
 ?>
-?>

@@ -29,7 +29,9 @@ function mm_renameField($field, $newlabel, $roles='', $templates='', $newhelp=''
 				case 'which_editor':
 					$output .= '$("#which_editor").prev("span.warning").empty().prepend("'.jsSafe($newlabel).'");';
 				break;
-							
+				case 'content':
+					$output .= '$("#content_header.sectionHeader").html("'.jsSafe($newlabel).'");';
+                break;							
 				// Ones that follow the regular pattern
 				default:
 
