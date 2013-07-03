@@ -232,12 +232,12 @@ case 'OnPluginFormRender':
 		
 		$output .= '<script type="text/javascript">' . "\n";
 
-		$output .= "mm_lastTab = 'tabEvents'; \n";
+		$output .= "$(document).ready(function($) { \n";
 		$e->output($output);
 		
-		mm_createTab('Templates, TVs &amp; Roles', 'rolestemplates', '', '', '<p>These are the IDs for current templates,tvs and roles in your site.</p>'.$template_table.'&nbsp;'.$tvs_table.'&nbsp;'.$roles_table);		
+		mm_createTab('Templates, TVs &amp; Roles', 'rolestemplates', '', '', '<p>These are the IDs for current templates,tvs and roles in your site.</p>'.addslashes($template_table).'&nbsp;'.addslashes($tvs_table).'&nbsp;'.addslashes($roles_table));		
 		
-		$e->output('</script>');
+		$e->output('});</script>');
 		$e->output('<!-- End ManagerManager output -->' . "\n");		
 	} 
 	break;
