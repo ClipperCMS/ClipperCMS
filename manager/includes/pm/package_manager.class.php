@@ -661,10 +661,10 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                             $flds['description'] = $this->core->db->escape('<strong>'.$full_version.'</strong> '.$desc);
 
                             // Put into db
-                            $rs = $this->core->db->select('*', $tbl, "name LIKE '$name'");
+                            $rs = $this->core->db->select('*', $tbl, "$name_field LIKE '$name'");
                             if (!$this->core->db->getRecordCount($rs) || $overwrite) {
                                 if ($this->core->db->getRecordCount($rs)) {
-                                    if (!$this->core->db->delete($tbl, "name LIKE '$name'")) {
+                                    if (!$this->core->db->delete($tbl, "$name_field LIKE '$name'")) {
                                         $this->install_summary .= "<p class=\"error\">Error removing existing $el_category_singular $name</p>";
                                         return false;
                                     }
@@ -700,7 +700,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                     }
                 }
             }
-            
+
             // empty cache
             require_once($this->core->config['base_path'].'manager/processors/cache_sync.class.processor.php');
             $sync = new synccache();
