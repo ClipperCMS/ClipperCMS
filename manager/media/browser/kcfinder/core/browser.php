@@ -758,6 +758,7 @@ class browser extends uploader {
 
         if (is_array($dirs) && count($dirs) && ($index <= count($path) - 1)) {
 
+			/* Now only first level is processed. Others are while beeing viewed.
             foreach ($dirs as $i => $cdir) {
                 if ($cdir['hasDirs'] &&
                     (
@@ -772,6 +773,7 @@ class browser extends uploader {
                     }
                 }
             }
+			*/
         } else
             return false;
 

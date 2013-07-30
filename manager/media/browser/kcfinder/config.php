@@ -27,9 +27,10 @@ $_CONFIG = array(
 
     'uploadURL' => MODX_BASE_URL  . $GLOBALS['modx']->config['rb_base_url'],
     'uploadDir' => $GLOBALS['modx']->config['rb_base_dir'],
-
-    'dirPerms' => 0755,
-    'filePerms' => 0644,
+	'siteURL' => $GLOBALS['site_url'],
+	'assetsURL' => rtrim($GLOBALS['modx']->config['rb_base_url'],'/'),
+    'dirPerms' => intval($GLOBALS['modx']->config['new_folder_permissions'],8),
+    'filePerms' => intval($GLOBALS['modx']->config['new_file_permissions'],8),
 
     'access' => array(
 
