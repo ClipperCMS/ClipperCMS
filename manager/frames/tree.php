@@ -38,6 +38,12 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 		resizeTree();
 		restoreTree();
 	});
+	
+	jQuery(document).ready(function() {
+		jQuery('#Button10.treeButton').live('click', function(){
+			emptyTrash();
+	    });
+	});
     
     jQuery(window).resize(function(){
     	resizeTree();
@@ -414,9 +420,11 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 	        a.attr('title', title);
 	        a.html('<?php echo $_style['empty_recycle_bin']; ?>');
 	        a.removeClass('treeButtonDisabled').addClass('treeButton');
-	        a.click(function(){
+	        /*
+a.click(function(){
 		        emptyTrash();
 	        })
+*/
         }
     }
 
