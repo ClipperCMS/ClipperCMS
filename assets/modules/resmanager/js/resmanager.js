@@ -150,7 +150,7 @@ $(document).ready(function($) {
     hideInteraction();
 
 	$("#resmanager-main-tabs").tabs({
-		activate: function( event, ui ) {
+		beforeActivate: function( event, ui ) {
 			
 			hideInteraction();
 			

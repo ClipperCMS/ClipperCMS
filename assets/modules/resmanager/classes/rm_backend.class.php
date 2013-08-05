@@ -73,7 +73,7 @@ class ResManagerBackend {
                     $classes .= ($item['published']) ? ' publishedNode ' : ' unpublishedNode ' ;
                     $classes = ($item['deleted']) ? ' deletedNode ' : $classes ;
                     $classes .= (count($this->modx->getChildIds($item['id'], 1)) > 0) ? ' hasChildren ' : ' noChildren ';
-                    $this->dm->ph['sort.options'] .= '<li id="item_' . $item['id'] . '" class="sort '.$classes.'">' . $item['pagetitle'] . '</li>';
+                    $this->dm->ph['sort.options'] .= '<li id="item_' . $item['id'] . '" class="ui-state-default sort '.$classes.'">' . $item['pagetitle'] . '</li>';
 				}
 			}
 		}

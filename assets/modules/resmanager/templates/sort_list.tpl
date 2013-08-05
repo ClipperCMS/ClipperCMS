@@ -52,20 +52,18 @@
 	    
     </script>
     <style>        
-        li {
-            cursor: pointer;
-            border: 1px solid #666;
-            background: #eee no-repeat 2px center;
-            margin: 2px 0;
-            list-style: none;
-            padding: 1px 4px 1px 24px;
-            min-height: 20px;
+        li.sort {
+            padding-left: 30px;
         }
         li.noChildren {
             background-image: url(media/style[+theme+]/images/tree/page.gif);
+            background-repeat: no-repeat;
+            background-position: 5px center;
         }
         li.hasChildren {
             background-image: url(media/style[+theme+]/images/tree/folder.gif);
+            background-repeat: no-repeat;
+            background-position: 5px center;
         }
     </style>
 </head>

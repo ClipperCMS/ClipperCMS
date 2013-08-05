@@ -46,6 +46,8 @@
 							var panelId = $(ui.newPanel).attr('id');
 							if(tabsId && panelId){
 								sessionStorage.setItem(tabsId, panelId);
+							}else{
+								sessionStorage.removeItem(tabsId);
 							}
 						}
 					});
