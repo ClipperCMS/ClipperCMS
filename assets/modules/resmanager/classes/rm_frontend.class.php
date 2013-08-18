@@ -26,6 +26,7 @@ class ResManagerFrontend {
 		$grd = new DataGrid('', $templateRecordSet);
 		$grd->noRecordMsg = $this->dm->lang['RM_tpl_no_templates'];
 		$grd->cssClass = "grid";
+		$grd->pageSize = 0;
 		$grd->columnHeaderClass = "gridHeader";
 		$grd->itemClass = "gridItem";
 		$grd->altItemClass = "gridAltItem";
@@ -44,6 +45,7 @@ class ResManagerFrontend {
 		$grd = new DataGrid('', $templateRecordSet);
 		$grd->noRecordMsg = $this->dm->lang['RM_tpl_no_templates'];
 		$grd->cssClass = "grid";
+		$grd->pageSize = 0;
 		$grd->columnHeaderClass = "gridHeader";
 		$grd->itemClass = "gridItem";
 		$grd->altItemClass = "gridAltItem";
@@ -62,6 +64,7 @@ class ResManagerFrontend {
 		$grd = new DataGrid('', $documentgroups);
 		$grd->noRecordMsg = $this->dm->lang['RM_doc_no_docs'];
 		$grd->cssClass = "grid";
+		$grd->pageSize = 0;
 		$grd->columnHeaderClass = "gridHeader";
 		$grd->itemClass = "gridItem";
 		$grd->altItemClass = "gridAltItem";
