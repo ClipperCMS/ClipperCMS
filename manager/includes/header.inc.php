@@ -39,6 +39,8 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 
 	<script>
 		var config = {
+			cms_name: '<?php echo CMS_NAME; ?>',
+			cms_version: '<?php echo CMS_RELEASE_VERSION; ?>',
 			date_format: '<?php echo $modx->config['date_format']; ?>',
 			time_format: '<?php echo $modx->config['time_format']; ?>',
 			datepicker_year_range: '<?php echo $modx->config['datepicker_year_range']; ?>',

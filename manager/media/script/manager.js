@@ -49,7 +49,7 @@ $(document).ready(function($) {
 			//get session storage
 			var savedPanelId = 0;
 			
-			if(config.remember_last_tab != 0){
+			if(config.remember_last_tab != '0'){
 				savedPanelId = sessionStorage.getItem(tabsId);
 			} else {
 			    savedPanelId = null;
