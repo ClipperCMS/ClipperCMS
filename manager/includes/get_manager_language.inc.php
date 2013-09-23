@@ -18,7 +18,6 @@ $length_eng_lang = count($_lang);
 if ($manager_language != 'english') {
     require('lang/'.$manager_language.'.inc.php');
 }
-
 // Convert $_lang to modx_charset
 $modx->convertLanguageArray($_lang, 'lang/english.inc.php', '_lang');
 
@@ -39,7 +38,6 @@ function get_manager_countries($manager_language) {
 	if ($manager_language != 'english') {
 		require('lang/country/'.$manager_language.'_country.inc.php');
 	}
-	
 	$modx->convertLanguageArray($_country_lang, 'lang/country/english_country.inc.php', '_country_lang');
 	
 	return $_country_lang;

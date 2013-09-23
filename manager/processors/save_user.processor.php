@@ -481,6 +481,7 @@ function saveUserSettings($id) {
 	// array of post values to ignore in this function
 	$ignore = array(
 		'id',
+        'internalKey',
 		'oldusername',
 		'oldemail',
 		'newusername',
@@ -526,6 +527,9 @@ function saveUserSettings($id) {
 	$settings= array ();
 
 	foreach ($_POST as $n => $v) {
+        if(is_array($v)){
+            $v = implode(",", $v);
+        }
 		if (in_array($n, $ignore) || (!in_array($n, $defaults) && trim($v) == '')) continue; // ignore blacklist and empties
 
 		//if ($config[$n] == $v) continue; // ignore commonalities in base config
