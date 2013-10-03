@@ -460,9 +460,11 @@ if (\$PM->haspackage && !\$PM->is_error()) {
     /** 
      * Install
      *
-     * @param bool $overwrite_allways If set to true any @internal @overwrite setting will be ignored. Intended for development.
+     * @param bool $overwrite_always If set to true any @internal @overwrite setting will be ignored. Intended for development.
      */
-    function install($overwrite_allways = false) {
+    function install($overwrite_always = false) {
+
+        $this->core->db->connect();
     
         $this->install_summary = '<h2>'.$this->name.'</h2>';
     
@@ -501,7 +503,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
             
                 foreach($els as $el) {
                     $full = $this->package->read_file($el_category.'/'.$el);
-                    
+
                     // Fix for install files with only line feeds marking the ends of lines
                     $full = str_replace("\r\n", "\n", $full);
                     $full = str_replace("\r", "\n", $full);
@@ -531,7 +533,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                             }
 
                             // @internal @overwrite true/false - defaults to true if not set in element file
-                            $overwrite = $overwrite_allways ? true : (!isset($internals['overwrite']) || strtolower($internals['overwrite']) != 'false');
+                            $overwrite = $overwrite_always ? true : (!isset($internals['overwrite']) || strtolower($internals['overwrite']) != 'false');
                             
                             // Content, removing phpdoc block
                             $content = preg_replace('~/\*.*?\*/~s', '', $full, 1);
@@ -744,7 +746,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     case 'tvs':
                                         // Template links
                                         // Note we only add links; we do not remove existing ones.
-                                        if (isset($internals['templates']) && sizeof($templates = preg_split('/\s*,\s*/', $internals['templates'], -1, PREG_SPLIT_NO_EMPTY))) {
+                                        if (isset($internals['template_assignments']) && sizeof($templates = preg_split('/\s*,\s*/', $internals['template_assignments'], -1, PREG_SPLIT_NO_EMPTY))) {
                                             foreach($templates as $template) {
                                                 if ($template_id = $this->core->db->getValue('SELECT id FROM '.$this->core->getFullTableName('site_templates').' WHERE templatename = \''.$this->core->db->escape($template).'\'')) {
                                                     $this->core->db->insert_ignore(array('tmplvarid'=>$new_id, 'templateid'=>$template_id), $this->core->getFullTableName('site_tmplvar_templates'));
