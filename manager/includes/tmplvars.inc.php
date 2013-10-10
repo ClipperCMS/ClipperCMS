@@ -140,11 +140,11 @@
 							function SetUrl(url, width, height, alt){
 							    ".($modx->config['file_browser'] == 'kcfinder' ? "url = url.replace(/^".preg_quote($modx->config['base_url'], '/')."/, '')" : '')."
 								if(lastFileCtrl) {
-									var c = document.mutate[lastFileCtrl];
+									var c = document.getElementById(lastFileCtrl);
 									if(c) c.value = url;
 									lastFileCtrl = '';
 								} else if(lastImageCtrl) {
-									var c = document.mutate[lastImageCtrl];
+									var c = document.getElementById(lastImageCtrl);
 									if(c) { c.value = url; $('#'+c.id+'-preview img').attr('src', 'media/image/resize.php?src='+url+'&w=300&h=100'); }
 									lastImageCtrl = '';
 								} else {
@@ -200,11 +200,11 @@
 							function SetUrl(url, width, height, alt){
 							    ".($modx->config['file_browser'] == 'kcfinder' ? "url = url.replace(/^".preg_quote($modx->config['base_url'], '/')."/, '')" : '')."
 								if(lastFileCtrl) {
-									var c = document.mutate[lastFileCtrl];
+									var c = document.getElementById(lastFileCtrl);
 									if(c) c.value = url;
 									lastFileCtrl = '';
 								} else if(lastImageCtrl) {
-									var c = document.mutate[lastImageCtrl];
+									var c = document.getElementById(lastImageCtrl);
 									if(c) { c.value = url; $('#'+c.id+'-preview img').attr('src', 'media/image/resize.php?src='+url+'&w=300&h=100'); }
 									lastImageCtrl = '';
 								} else {
