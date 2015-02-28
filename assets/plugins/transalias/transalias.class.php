@@ -17,12 +17,12 @@ class TransAlias {
      * @access private
      */
     var $_useTable;
-    
+
     /**
      * hold conversion tables
      *
      * @var array
-     * @access 
+     * @access
      */
     var $_tables = array ('named' => array (
             'quot' => '&#34;','amp' => '&#38;','lt' => '&#60;','gt' => '&#62;','OElig' => '&#338;','oelig' => '&#339;','Scaron' => '&#352;','scaron' => '&#353;',
@@ -139,19 +139,21 @@ class TransAlias {
      * @param string $alias
      * @return string alias
      */
-    function stripAlias($alias,$char_restrict,$word_separator) { 
+    function stripAlias($alias,$char_restrict,$word_separator) {
         // Convert all named HTML entities to numeric entities
         $alias = preg_replace_callback('/&([a-zA-Z][a-zA-Z0-9]{1,7});/', array($this,'convert_entity'), $alias);
 
+        //$modx->logEvent(1111, 1, version_compare(PHP_VERSION, '5.3.0'), 'test');
+
         // Convert all numeric entities to their actual character
         if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-            $alias = preg_replace_callback('/&#x([0-9a-f]{1,7});/i', function($matches) { return chr(hexdec($matches[1])); }, $alias);
-            $alias = preg_replace_callback('/&#([0-9]{1,7});/', function($matches) { return chr($matches[1]); }, $alias);
+            $alias = preg_replace_callback('/&#x([0-9a-f]{1,7});/i', stripAliasHelp1, $alias);
+            $alias = preg_replace_callback('/&#([0-9]{1,7});/', stripAliasHelp2, $alias);
         } else {
             $alias = preg_replace('/&#x([0-9a-f]{1,7});/ei', 'chr(hexdec("\\1"))', $alias);
             $alias = preg_replace('/&#([0-9]{1,7});/e', 'chr("\\1")', $alias);
         }
-        
+
         if (class_exists('Normalizer')) {
             $alias = Normalizer::normalize($alias);
         }
@@ -182,6 +184,15 @@ class TransAlias {
         else
             $alias = trim($alias, '/. '); // trim bad chars
         return $alias;
+    }
+
+
+    function stripAliasHelp1($matches){
+        return chr(hexdec($matches[1]));
+    }
+
+    function stripAliasHelp2($matches){
+        return chr($matches[1]);
     }
 
 }
