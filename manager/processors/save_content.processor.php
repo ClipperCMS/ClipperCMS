@@ -310,6 +310,11 @@ switch ($actionToTake) {
 			exit;
 		}
 
+		//Invoke onDocPublished (onDocUnPublished could never be called here)
+		if($published == 1) {
+		  $modx->invokeEvent("OnDocPublished", array("docid"=>$key));
+		}
+
 		$tvChanges = array();
 		foreach ($tmplvars as $field => $value) {
 			if (is_array($value)) {
@@ -415,7 +420,7 @@ switch ($actionToTake) {
 			echo "An error occured while attempting to find the document's current parent.";
 			exit;
 		}
-		
+
 		$row = $modx->db->getRow($rs);
 		$oldparent = $row['parent'];
 		$doctype = $row['type'];
@@ -489,6 +494,13 @@ switch ($actionToTake) {
 			echo "An error occured while attempting to save the edited document. The generated SQL is: <i> $sql </i>.";
 		}
 
+		// Invoke onDocPublished/onDocUnPublished
+		if($was_published == 1 AND $published == 0) {
+			$modx->invokeEvent("OnDocUnPublished", array("docid"=>$id));
+		} elseif ($was_published == 0 AND $published == 1) {
+			$modx->invokeEvent("OnDocPublished", array("docid"=>$id));
+		}
+
 		// update template variables
 		$rs = $modx->db->select('id, tmplvarid', $tbl_site_tmplvar_contentvalues, 'contentid='. $id);
 		$tvIds = array ();
@@ -515,13 +527,13 @@ switch ($actionToTake) {
 		if (!empty($tvDeletions)) {
 			$rs = $modx->db->delete($tbl_site_tmplvar_contentvalues, 'id IN('.implode(',', $tvDeletions).')');
 		}
-			
+
 		if (!empty($tvAdded)) {
 			foreach ($tvAdded as $tv) {
 				$rs = $modx->db->insert($tv, $tbl_site_tmplvar_contentvalues);
 			}
 		}
-		
+
 		if (!empty($tvChanges)) {
 			foreach ($tvChanges as $tv) {
 				$rs = $modx->db->update($tv[0], $tbl_site_tmplvar_contentvalues, 'id='.$tv[1]['id']);
@@ -630,7 +642,7 @@ switch ($actionToTake) {
 			$sync->setReport(false);
 			$sync->emptyCache();
 		}
-		
+
 		if ($_POST['refresh_preview'] == '1')
 			$header = "Location: ../index.php?id=$id&z=manprev";
 		else {

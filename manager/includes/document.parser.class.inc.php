@@ -63,12 +63,12 @@ class DocumentParser extends Core {
      * @todo Construct an API and/or config system for this. Currently only applies to core/bundled snippets.
      */
     var $snippetMap = array('ditto'=>'List', 'webloginpe'=>'WebUsers');
-    
+
     /**
      * @var hold type of code being eval'd
      */
     private $eval_type = null;
-    
+
     /**
      * @var hold name of code being eval'd
      */
@@ -141,9 +141,9 @@ class DocumentParser extends Core {
      * @return boolean
      */
     function sendRedirect($url, $count_attempts= 0, $type= '', $responseCode= '') {
-    
+
         global $base_url, $site_url;
-    
+
         if (empty ($url)) {
             return false;
         } else {
@@ -276,7 +276,7 @@ class DocumentParser extends Core {
 
     /**
      * Get a result row
-     * 
+     *
      * @deprecated use $modx->db->getRow()
      * @param array $rs
      * @param string $mode
@@ -288,7 +288,7 @@ class DocumentParser extends Core {
 
     /**
      * Get the number of rows affected in the last db operation
-     * 
+     *
      * @deprecated use $modx->db->getAffectedRows()
      * @param array $rs
      * @return int
@@ -299,7 +299,7 @@ class DocumentParser extends Core {
 
     /**
      * Get the ID generated in the last query
-     * 
+     *
      * @deprecated use $modx->db->getInsertId()
      * @param array $rs
      * @return int
@@ -350,7 +350,7 @@ class DocumentParser extends Core {
             $this->config['base_url']= MODX_BASE_URL;
             $this->config['base_path']= MODX_BASE_PATH;
             $this->config['site_url']= MODX_SITE_URL;
-            
+
             $this->getUserSettings();
         }
     }
@@ -415,11 +415,11 @@ class DocumentParser extends Core {
     function convertLanguageArray(&$cla_conversion_lang, $fallback, $fallback_var) {
 
 	    global $modx_manager_charset;
-	    
+
 	    $charset = ($this->isFrontend() || !@$modx_manager_charset) ? $this->config['modx_charset'] : $modx_manager_charset;
-	    
+
 	    $errors = false;
-	    
+
 	    if ($charset && $charset != 'UTF-8') {
 		    foreach($cla_conversion_lang as $__k => $__v) {
 		        $tmp = iconv('UTF-8', $charset.'//TRANSLIT', $cla_conversion_lang[$__k]);
@@ -458,7 +458,7 @@ class DocumentParser extends Core {
             $errors = $this->convertLanguageArray($$new_lang_array, $fallback, $fallback_var);
             $GLOBALS['_lang'] = array_merge($GLOBALS['_lang'], $$new_lang_array);
         }
-    
+
     return $errors;
     }
 
@@ -684,7 +684,7 @@ class DocumentParser extends Core {
 
     /**
      * Final processing and output of the document/resource.
-     * 
+     *
      * - runs uncached snippets
      * - add javascript to <head>
      * - removes unused placeholders
@@ -730,7 +730,7 @@ class DocumentParser extends Core {
         }
 
         $this->documentOutput= $this->rewriteUrls($this->documentOutput);
-        
+
         // In RSS feeds change relative URLs to absolute URLs.
         if ($this->is_rss) {
             $this->documentOutput = preg_replace('/href="(?!http)/', 'href="'.$this->config['site_url'], $this->documentOutput);
@@ -798,20 +798,52 @@ class DocumentParser extends Core {
      * Checks the publish state of page
      */
     function checkPublishStatus() {
+
+        //var_dump('<hr>');
+
         $cacheRefreshTime= 0;
         @include $this->config["base_path"] . "assets/cache/sitePublishing.idx.php";
         $timeNow= time() + $this->config['server_offset_time'];
         if ($cacheRefreshTime <= $timeNow && $cacheRefreshTime != 0) {
-            // now, check for documents that need publishing
-            $sql = "UPDATE ".$this->getFullTableName("site_content")." SET published=1, publishedon=".time()." WHERE ".$this->getFullTableName("site_content").".pub_date <= $timeNow AND ".$this->getFullTableName("site_content").".pub_date!=0 AND published=0";
-            if (@ !$result= $this->db->query($sql)) {
-                $this->messageQuit("Execution of a query to the database failed", $sql);
+            // Get documents that need to be published or unpublished
+
+            var_dump('<hr>');
+            $sql   = array();
+            $sql[] = "SELECT id";
+            $sql[] = "FROM {$this->getFullTableName('site_content')}";
+            $sql[] = "WHERE ";
+              $sql[] = "(pub_date <= {$timeNow} AND pub_date != 0 AND published = 0) "; // $unpublished == "";
+              $sql[] = " OR ";
+              $sql[] = " (unpub_date <= $timeNow AND unpub_date != 0 AND published = 1)";  // $published == "";
+            $sql = implode(' ', $sql);
+
+            $results = $this->db->makeArray($this->db->query($sql));
+            $to_publish   = array();
+            $to_unpublish = array();
+            foreach($results as $result) {
+              if($result['published'] != 1) {
+                $to_publish[] = $result['id'];
+              } else {
+                $to_unpublish[] = $result['id'];
+              }
             }
 
-            // now, check for documents that need un-publishing
-            $sql= "UPDATE " . $this->getFullTableName("site_content") . " SET published=0, publishedon=0 WHERE " . $this->getFullTableName("site_content") . ".unpub_date <= $timeNow AND " . $this->getFullTableName("site_content") . ".unpub_date!=0 AND published=1";
-            if (@ !$result= $this->db->query($sql)) {
-                $this->messageQuit("Execution of a query to the database failed", $sql);
+
+
+            if( is_array($to_publish) and !empty($to_publish)) {
+              $publish_query = "UPDATE ".$this->getFullTableName("site_content")." SET published=1, publishedon=".time()." WHERE id IN (".implode(',', $to_publish).")";
+              $this->db->query($publish_query);
+              foreach($to_publish as $doc) {
+                $this->invokeEvent("OnDocPublished",array("docid"=>$doc));
+              }
+            }
+
+            if( is_array($to_unpublish) and !empty($to_unpublish)) {
+              $unpublish_query = "UPDATE ".$this->getFullTableName("site_content")." SET published=0, publishedon=0 WHERE id IN (".implode(',', $to_unpublish).")";
+              $this->db->query($unpublish_query);
+              foreach($to_unpublish as $doc) {
+                $this->invokeEvent("OnDocUnPublished",array("docid"=>$doc));
+              }
             }
 
             // clear the cache
@@ -870,7 +902,7 @@ class DocumentParser extends Core {
         }
     }
 
-    /** 
+    /**
      * Check for and log fatal errors
      *
      * @return void
@@ -879,12 +911,12 @@ class DocumentParser extends Core {
          // Log fatal errors
         $error = error_get_last();
         if ($error['type'] == E_ERROR || $error['type'] == E_USER_ERROR || $error['type'] == E_PARSE) {
-        
+
             $file = $error['file'];
             if (strpos($file, '/document.parser.class.inc.php') !== false) {
                 $file = 'DocumentParser'.(strpos($file, 'eval()\'d code') === false ? '' : ' eval\'d code').($this->eval_type ? " in {$this->eval_type} <strong>{$this->eval_name}</strong>" : '');
             }
-    
+
             if ($this->eval_type) {
                 $this->messageQuitFromElement(ucfirst($this->eval_type)." {$this->eval_name}", 'Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}", '', true, $error['type'], $file, '', $error['message'], $error['line']);
             } else {
@@ -943,7 +975,7 @@ class DocumentParser extends Core {
      * @return string
      */
     function mergeDocumentContent($template) {
-    
+
         static $documentObjects = array(); // Could be improved by use of the modx cache. TODO below
 
         $replace= array ();
@@ -957,7 +989,7 @@ class DocumentParser extends Core {
             // Detect output modifiers
             // Put result into $key and $modifiers
             extract($this->getModifiers($key));
-            
+
             if (($sep_pos = strpos($key, '@')) !== false) {
                 // Handle [*<fieldname/TVname>@<docid>*]
                 // Identify the docid first.
@@ -1046,10 +1078,10 @@ class DocumentParser extends Core {
         return array('key'=>$key, 'modifiers'=>$modifiers);
     }
 
-   /** 
+   /**
      * Modifies output
      *
-     * @param string $string 
+     * @param string $string
      * @param string $modifier in the form 'modifier' or 'modifier(argument)'
      * @return string
      */
@@ -1072,11 +1104,11 @@ class DocumentParser extends Core {
             case 'rawurlencode':
                 $string = $modifier($string);
                 break;
-                
+
             case 'html':
                 $string = htmlentities($string, ENT_QUOTES, $this->config['modx_charset']);
                 break;
-            
+
             case 'limit':
                 if (ctype_digit($arg)) {
                     $string = substr($string, 0, $arg);
@@ -1088,7 +1120,7 @@ class DocumentParser extends Core {
                     $string = rtrim(substr(ltrim($string), 0, $arg)).'&hellip;';
                 }
                 break;
-            
+
             case 'date':
                 // Check for timestamp, MySQL style datetime or legacy style date
                 if (is_numeric($string)) {
@@ -1194,7 +1226,7 @@ class DocumentParser extends Core {
                 // Detect output modifiers
                 // Put result into $key and $modifiers
                 extract($this->getModifiers($key));
-            
+
                 if (is_array($this->placeholders) && array_key_exists($key, $this->placeholders))
                     $v= $this->placeholders[$key];
                     // Process output modifiers
@@ -1212,7 +1244,7 @@ class DocumentParser extends Core {
         }
         return $content;
     }
-    
+
     /**
      * Prepare text output for HTML
      *
@@ -1246,7 +1278,7 @@ class DocumentParser extends Core {
     	$this->eval_type = $type;
     	$this->eval_name = $name;
     }
-    
+
     /**
      * Unset eval type and name
      *
@@ -1385,10 +1417,10 @@ class DocumentParser extends Core {
                 } else {
                     $snippetProperties= '';
                 }
-                
+
                 // load default params/properties - Raymond
                 $parameter= $this->parseProperties($snippetProperties);
-                
+
                 // This snippet's parameters.
                 // NOTE 1: &amp; and & situation non-ideal, but needed to avoid breaking sites that use snippet calls in richtext fields!
                 // NOTE 2: For backwards compatability the first parameter name need not be prefixed with '&', but this behaviour is deprecated.
@@ -1406,7 +1438,7 @@ class DocumentParser extends Core {
 
                 // Replace snippet call with snippet return value
                 $documentSource= str_replace('[[' . $snippetName . $snippetParams[$i] . ']]', $executedSnippets[$i], $documentSource);
-                
+
                 if (isset($snippets[$i]['oldname'])) {
                     // And again for old mapped snippets
                     $documentSource= str_replace('[[' . $snippets[$i]['oldname'] . $snippetParams[$i] . ']]', $executedSnippets[$i], $documentSource);
@@ -1534,7 +1566,7 @@ class DocumentParser extends Core {
                 $documentObject= array_merge($documentObject, $tmplvars);
             }
         }
-        
+
         return $documentObject;
     }
 
@@ -1575,11 +1607,11 @@ class DocumentParser extends Core {
             // As of 1/8/2014 (develop branch), this also parses these chunks; chunks can now be more widely
             // used as snippet parameters e.g. by containing site settings that are passed to snippets as parameters.
             $source= $this->mergeChunkContent($source);
-            
+
             if ($uncached_snippets) {
                 $source = str_replace(array('[!', '!]'), array('[[', ']]'), $source);
             }
-            
+
             // find and merge snippets
             $source= $this->evalSnippets($source);
 
@@ -1600,7 +1632,7 @@ class DocumentParser extends Core {
 
     /**
      * Starts the parsing operations.
-     * 
+     *
      * - connects to the db
      * - gets the settings (including system_settings)
      * - gets the document/resource identifier as in the query string
@@ -1715,7 +1747,7 @@ class DocumentParser extends Core {
             // we now know the method and identifier, let's check the cache
             $this->documentContent= $this->checkCache($this->documentIdentifier);
         }
-        
+
         if ($this->documentContent != "") {
             // invoke OnLoadWebPageCache  event
             $this->invokeEvent("OnLoadWebPageCache");
@@ -1829,10 +1861,10 @@ class DocumentParser extends Core {
         }
         return $parents;
     }
-    
+
     /**
      * Get the parent docid of a document
-     * 
+     *
      * @param int docid
      * @return int
      */
@@ -1944,12 +1976,12 @@ class DocumentParser extends Core {
         } else {
             $source = substr($source, 0, 50);
         }
-		
+
         $LoginUserID = $this->getLoginUserID();
         if ($LoginUserID == '') $LoginUserID = 0;
-		
+
 		$usertype = $this->isFrontend() ? 1 : 0;
-		
+
         $evtid= intval($evtid);
         $type = intval($type);
         if ($type < 1) {
@@ -1957,17 +1989,17 @@ class DocumentParser extends Core {
         } elseif ($type > 3) {
             $type= 3; // Types: 1 = information, 2 = warning, 3 = error
         }
-		
+
 		$ds = $this->db->insert(array(
 			'eventid' => $evtid,
 			'type' =>$type,
 			'createdon' => time(),
 			'source' => $source,
-			'description' => $msg, 
+			'description' => $msg,
 			'user' => $LoginUserID,
 			'usertype' => $usertype
 		), $this->getFullTableName("event_log"));
-		
+
         if (!$ds) {
             echo "Error while inserting event log into database.";
             exit();
@@ -2339,7 +2371,7 @@ class DocumentParser extends Core {
             return false;
         }
     }
-    
+
     /**
      * Refresh the entire cache of MODX including cache files and script caches that are properties of $this
      *
@@ -2367,7 +2399,7 @@ class DocumentParser extends Core {
             return false;
         }
     }
-    
+
     /**
      * Get the path of a page cache file
      *
@@ -2378,7 +2410,7 @@ class DocumentParser extends Core {
     function pageCacheFile($docid, $fullpath = true) {
         return ($fullpath ? $this->config['base_path'] : '')."assets/cache/docid_{$docid}.pageCache.php";
     }
-    
+
     /**
      * Is a file a page cache file?
      *
@@ -2626,7 +2658,7 @@ class DocumentParser extends Core {
 
     /**
      * Returns the chunk content for the given chunk name
-     * 
+     *
      * @param string $chunkName
      * @return boolean|string
      */
@@ -2637,7 +2669,7 @@ class DocumentParser extends Core {
 
     /**
      * Old method that just calls getChunk()
-     * 
+     *
      * @deprecated Use getChunk
      * @param string $chunkName
      * @return boolean|string
@@ -2699,7 +2731,7 @@ class DocumentParser extends Core {
                 $dateFormat = '%Y/%m/%d';
                 break;
         }
-        
+
         switch($this->config['time_format']) {
             case 'HH:mm:ss':
                 $timeFormat = '%H:%M:%S';
@@ -2740,7 +2772,7 @@ class DocumentParser extends Core {
                 list ($Y, $m, $d, $H, $M, $S) = sscanf($str, '%4d/%2d/%2d %2d:%2d:%2d');
                 break;
         }
-        
+
         if (!$H && !$M && !$S) {$H = 0; $M = 0; $S = 0;}
         $timeStamp = mktime($H, $M, $S, $m, $d, $Y);
         $timeStamp = intval($timeStamp);
@@ -2826,7 +2858,7 @@ class DocumentParser extends Core {
 
     /**
      * Get the TV outputs of a document's children.
-     * 
+     *
      * Returns an array where each element represents one child doc and contains the result from getTemplateVarOutput()
      *
      * Ignores deleted children. Gets all children - there is no where clause available.
@@ -2867,8 +2899,8 @@ class DocumentParser extends Core {
     function getTemplateTVs($template)
         {
         $rs = $this->db->query('SELECT tv.*
-                                    FROM '.$this->getFullTableName('site_tmplvars').' tv 
-                                    INNER JOIN '.$this->getFullTableName('site_tmplvar_templates').' tvtpl ON tvtpl.tmplvarid = tv.id 
+                                    FROM '.$this->getFullTableName('site_tmplvars').' tv
+                                    INNER JOIN '.$this->getFullTableName('site_tmplvar_templates').' tvtpl ON tvtpl.tmplvarid = tv.id
                                     WHERE tvtpl.templateid = '.$template);
         return $this->db->makeArray($rs);
         }
@@ -3253,23 +3285,23 @@ class DocumentParser extends Core {
 
     /**
      * Check web user's password
-     * 
+     *
      * @param id $webuser
      * @param string $pass
      * @return bool
      */
     function checkWebUserPassword($webuser, $pass) {
-    
+
         $tbl= $this->getFullTableName('web_users');
         require_once('hash.inc.php');
-        
+
         $rs = $this->db->select('hashtype, salt, password', $tbl, 'id='.$webuser);
         $row = $this->db->getRow($rs);
-        
+
         if ($row) {
             $HashHandler = new HashHandler($row['hashtype'], $this);
             return $HashHandler->check($pass, $row['salt'], $row['password']);
-        } else { 
+        } else {
             return false;
         }
     }
@@ -3288,7 +3320,7 @@ class DocumentParser extends Core {
             $tbl= $this->getFullTableName("web_users");
             $rs= $this->db->query("SELECT username, hashtype, salt, password FROM $tbl WHERE id=".intval($this->getLoginUserID()));
             $row= $this->db->getRow($rs);
-            
+
             if ($check_old) {
                 require_once('hash.inc.php');
                 $HashHandler = new HashHandler($row['hashtype'], $modx);
@@ -3457,7 +3489,7 @@ class DocumentParser extends Core {
 
         if ($useThisVer && $plaintext!=true && (strpos(strtolower($src), "<script") === false))
             $src= "\t" . '<script type="text/javascript" src="' . $src . '"></script>';
-            
+
         if ($jquery) {
             if (!$jquery_core || empty($this->jquery_scripts)) {
                 $pos= isset($overwritepos) ? $overwritepos : max(array_merge(array(0),array_keys($this->jquery_scripts)))+1;
@@ -3474,20 +3506,20 @@ class DocumentParser extends Core {
         $this->loadedjscripts[$key]['startup']= $startup;
         $this->loadedjscripts[$key]['pos']= $pos;
     }
-    
+
     /**
      * Register jQuery core script
      */
     function regClientJquery() {
-    
+
         static $jquery_included = false;
-        
+
         if (!$jquery_included) {
             $this->regClientStartupScript($this->config['jquery_url'], array('jquery'=>true));
             $jquery_included = true;
         }
     }
-    
+
     /**
      * Register jquery plugin
      *
@@ -3502,7 +3534,7 @@ class DocumentParser extends Core {
    		}
        	$this->regClientStartupScript($plugin_file, array('name'=>$plugin_name, $plugin_version, 'plaintext'=>false, 'jquery'=>true));
    }
-   
+
    /**
     * Get jquery <script> tag as HTML.
     *
@@ -3513,12 +3545,12 @@ class DocumentParser extends Core {
     * @param bool $only_once If true, only return the script tag if we haven't already done so
     */
    function getJqueryTag($only_once = true) {
-   
+
    		static $run_once = false;
-   		
+
    		if (!$run_once || !$only_once) {
    			$jq_url = $this->config['jquery_url'];
-   			
+
    			// Check the file exists. If a remote file, be lazy and do not check - simply use the default packaged file anyway.
    			if ($this->isBackend() && (substr($jq_url, 0, 4) == 'http' || !is_file($this->config['base_path'].$jq_url))) {
    			    $jq_url = $this->config['site_url'].'assets/js/jquery.min.js';
@@ -3535,8 +3567,8 @@ class DocumentParser extends Core {
    		}
 
 		$run_once = true;
-		
-		return $script_tag; 		
+
+		return $script_tag;
    }
 
     /**
@@ -3555,7 +3587,7 @@ class DocumentParser extends Core {
    function getJqueryPluginTag($plugin_name, $plugin_file, $use_plugin_dir = true, $only_once = true) {
 
    		static $plugin_names = array();
-   		
+
    		if (!in_array($plugin_name, $plugin_names) || !$only_once) {
    		    $plugin_names[] = $plugin_name;
    			if ($use_plugin_dir) {
@@ -3567,7 +3599,7 @@ class DocumentParser extends Core {
    			$script_tag = '';
    		}
 
-		return $script_tag; 		
+		return $script_tag;
    }
 
     /**
@@ -3628,7 +3660,7 @@ class DocumentParser extends Core {
         }
         return $output.implode("\n", $this->sjscripts);
     }
-    
+
     /**
      * Remove unwanted html tags and snippet, settings and tags
      *
@@ -3646,7 +3678,7 @@ class DocumentParser extends Core {
         $t= preg_replace('~{{(.*?)}}~', "", $t); //chunks
 
         $t= preg_replace('/(\[\*|\[\[|\[\!|\[\(|\[\+|\{\{|\*\]|\]\]|\!\]|\)\]|\}\})/', '', $t); // All half tags (TimGS)
-        
+
         return $t;
     }
 
@@ -3793,7 +3825,7 @@ class DocumentParser extends Core {
 
     /**
      * Set PHP error handlers
-     * 
+     *
      * @return void
      */
     function set_error_handler()
@@ -3807,7 +3839,7 @@ class DocumentParser extends Core {
             {
             set_error_handler(array (&$this, 'phpError'), error_reporting());
             }
-        
+
         register_shutdown_function(array(&$this, 'fatalErrorCheck'));
         }
 
@@ -3829,11 +3861,11 @@ class DocumentParser extends Core {
         if (error_reporting() == 0 || $nr == 0 || ($nr == 8 && $this->stopOnNotice == false)) {
             return true;
         }
-        
+
         if (strpos($file, '/document.parser.class.inc.php') !== false) {
         	$file = 'DocumentParser'.(strpos($file, 'eval()\'d code') === false ? '' : ' eval\'d code').($this->eval_type ? " in {$this->eval_type} {$this->eval_name}" : '');
         }
-        
+
         if (version_compare(PHP_VERSION, '5.3.0') >= 0 && ($nr & (E_DEPRECATED | E_USER_DEPRECATED))) { // TimGS. Handle deprecated functions according to config.
                 switch ($this->config['error_handling_deprecated']) {
                         case 1:
@@ -3846,7 +3878,7 @@ class DocumentParser extends Core {
                                 return true;
                 }
         }
-        
+
         if (is_readable($file)) {
             $source= file($file);
             $source= htmlspecialchars($source[$line -1]);
@@ -3863,7 +3895,7 @@ class DocumentParser extends Core {
 
     /**
      * Generate display body for messageQuit()
-     * 
+     *
      * @param string $msg Default: unspecified error
      * @param string $query Default: Empty string
      * @param boolean $is_error Default: true
@@ -3874,7 +3906,7 @@ class DocumentParser extends Core {
      * @param string $line Default: Empty string
      */
      function messageQuitText($msg= 'unspecified error', $query= '', $is_error= true, $nr= '', $file= '', $source= '', $text= '', $line= '') {
-     
+
         $version= isset ($GLOBALS['version']) ? $GLOBALS['version'] : '';
         $release_date= isset ($GLOBALS['release_date']) ? $GLOBALS['release_date'] : '';
         $parsedMessageString= "
@@ -3959,13 +3991,13 @@ class DocumentParser extends Core {
         $parsedMessageString= str_replace("[^qt^]", $queryTime, $parsedMessageString);
         $parsedMessageString= str_replace("[^p^]", $phpTime, $parsedMessageString);
         $parsedMessageString= str_replace("[^t^]", $totalTime, $parsedMessageString);
-        
+
         return $parsedMessageString;
         }
 
     /**
      * Error logging and output.
-     * 
+     *
      * If error_handling_silent is 0, outputs an error page with detailed informations about the error.
      * Always logs the error using logEvent()
      *
@@ -4003,7 +4035,7 @@ class DocumentParser extends Core {
     /**
      * Error logging and output.
      * Takes an $element_name parameter (snippet or plugin name) for extra clarity in the System Events page.
-     * 
+     *
      * If error_handling_silent is 0, outputs an error page with detailed informations about the error.
      * Always logs the error using logEvent()
      *
@@ -4084,15 +4116,15 @@ class SystemEvent {
 
     /**
      * Output
-     * 
-     * @param string $msg 
+     *
+     * @param string $msg
      */
     function output($msg) {
         $this->_output .= $msg;
     }
 
 
-    /** 
+    /**
      * Stop event propogation
      */
     function stopPropagation() {
@@ -4107,4 +4139,3 @@ class SystemEvent {
         $this->activated= false;
     }
 }
-
