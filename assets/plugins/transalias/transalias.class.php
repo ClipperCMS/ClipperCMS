@@ -143,8 +143,6 @@ class TransAlias {
         // Convert all named HTML entities to numeric entities
         $alias = preg_replace_callback('/&([a-zA-Z][a-zA-Z0-9]{1,7});/', array($this,'convert_entity'), $alias);
 
-        //$modx->logEvent(1111, 1, version_compare(PHP_VERSION, '5.3.0'), 'test');
-
         // Convert all numeric entities to their actual character
         if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
             $alias = preg_replace_callback('/&#x([0-9a-f]{1,7});/i', stripAliasHelp1, $alias);
