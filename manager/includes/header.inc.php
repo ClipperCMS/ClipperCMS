@@ -30,17 +30,17 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 	echo $modx->getJqueryPluginTag('jquery-ui-timepicker', 'jquery-ui-timepicker-addon.js');
 	echo $modx->getJqueryPluginTag('jquery-datatables', 'jquery.dataTables.min.js');
 
-	//get appropiate language file for datepicker and timepicker
+	//get appropriate language file for datepicker and timepicker
 	if ($mxla != 'en' && $modx_manager_charset == 'UTF-8') {
 
-		//look for appropiate datepicker language file
+		//look for appropriate datepicker language file
 		$aDatepickerLang = glob('../assets/js/i18n/jquery.ui.datepicker-'.$mxla.'*.js');
 		if(!empty($aDatepickerLang)){
 			$path = explode('assets/js/', end($aDatepickerLang));
 			echo $modx->getJqueryPluginTag('jquery.ui.datepicker.lang', $path[1]);
 		}
 
-		//look for appropiate timepicker language file
+		//look for appropriate timepicker language file
 		$aTimepickerLang = glob('../assets/js/i18n/jquery-ui-timepicker-'.$mxla.'*.js');
 		if(!empty($aTimepickerLang)){
 			$path = explode('assets/js/', end($aTimepickerLang));
@@ -59,17 +59,15 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 
 	<script>
 		var config = {
-			var config = {
-				cms_name: '<?php echo CMS_NAME; ?>',
-				cms_version: '<?php echo CMS_RELEASE_VERSION; ?>',
-				base_url: '<?php echo $modx->config['base_url']; ?>'
-				lang_attribute: '<?php echo $mxla; ?>',
-				date_format: '<?php echo $modx->config['date_format']; ?>',
-				time_format: '<?php echo $modx->config['time_format']; ?>',
-				datepicker_year_range: '<?php echo $modx->config['datepicker_year_range']; ?>',
-				remember_last_tab: '<?php echo $modx->config['remember_last_tab']; ?>',
-				file_browser: '<?php echo $modx->config['file_browser']; ?>'
-			}
+			cms_name: '<?php echo CMS_NAME; ?>',
+			cms_version: '<?php echo CMS_RELEASE_VERSION; ?>',
+			base_url: '<?php echo $modx->config['base_url']; ?>',
+			lang_attribute: '<?php echo $mxla; ?>',
+			date_format: '<?php echo $modx->config['date_format']; ?>',
+			time_format: '<?php echo $modx->config['time_format']; ?>',
+			datepicker_year_range: '<?php echo $modx->config['datepicker_year_range']; ?>',
+			remember_last_tab: '<?php echo $modx->config['remember_last_tab']; ?>',
+			file_browser: '<?php echo $modx->config['file_browser']; ?>'
 		}
 	</script>
 
