@@ -145,8 +145,8 @@ class TransAlias {
 
         // Convert all numeric entities to their actual character
         if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-            $alias = preg_replace_callback('/&#x([0-9a-f]{1,7});/i', stripAliasHelp1, $alias);
-            $alias = preg_replace_callback('/&#([0-9]{1,7});/', stripAliasHelp2, $alias);
+            $alias = preg_replace_callback('/&#x([0-9a-f]{1,7});/i', 'TransAlias::stripAliasHelp1', $alias);
+            $alias = preg_replace_callback('/&#([0-9]{1,7});/', 'TransAlias::stripAliasHelp2', $alias);
         } else {
             $alias = preg_replace('/&#x([0-9a-f]{1,7});/ei', 'chr(hexdec("\\1"))', $alias);
             $alias = preg_replace('/&#([0-9]{1,7});/e', 'chr("\\1")', $alias);
