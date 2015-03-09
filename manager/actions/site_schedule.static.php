@@ -14,6 +14,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 $sql = "SELECT id, pagetitle, pub_date FROM $dbase.`".$table_prefix."site_content` WHERE pub_date > ".time()." ORDER BY pub_date ASC";
 $rs = $modx->db->query($sql);
 $limit = $modx->db->getRecordCount($rs);
+if($limit<1) {
     echo "<p>".$_lang["no_docs_pending_publishing"]."</p>";
 } else {
 ?>
