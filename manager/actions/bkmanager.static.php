@@ -41,7 +41,7 @@ if ($mode=='backup') {
 		    header('Cache-Control: private');
 		    header('Pragma: cache');
 			header('Content-type: application/download');
-			header('Content-Disposition: attachment; filename='.$today.'_database_backup.sql');
+			header('Content-Disposition: attachment; filename='.$modx->db->getDBname().'_'.$today.'_database_backup.sql');
 		}
 		echo $dump_output;
 		exit;
@@ -85,5 +85,3 @@ $db_info->output(93, true);
 <iframe name="fileDownloader" width="1" height="1" style="display:none; width:1px; height:1px;"></iframe>
 
 <?php include_once "footer.inc.php"; // send footer ?>
-
-
