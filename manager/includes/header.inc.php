@@ -29,18 +29,18 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 	echo $modx->getJqueryPluginTag('jquery-ui-custom-clippermanager', 'jquery-ui-custom-clippermanager.min.js');
 	echo $modx->getJqueryPluginTag('jquery-ui-timepicker', 'jquery-ui-timepicker-addon.js');
 	echo $modx->getJqueryPluginTag('jquery-datatables', 'jquery.dataTables.min.js');
-	
-	//get appropiate language file for datepicker and timepicker
+
+	//get appropriate language file for datepicker and timepicker
 	if ($mxla != 'en' && $modx_manager_charset == 'UTF-8') {
 
-		//look for appropiate datepicker language file
+		//look for appropriate datepicker language file
 		$aDatepickerLang = glob('../assets/js/i18n/jquery.ui.datepicker-'.$mxla.'*.js');
 		if(!empty($aDatepickerLang)){
 			$path = explode('assets/js/', end($aDatepickerLang));
 			echo $modx->getJqueryPluginTag('jquery.ui.datepicker.lang', $path[1]);
 		}
 
-		//look for appropiate timepicker language file
+		//look for appropriate timepicker language file
 		$aTimepickerLang = glob('../assets/js/i18n/jquery-ui-timepicker-'.$mxla.'*.js');
 		if(!empty($aTimepickerLang)){
 			$path = explode('assets/js/', end($aTimepickerLang));
@@ -61,30 +61,32 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 		var config = {
 			cms_name: '<?php echo CMS_NAME; ?>',
 			cms_version: '<?php echo CMS_RELEASE_VERSION; ?>',
+			base_url: '<?php echo $modx->config['base_url']; ?>',
 			lang_attribute: '<?php echo $mxla; ?>',
 			date_format: '<?php echo $modx->config['date_format']; ?>',
 			time_format: '<?php echo $modx->config['time_format']; ?>',
 			datepicker_year_range: '<?php echo $modx->config['datepicker_year_range']; ?>',
-			remember_last_tab: '<?php echo $modx->config['remember_last_tab']; ?>'
+			remember_last_tab: '<?php echo $modx->config['remember_last_tab']; ?>',
+			file_browser: '<?php echo $modx->config['file_browser']; ?>'
 		}
 	</script>
 
 	<script>
-	
+
 		//TODO: organize these js function better, maybe in a separate file or manager.js
-	
+
 		$(window).on('load', function () {
 		  document_onload();
 		});
-		
+
 		$(window).on('beforeunload', function () {
 		  document_onunload();
 		});
 
 	</script>
-	
+
 	<script>
-	
+
 		function document_onload() {
 			stopWorker();
 			hideLoader();
@@ -106,7 +108,7 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 
 		// set tree to default action.
 		if (parent.tree) parent.tree.ca = "open";
-		
+
 		function stopWorker() {
 			try {
 				parent.mainMenu.stopWork();

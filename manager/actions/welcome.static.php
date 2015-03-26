@@ -4,21 +4,18 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 unset($_SESSION['itemname']); // clear this, because it's only set for logging purposes
 
 $script = <<<JS
-        <script>
-        function hideConfigCheckWarning(key){
-            var myAjax = new Ajax('index.php?a=118', {
-                method: 'post',
-                data: 'action=setsetting&key=_hide_configcheck_' + key + '&value=1'
-            });
-            myAjax.addEvent('onComplete', function(resp){
-                fieldset = $(key + '_warning_wrapper').getParent().getParent();
-                var sl = new Fx.Slide(fieldset);
-                sl.slideOut();
-            });
-            myAjax.request();
-        }
-        </script>
-
+    <script>
+    function hideConfigCheckWarning(key){
+        jQuery.ajax({
+            url: 'index.php?a=118',
+            type: 'post',
+            data: { action: 'setsetting', key: '_hide_configcheck_'+key, value: '1' },
+            success: function(){
+                $('#' + key + '_warning_wrapper').parent().parent().hide();
+            }
+        });
+    }
+    </script>
 JS;
 $modx->regClientScript($script);
 
@@ -31,11 +28,11 @@ $modx->setPlaceholder('welcome_title',$_lang['welcome_title']);
 $modx->setPlaceholder('cms_version_info', CMS_NAME.' '.CMS_RELEASE_VERSION.' '.CMS_RELEASE_NAME);
 
 // setup icons
-if($modx->hasPermission('new_user')||$modx->hasPermission('edit_user')) { 
-    $icon = '<a class="hometblink" href="index.php?a=75"><img src="'.$_style['icons_security_large'].'" alt="'.$_lang['user_management_title'].'" /><br />'.$_lang['security'].'</a>';     
+if($modx->hasPermission('new_user')||$modx->hasPermission('edit_user')) {
+    $icon = '<a class="hometblink" href="index.php?a=75"><img src="'.$_style['icons_security_large'].'" alt="'.$_lang['user_management_title'].'" /><br />'.$_lang['security'].'</a>';
     $modx->setPlaceholder('SecurityIcon',$icon);
 }
-if($modx->hasPermission('new_web_user')||$modx->hasPermission('edit_web_user')) { 
+if($modx->hasPermission('new_web_user')||$modx->hasPermission('edit_web_user')) {
     $icon = '<a class="hometblink" href="index.php?a=99"><img src="'.$_style['icons_webusers_large'].'" alt="'.$_lang['web_user_management_title'].'" /><br />'.$_lang['web_users'].'</a>';
     $modx->setPlaceholder('WebUserIcon',$icon);
 }
@@ -57,7 +54,7 @@ if (($modx->config['warning_visibility'] == 0 && $_SESSION['mgrRole'] == 1) || $
     include_once "config_check.inc.php";
     $modx->setPlaceholder('settings_config',$_lang['settings_config']);
     $modx->setPlaceholder('configcheck_title',$_lang['configcheck_title']);
-    if($config_check_results != $_lang['configcheck_ok']) {    
+    if($config_check_results != $_lang['configcheck_ok']) {
         $modx->setPlaceholder('config_check_results',$config_check_results);
         $modx->setPlaceholder('config_display','block');
     }
@@ -69,7 +66,7 @@ if (($modx->config['warning_visibility'] == 0 && $_SESSION['mgrRole'] == 1) || $
 }
 
 // include rss feeds for important forum topics
-include_once "rss.inc.php"; 
+include_once "rss.inc.php";
 
 // modx news
 $modx->setPlaceholder('modx_news',$_lang["modx_news_tab"]);

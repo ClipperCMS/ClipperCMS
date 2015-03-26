@@ -1,5 +1,5 @@
 /**
- * Common styles - used by all manager pages and linked to before the theme stylesheet 
+ * Common styles - used by all manager pages and linked to before the theme stylesheet
  */
 
 /*
@@ -32,7 +32,7 @@
 
 /**
  * Tab styles while jQuery UI is loading
- */ 
+ */
 
 .js-tabs {
     position:relative;
@@ -42,7 +42,7 @@
     color:#222;
     -webkit-border-radius:4px;
        -moz-border-radius:4px;
-            border-radius:4px;      
+            border-radius:4px;
     }
 .js-tabs > ul {
     margin:0;
@@ -50,31 +50,31 @@
     border:1px solid #aaa;
     background:#ccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x;
     color:#222;
-    font-weight:bold;   
+    font-weight:bold;
     -webkit-border-radius:4px;
        -moz-border-radius:4px;
-            border-radius:4px;  
-    }   
+            border-radius:4px;
+    }
 
 .js-tabs > ul:before, .js-tabs > ul:after { content: " "; display: table; }
 .js-tabs > ul:after { clear: both; }
 .js-tabs > ul > li {
-    white-space:nowrap; 
+    white-space:nowrap;
     list-style:none;
     float:left;
     position:relative;
     top:0;
     margin: 1px .2em -1px 0;
     padding: 0 0 1px;
-    border: 1px solid #AAAAAA;  
-    border-bottom:0;    
+    border: 1px solid #AAAAAA;
+    border-bottom:0;
     background: #FFF;
     color: #212121;
     font-weight: normal;
     -webkit-border-top-right-radius:4px;
         -moz-border-radius-topright:4px;
-            border-top-right-radius:4px;    
-    -webkit-border-top-left-radius:4px; 
+            border-top-right-radius:4px;
+    -webkit-border-top-left-radius:4px;
         -moz-border-radius-topleft:4px;
             border-top-left-radius:4px;
     }
@@ -150,7 +150,7 @@ tbody tr {
 tr.odd {
 	background: #fff;
 	}
-	
+
 tr.even {
 	background: #eee;
 	}
@@ -159,17 +159,6 @@ th {
     font-weight: bold;
     }
 
-/**
- * Welcome page
- */
-
-#onlineusers td {
-    width: 8em;
-    }
-
-#onlineusers td:last-child {
-    width: auto;
-    }
 
 /**
  * Site Search
@@ -279,7 +268,6 @@ pre {
 	z-index: 10000;
 	width: 165px;
 	background-color: #fff;
-	background-image:url(images/misc/tabareabg.gif);
 	background-repeat:repeat-x;
 	background-position:0 20px;
 	margin: 0;
@@ -373,4 +361,4 @@ pre {
 
 .rtl #mx_contextmenu .seperator {
     margin: 3px 28px 3px 1px;
-
+}
