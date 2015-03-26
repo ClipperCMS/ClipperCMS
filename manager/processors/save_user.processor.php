@@ -81,7 +81,7 @@ if ($_SESSION['mgrRole'] != 1) {
 	}
 
 	// Verify that the user being edited wasn't an admin and the user ID got spoofed
-	$sql = "SELECT role FROM " . $modx->getFullTableName('user_attributes') . " 
+	$sql = "SELECT role FROM " . $modx->getFullTableName('user_attributes') . "
 	WHERE internalKey = $id";
 
 	if ($rs = $modx->db->query($sql)) {
@@ -101,22 +101,22 @@ if ($_SESSION['mgrRole'] != 1) {
 switch ($_POST['mode']) {
 	case '11' : // new user
 		// check if this user name already exist
-		$sql = "SELECT id FROM " . $modx->getFullTableName('manager_users') . " 
+		$sql = "SELECT id FROM " . $modx->getFullTableName('manager_users') . "
 		WHERE username='$newusername_esc'";
-		
+
 		$rs = $modx->db->query($sql);
 		$limit = $modx->db->getRecordCount($rs);
-		
+
 		if ($limit > 0) {
 			webAlert("User name is already in use!");
 			exit;
 		}
 
 		// check if the email address already exist
-		$sql = "SELECT id FROM " . $modx->getFullTableName('user_attributes') . " 
+		$sql = "SELECT id FROM " . $modx->getFullTableName('user_attributes') . "
 		WHERE email='$email'";
 
-		$rs = $modx->db->query($sql); 
+		$rs = $modx->db->query($sql);
 		$limit = $modx->db->getRecordCount($rs);
 
 		if ($limit > 0) {
@@ -157,18 +157,18 @@ switch ($_POST['mode']) {
 		$HashHandler = new HashHandler(CLIPPER_HASH_PREFERRED, $modx);
 		$Hash = $HashHandler->generate($newpassword);
 
-		$sql = 'INSERT INTO ' . $modx->getFullTableName('manager_users') . " 
+		$sql = 'INSERT INTO ' . $modx->getFullTableName('manager_users') . "
 		(username, hashtype, salt, password)
-		VALUES('$newusername_esc', " 
-		. CLIPPER_HASH_PREFERRED . ", '" 
-		. $modx->db->escape($Hash->salt) . "', '" 
+		VALUES('$newusername_esc', "
+		. CLIPPER_HASH_PREFERRED . ", '"
+		. $modx->db->escape($Hash->salt) . "', '"
 		. $modx->db->escape($Hash->hash) . "')";
-		
+
 		$modx->db->query($sql);
 
 		$key = $modx->db->getInsertId();
 
-		$sql = "INSERT INTO " . $modx->getFullTableName('user_attributes') . " 
+		$sql = "INSERT INTO " . $modx->getFullTableName('user_attributes') . "
 		(internalKey, fullname, role, email, phone, mobilephone, fax, zip, state, country, gender, dob, photo, comment, blocked, blockeduntil, blockedafter)
 		VALUES($key, '$fullname', $roleid, '$email', '$phone', '$mobilephone', '$fax', '$zip', '$state', '$country', '$gender', '$dob', '$photo', '$comment', $blocked, $blockeduntil, $blockedafter)";
 
@@ -197,8 +197,8 @@ switch ($_POST['mode']) {
 		if ($use_udperms == 1) {
 			if (count($user_groups) > 0) {
 				for ($i = 0; $i < count($user_groups); $i++) {
-					$sql = "INSERT INTO " . $modx->getFullTableName('member_groups') . " 
-					(user_group, member) 
+					$sql = "INSERT INTO " . $modx->getFullTableName('member_groups') . "
+					(user_group, member)
 					VALUES ('" . intval($user_groups[$i]) . "', $key)";
 
 					$modx->db->query($sql);
@@ -224,7 +224,7 @@ switch ($_POST['mode']) {
 			} else {
 				$stayUrl = "index.php?a=75&r=2";
 			}
-			
+
 			require_once('header.inc.php');
 ?>
 			<h1><?php echo $_lang['user_title']; ?></h1>
@@ -270,7 +270,7 @@ switch ($_POST['mode']) {
 				webAlert("No password generation method specified!");
 				exit;
 			}
-			
+
 			require ('hash.inc.php');
 			$HashHandler = new HashHandler(CLIPPER_HASH_PREFERRED, $modx);
 			$Hash = $HashHandler->generate($newpassword);
@@ -283,12 +283,12 @@ switch ($_POST['mode']) {
 		}
 
 		// check if the username already exists
-		$sql = "SELECT id FROM " . $modx->getFullTableName('manager_users') . " 
+		$sql = "SELECT id FROM " . $modx->getFullTableName('manager_users') . "
 		WHERE username='$newusername_esc'";
-		
+
 		$rs = $modx->db->query($sql);
 		$limit = $modx->db->getRecordCount($rs);
-		
+
 		if ($limit > 0) {
 			$row = $modx->db->getRow($rs);
 			if ($row['id'] != $id) {
@@ -298,7 +298,7 @@ switch ($_POST['mode']) {
 		}
 
 		// check if the email address already exists
-		$sql = "SELECT internalKey FROM " . $modx->getFullTableName('user_attributes') . " 
+		$sql = "SELECT internalKey FROM " . $modx->getFullTableName('user_attributes') . "
 		WHERE email='$email'";
 
 		$rs = $modx->db->query($sql);
@@ -319,18 +319,18 @@ switch ($_POST['mode']) {
 		));
 
 		// update user name and password
-		$sql = "UPDATE " . $modx->getFullTableName('manager_users') . " 
-		SET username='$newusername'" . $updatepasswordsql . " 
+		$sql = "UPDATE " . $modx->getFullTableName('manager_users') . "
+		SET username='$newusername'" . $updatepasswordsql . "
 		WHERE id=$id";
-		
+
 		$modx->db->query($sql);
 
-		$sql = "UPDATE " . $modx->getFullTableName('user_attributes') . " 
+		$sql = "UPDATE " . $modx->getFullTableName('user_attributes') . "
 		SET fullname='$fullname', role='$roleid', email='$email', phone='$phone',
 		mobilephone='$mobilephone', fax='$fax', zip='$zip', state='$state',
 		country='$country', gender='$gender', dob='$dob', photo='$photo', comment='$comment',
-		failedlogincount='$failedlogincount', blocked=$blocked, blockeduntil=$blockeduntil, 
-		blockedafter=$blockedafter 
+		failedlogincount='$failedlogincount', blocked=$blocked, blockeduntil=$blockeduntil,
+		blockedafter=$blockedafter
 		WHERE internalKey=$id";
 
 		$modx->db->query($sql);
@@ -365,15 +365,15 @@ switch ($_POST['mode']) {
 		// first, check that up_perms are switched on!
 		if ($use_udperms == 1) {
 		// as this is an existing user, delete his/ her entries in the groups before saving the new groups
-			$sql = "DELETE FROM " . $modx->getFullTableName('member_groups') . " 
+			$sql = "DELETE FROM " . $modx->getFullTableName('member_groups') . "
 			WHERE member=$id";
 
 			$modx->db->query($sql);
 
 			if (count($user_groups) > 0) {
 				for ($i = 0; $i < count($user_groups); $i++) {
-					$sql = "INSERT INTO " . $modx->getFullTableName('member_groups') . " 
-					(user_group, member) 
+					$sql = "INSERT INTO " . $modx->getFullTableName('member_groups') . "
+					(user_group, member)
 					VALUES (" . intval($user_groups[$i]) . ", $id)";
 
 					$modx->db->query($sql);
@@ -402,7 +402,7 @@ switch ($_POST['mode']) {
 			} else {
 				$stayUrl = "index.php?a=75&r=2";
 			}
-			
+
 			require_once('header.inc.php');
 ?>
 			<h1><?php echo $_lang['user_title']; ?></h1>
@@ -422,7 +422,7 @@ switch ($_POST['mode']) {
 			</div>
 			</div>
 		<?php
-			
+
 			include_once "footer.inc.php";
 		} else {
 			if ($_POST['stay'] != '') {
@@ -444,7 +444,7 @@ switch ($_POST['mode']) {
 function sendMailMessage($email, $uid, $pwd, $ufn) {
 	global $signupemail_message;
 	global $emailsubject, $emailsender;
-	global $site_name, $site_start, $site_url;
+	global $site_name, $site_start, $site_url, $_lang;
 	$manager_url = $site_url . "manager/";
 	$message = sprintf($signupemail_message, $uid, $pwd); // use old method
 	// replace placeholders
