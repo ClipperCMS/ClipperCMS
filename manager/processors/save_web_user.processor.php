@@ -72,7 +72,7 @@ if ($email == '' || !preg_match("/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i", $
 switch ($_POST['mode']) {
 	case '87' : // new user
 		// check if this user name already exist
-		$sql = "SELECT id FROM " . $modx->getFullTableName('web_users') . " 
+		$sql = "SELECT id FROM " . $modx->getFullTableName('web_users') . "
 		WHERE username='$newusername'";
 
 		$rs = $modx->db->query($sql);
@@ -84,7 +84,7 @@ switch ($_POST['mode']) {
 		}
 
 		// check if the email address already exists
-		$sql = "SELECT id FROM " . $modx->getFullTableName('web_user_attributes') . " 
+		$sql = "SELECT id FROM " . $modx->getFullTableName('web_user_attributes') . "
 			WHERE email='$email'";
 
 		$rs = $modx->db->query($sql);
@@ -158,7 +158,7 @@ switch ($_POST['mode']) {
 		if ($use_udperms == 1) {
 			if (count($user_groups) > 0) {
 				for ($i = 0; $i < count($user_groups); $i++) {
-					$sql = "INSERT INTO " . $modx->getFullTableName('web_groups') . " (webgroup, webuser) 
+					$sql = "INSERT INTO " . $modx->getFullTableName('web_groups') . " (webgroup, webuser)
 						VALUES('" . intval($user_groups[$i]) . "', '$key')";
 
 					$modx->db->query($sql);
@@ -167,7 +167,9 @@ switch ($_POST['mode']) {
 		}
 
 		if ($passwordnotifymethod == 'e') {
-			sendMailMessage($email, $newusername, $newpassword, $fullname);
+			if (!sendMailMessage($email, $newusername, $newpassword, $fullname)) {
+				exit;
+			}
 			if ($_POST['stay'] != '') {
 				$a = ($_POST['stay'] == '2') ? "88&id=$id" : "87";
 				$header = "Location: index.php?a=" . $a . "&r=2&stay=" . $_POST['stay'];
@@ -183,17 +185,17 @@ switch ($_POST['mode']) {
 			} else {
 				$stayUrl = "index.php?a=99&r=2";
 			}
-			
+
 			require_once('header.inc.php');
 ?>
 			<h1><?php echo $_lang['web_user_title']; ?></h1>
-			
+
 			<div id="actions">
 			<ul class="actionButtons">
 				<li><a href="<?php echo $stayUrl ?>"><img src="<?php echo $_style["icons_save"] ?>" /> <?php echo $_lang['close']; ?></a></li>
 			</ul>
 			</div>
-			
+
 			<div class="sectionHeader"><?php echo $_lang['web_user_title']; ?></div>
 			<div class="sectionBody">
 			<div id="disp">
@@ -229,18 +231,20 @@ switch ($_POST['mode']) {
 				webAlert("No password generation method specified!");
 				exit;
 			}
-            
+
             require ('hash.inc.php');
             $HashHandler = new HashHandler($modx->config['webuser_hash_method'], $modx);
             $Hash = $HashHandler->generate($newpassword);
 			$updatepasswordsql = ", hashtype=".$modx->config['webuser_hash_method'].", salt='{$modx->db->escape($Hash->salt)}', password='{$modx->db->escape($Hash->hash)}' ";
 		}
 		if ($passwordnotifymethod == 'e') {
-			sendMailMessage($email, $newusername, $newpassword, $fullname);
+			if (!sendMailMessage($email, $newusername, $newpassword, $fullname)) {
+				exit;
+			}
 		}
 
 		// check if the username already exists
-		$sql = "SELECT id FROM " . $modx->getFullTableName('web_users') . " 
+		$sql = "SELECT id FROM " . $modx->getFullTableName('web_users') . "
 			WHERE username='$newusername'";
 
 		$rs = $modx->db->query($sql);
@@ -255,7 +259,7 @@ switch ($_POST['mode']) {
 		}
 
 		// check if the email address already exists
-		$sql = "SELECT internalKey FROM " . $modx->getFullTableName('web_user_attributes') . " 
+		$sql = "SELECT internalKey FROM " . $modx->getFullTableName('web_user_attributes') . "
 			WHERE email='$email'";
 
 		$rs = $modx->db->query($sql);
@@ -274,30 +278,30 @@ switch ($_POST['mode']) {
 			"id" => $id
 		));
 
-		$sql = "UPDATE " . $modx->getFullTableName('web_users') . " 
-			SET username='$newusername'" . $updatepasswordsql . " 
+		$sql = "UPDATE " . $modx->getFullTableName('web_users') . "
+			SET username='$newusername'" . $updatepasswordsql . "
 			WHERE id=$id";
 
 		$modx->db->query($sql);
-		
-		$sql = "UPDATE " . $modx->getFullTableName('web_user_attributes') . " 
-				SET fullname='" . $fullname . "', 
-					role='$roleid', 
-					email='$email', 
+
+		$sql = "UPDATE " . $modx->getFullTableName('web_user_attributes') . "
+				SET fullname='" . $fullname . "',
+					role='$roleid',
+					email='$email',
 					phone='$phone',
-					mobilephone='$mobilephone', 
-					fax='$fax', 
-					zip='$zip' , 
-					state='$state', 
-					country='$country', 
-					gender='$gender', 
-					dob='$dob', 
-					photo='$photo', 
+					mobilephone='$mobilephone',
+					fax='$fax',
+					zip='$zip' ,
+					state='$state',
+					country='$country',
+					gender='$gender',
+					dob='$dob',
+					photo='$photo',
 					comment='$comment',
-					failedlogincount='$failedlogincount', 
-					blocked=$blocked, 
-					blockeduntil=$blockeduntil, 
-					blockedafter=$blockedafter 
+					failedlogincount='$failedlogincount',
+					blocked=$blocked,
+					blockeduntil=$blockeduntil,
+					blockedafter=$blockedafter
 					WHERE internalKey=$id";
 
 		$modx->db->query($sql);
@@ -331,14 +335,14 @@ switch ($_POST['mode']) {
 		// first, check that up_perms are switched on!
 		if ($use_udperms == 1) {
 			// as this is an existing user, delete his/ her entries in the groups before saving the new groups
-			$sql = "DELETE FROM " . $modx->getFullTableName('web_groups') . " 
+			$sql = "DELETE FROM " . $modx->getFullTableName('web_groups') . "
 				WHERE webuser=$id;";
 
 			$modx->db->query($sql);
 
 			if (count($user_groups) > 0) {
 				for ($i = 0; $i < count($user_groups); $i++) {
-					$sql = "INSERT INTO " . $modx->getFullTableName('web_groups') . " (webgroup, webuser) 
+					$sql = "INSERT INTO " . $modx->getFullTableName('web_groups') . " (webgroup, webuser)
 						VALUES('" . intval($user_groups[$i]) . "', '$id')";
 
 					$modx->db->query($sql);
@@ -355,17 +359,17 @@ switch ($_POST['mode']) {
 			} else {
 				$stayUrl = "index.php?a=99&r=2";
 			}
-			
+
 			require_once('header.inc.php');
 ?>
 			<h1><?php echo $_lang['web_user_title']; ?></h1>
-			
+
 			<div id="actions">
 			<ul class="actionButtons">
 				<li><a href="<?php echo $stayUrl ?>"><img src="<?php echo $_style["icons_save"] ?>" /> <?php echo $_lang['close']; ?></a></li>
 			</ul>
 			</div>
-			
+
 			<div class="sectionHeader"><?php echo $_lang['web_user_title']; ?></div>
 			<div class="sectionBody">
 			<div id="disp">
@@ -406,7 +410,7 @@ function sendMailMessage($email, $uid, $pwd, $ufn) {
 	$message = str_replace("[+saddr+]", $emailsender, $message);
 	$message = str_replace("[+semail+]", $emailsender, $message);
 	$message = str_replace("[+surl+]", $site_url, $message);
-	
+
 	require_once('controls/clipper_mailer.class.inc.php');
 	$mail = new ClipperMailer();
 	$mail->Subject = $emailsubject;
@@ -430,17 +434,17 @@ function saveUserSettings($id) {
 		"allowed_days"
 	);
 
-	$sql = ("DELETE FROM " . $modx->getFullTableName('web_user_settings') . " 
+	$sql = ("DELETE FROM " . $modx->getFullTableName('web_user_settings') . "
 		WHERE webuser='$id'");
 	$modx->db->query($sql);
-	
+
 	for ($i = 0; $i < count($settings); $i++) {
 		$n = $settings[$i];
 		$vl = $_POST[$n];
 		if (is_array($vl))
 			$vl = implode(",", $vl);
 		if ($vl != '')
-			$sql = ("INSERT INTO " . $modx->getFullTableName('web_user_settings') . " (webuser,setting_name,setting_value) 
+			$sql = ("INSERT INTO " . $modx->getFullTableName('web_user_settings') . " (webuser,setting_name,setting_value)
 				VALUES($id, '$n', '" . $modx->db->escape($vl) . "')");
 			$modx->db->query($sql);
 	}

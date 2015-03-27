@@ -207,7 +207,9 @@ switch ($_POST['mode']) {
 		}
 
 		if ($passwordnotifymethod == 'e') {
-			sendMailMessage($email, $newusername, $newpassword, $fullname);
+			if (!sendMailMessage($email, $newusername, $newpassword, $fullname)) {
+				exit;
+			}
 
 			if ($_POST['stay'] != '') {
 				$a = ($_POST['stay'] == '2') ? "12&id=$id" : "11";
@@ -279,7 +281,9 @@ switch ($_POST['mode']) {
 		}
 
 		if ($passwordnotifymethod == 'e') {
-			sendMailMessage($email, $newusername, $newpassword, $fullname);
+			if (!sendMailMessage($email, $newusername, $newpassword, $fullname)) {
+				exit;
+			}
 		}
 
 		// check if the username already exists
