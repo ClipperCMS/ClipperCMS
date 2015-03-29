@@ -21,25 +21,30 @@ $modx = new DocumentParser;
 $modx->getSettings();
 
 // disable upload according to the type[images,files,flash,media] and the user settings
-$modx->config['kcfinder_upload_enabled'] = true;// default is upload allowed
+$modx->config['kcfinder_access_files_enabled'] = true;// default is access allowed
+$modx->config['kcfinder_access_dirs_enabled'] = true;// default is access allowed
 if($_GET['type'] == 'images' || $_GET['type'] == 'image'){//not sure 'image' is still a valid value
     if (empty($modx->config['upload_images'])) {
-        $modx->config['kcfinder_upload_enabled'] = false;
+        $modx->config['kcfinder_access_files_enabled'] = false;
+        $modx->config['kcfinder_access_dirs_enabled'] = false;
     }
 }
 if($_GET['type'] == 'files' || $_GET['type'] == 'file'){//not sure 'file' is still a valid value
     if (empty($modx->config['upload_files'])) {
-        $modx->config['kcfinder_upload_enabled'] = false;
+        $modx->config['kcfinder_access_files_enabled'] = false;
+        $modx->config['kcfinder_access_dirs_enabled'] = false;
     }
 }
 if($_GET['type'] == 'flash'){
     if (empty($modx->config['upload_flash'])) {
-        $modx->config['kcfinder_upload_enabled'] = false;
+        $modx->config['kcfinder_access_files_enabled'] = false;
+        $modx->config['kcfinder_access_dirs_enabled'] = false;
     }
 }
 if($_GET['type'] == 'media'){
     if (empty($modx->config['upload_media'])) {
-        $modx->config['kcfinder_upload_enabled'] = false;
+        $modx->config['kcfinder_access_files_enabled'] = false;
+        $modx->config['kcfinder_access_dirs_enabled'] = false;
     }
 }
 

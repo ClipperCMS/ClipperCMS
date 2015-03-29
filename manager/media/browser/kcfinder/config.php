@@ -27,27 +27,27 @@ $_CONFIG = array(
 
     'uploadURL' => MODX_BASE_URL  . $GLOBALS['modx']->config['rb_base_url'],
     'uploadDir' => $GLOBALS['modx']->config['rb_base_dir'],
-	'siteURL' => $GLOBALS['site_url'],
-	'assetsURL' => rtrim($GLOBALS['modx']->config['rb_base_url'],'/'),
+    'siteURL' => $GLOBALS['site_url'],
+    'assetsURL' => rtrim($GLOBALS['modx']->config['rb_base_url'],'/'),
     'dirPerms' => intval($GLOBALS['modx']->config['new_folder_permissions'],8),
     'filePerms' => intval($GLOBALS['modx']->config['new_file_permissions'],8),
 
     'maxfilesize' => $GLOBALS['modx']->config['upload_maxsize'],
 
     'access' => array(
-
+        
         'files' => array(
-            'upload' => $GLOBALS['modx']->config['kcfinder_upload_enabled'],
-            'delete' => true,
-            'copy' => true,
-            'move' => true,
-            'rename' => true
+            'upload' => $GLOBALS['modx']->config['kcfinder_access_files_enabled'],
+            'delete' => $GLOBALS['modx']->config['kcfinder_access_files_enabled'],
+            'copy' => $GLOBALS['modx']->config['kcfinder_access_files_enabled'],
+            'move' => $GLOBALS['modx']->config['kcfinder_access_files_enabled'],
+            'rename' => $GLOBALS['modx']->config['kcfinder_access_files_enabled']
         ),
 
         'dirs' => array(
-            'create' => true,
-            'delete' => true,
-            'rename' => true
+            'create' => $GLOBALS['modx']->config['kcfinder_access_dirs_enabled'],
+            'delete' => $GLOBALS['modx']->config['kcfinder_access_dirs_enabled'],
+            'rename' => $GLOBALS['modx']->config['kcfinder_access_dirs_enabled']
         )
     ),
 
@@ -185,7 +185,7 @@ $_CONFIG = array(
             "э"=>"e",
             "ю"=>"yu",
             "я"=>"ya",
-    		"А"=>"A",
+            "А"=>"A",
             "Б"=>"B",
             "В"=>"V",
             "Г"=>"G",
@@ -216,7 +216,7 @@ $_CONFIG = array(
             "Э"=>"E",
             "Ю"=>"Yu",
             "Я"=>"Ya",
-    		"ь"=>"",
+            "ь"=>"",
             "Ь"=>"",
             "ъ"=>"",
             "Ъ"=>"",
