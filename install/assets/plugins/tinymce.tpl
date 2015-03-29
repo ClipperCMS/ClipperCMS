@@ -1,14 +1,14 @@
 //<?php
 /**
  * TinyMCE Rich Text Editor
- * 
+ *
  * Javascript WYSIWYG Editor
  *
  * @category 	plugin
  * @version 	clipper-3.5.3
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
- * @internal	@properties &customparams=Custom Parameters;textarea; &mce_formats=Block Formats;text;p,h1,h2,h3,h4,h5,h6,div,blockquote,code,pre &entity_encoding=Entity Encoding;list;named,numeric,raw;named &entities=Entities;text; &mce_path_options=Path Options;list;rootrelative,docrelative,fullpathurl;docrelative &mce_resizing=Advanced Resizing;list;true,false;true &disabledButtons=Disabled Buttons;text; &link_list=Link List;list;enabled,disabled;enabled &webtheme=Web Theme;list;simple,editor,creative,custom;simple &webPlugins=Web Plugins;text;style,advimage,advlink,searchreplace,contextmenu,paste,fullscreen,nonbreaking,xhtmlxtras,visualchars,media &webButtons1=Web Buttons 1;text;undo,redo,selectall,|,pastetext,pasteword,|,search,replace,|,nonbreaking,hr,charmap,|,image,link,unlink,anchor,media,|,cleanup,removeformat,|,fullscreen,code,help &webButtons2=Web Buttons 2;text;bold,italic,underline,strikethrough,sub,sup,|,|,blockquote,bullist,numlist,outdent,indent,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,|,styleprops &webButtons3=Web Buttons 3;text; &webButtons4=Web Buttons 4;text; &webAlign=Web Toolbar Alignment;list;ltr,rtl;ltr &width=Width;text;100% &height=Height;text;400
- * @internal	@events OnRichTextEditorRegister,OnRichTextEditorInit,OnInterfaceSettingsRender 
+ * @internal	@properties &customparams=Custom Parameters;textarea; &mce_formats=Block Formats;text;p,h1,h2,h3,h4,h5,h6,div,blockquote,code,pre &entity_encoding=Entity Encoding;list;named,numeric,raw;named &entities=Entities;text; &mce_path_options=Path Options;list;rootrelative,docrelative,fullpathurl;docrelative &mce_resizing=Advanced Resizing;list;true,false;true &disabledButtons=Disabled Buttons;text; &link_list=Link List;list;enabled,disabled;enabled &webtheme=Web Theme;list;simple,editor,creative,custom;simple &webPlugins=Web Plugins;text;style,advimage,advlink,searchreplace,contextmenu,paste,fullscreen,nonbreaking,xhtmlxtras,visualchars,media &webButtons1=Web Buttons 1;text;undo,redo,selectall,|,pastetext,pasteword,|,search,replace,|,nonbreaking,hr,charmap,|,image,link,unlink,anchor,media,|,cleanup,removeformat,|,fullscreen,code,help &webButtons2=Web Buttons 2;text;bold,italic,underline,strikethrough,sub,sup,|,|,blockquote,bullist,numlist,outdent,indent,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,|,styleprops &webButtons3=Web Buttons 3;text; &webButtons4=Web Buttons 4;text; &webAlign=Web Toolbar Alignment;list;ltr,rtl;ltr &width=Width;text;100% &height=Height;text;200
+ * @internal	@events OnRichTextEditorRegister,OnRichTextEditorInit,OnInterfaceSettingsRender
  * @internal	@modx_category Manager and Admin
  * @internal    @legacy_names TinyMCE
  * @internal    @installset base, sample
@@ -24,9 +24,9 @@ $plugin_dir = "tinymce";
 
 // Set path and base setting variables
 if(!isset($mce_path))
-{ 
-	$mce_path = MODX_BASE_PATH . 'assets/plugins/'.$plugin_dir . '/'; 
-	$mce_url  = MODX_BASE_URL  . 'assets/plugins/'.$plugin_dir . '/'; 
+{
+	$mce_path = MODX_BASE_PATH . 'assets/plugins/'.$plugin_dir . '/';
+	$mce_url  = MODX_BASE_URL  . 'assets/plugins/'.$plugin_dir . '/';
 }
 
 $params['customparams']    = $customparams;
@@ -56,21 +56,21 @@ include_once $mce_path . 'tinymce.functions.php';
 $mce = new TinyMCE($params);
 
 // Handle event
-$e = &$modx->Event; 
+$e = &$modx->Event;
 switch ($e->name)
 {
 	case "OnRichTextEditorRegister": // register only for backend
 		$e->output("TinyMCE");
 		break;
 
-	case "OnRichTextEditorInit": 
+	case "OnRichTextEditorInit":
 		if($editor!=="TinyMCE") return;
-		
+
 		$params['elements']        = $elements;
 		$params['css_selectors']   = $modx->config['tinymce_css_selectors'];
 		$params['use_browser']     = $modx->config['use_browser'];
 		$params['editor_css_path'] = $modx->config['editor_css_path'];
-		
+
 		if($modx->isBackend() || (intval($_GET['quickmanagertv']) == 1 && isset($_SESSION['mgrValidated'])))
 		{
 			$params['theme']           = $modx->config['tinymce_editor_theme'];
@@ -83,18 +83,18 @@ switch ($e->name)
 			$params['custom_buttons4'] = $modx->config['tinymce_custom_buttons4'];
 			$params['toolbar_align']   = $modx->config['manager_direction'];
 			$params['webuser']         = null;
-			
+
 			$html = $mce->get_mce_script($params);
 		}
 		else
 		{
 			$frontend_language = isset($modx->config['fe_editor_lang']) ? $modx->config['fe_editor_lang']:'';
 			$webuser = (isset($modx->config['rb_webuser']) ? $modx->config['rb_webuser'] : null);
-			
+
 			$params['webuser']         = $webuser;
 			$params['language']        = getTinyMCELang($frontend_language);
 			$params['frontend']        = true;
-			
+
 			$html = $mce->get_mce_script($params);
 		}
 		$e->output($html);
@@ -118,7 +118,7 @@ switch ($e->name)
 				$mce_settings = $settings;
 				break;
 		}
-		
+
 		$params['use_editor']       = $modx->config['base_url'].$modx->config['use_editor'];
         $params['editor_css_path']  = $modx->config['editor_css_path'];
 		$params['theme']            = $mce_settings['tinymce_editor_theme'];
@@ -128,12 +128,12 @@ switch ($e->name)
 		$params['custom_buttons2']  = $mce_settings['tinymce_custom_buttons2'];
 		$params['custom_buttons3']  = $mce_settings['tinymce_custom_buttons3'];
 		$params['custom_buttons4']  = $mce_settings['tinymce_custom_buttons4'];
-		
+
 		$html = $mce->get_mce_settings($params);
 		$e->output($html);
 		break;
-		
+
 	default :
-		return; // stop here - this is very important. 
-		break; 
+		return; // stop here - this is very important.
+		break;
 }
