@@ -190,7 +190,7 @@ $tpl = eFormParseTemplate($tpl,$isDebug);
         # sanitize the values with slashes stripped to avoid remote execution of Snippets
         modx_sanitize_gpc($fields, array (
             '@<script[^>]*?>.*?</script>@si',
-            '@&#(\d+);@e',
+            '@&#(\d+);@',
             '@\[\~(.*?)\~\]@si',
             '@\[\((.*?)\)\]@si',
             '@{{(.*?)}}@si',
@@ -699,7 +699,7 @@ function AttachFilesToMailer(&$mail,&$attachFiles) {
 function  eFormParseTemplate($tpl, $isDebug=false ){
 	global $modx,$formats,$optionsName,$_lang,$debugText,$fields,$validFormId;
 	global $efPostBack;
-    	
+
     $formats = array();  //clear formats so values don't persist through multiple snippet calls
     $labels = array();
 
